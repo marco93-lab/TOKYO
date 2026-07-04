@@ -30,6 +30,27 @@ body{
   line-height:1.6;overflow-x:hidden;
   padding-bottom:84px; /* place pour la nav basse mobile */
 }
+body.locked{overflow:hidden;height:100vh}
+/* ---------- écran d'accueil (swipe) ---------- */
+#welcome{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:34px;text-align:center;padding:24px;
+  background:
+  radial-gradient(600px 400px at 85% -5%, #ff2d7830, transparent 60%),
+  radial-gradient(700px 500px at -10% 30%, #22e4e626, transparent 60%),
+  radial-gradient(500px 400px at 90% 85%, #ffb13b20, transparent 60%),
+  var(--nuit);
+  transition:opacity .6s ease, visibility .6s;}
+#welcome.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#welcome .w-torii{width:min(180px,45vw);filter:drop-shadow(0 0 14px #e6394680) drop-shadow(0 0 44px #ff2d7833)}
+#welcome h1{font-family:"DotGothic16",monospace;font-size:clamp(24px,6.5vw,44px);line-height:1.3;max-width:600px}
+#welcome h1 .names{color:var(--sakura);text-shadow:0 0 12px #ff2d7880,0 0 36px #ff2d7840}
+#welcome h1 .quest{display:block;margin-top:8px;color:var(--cyan);text-shadow:0 0 12px #22e4e680,0 0 36px #22e4e640;font-size:.72em}
+.swipe-track{position:relative;width:min(320px,84vw);height:62px;border-radius:999px;border:1px solid var(--line);background:#ffffff08;backdrop-filter:blur(6px);overflow:hidden;user-select:none;touch-action:none}
+.swipe-track .st-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding-left:54px;animation:shimmer 2.4s linear infinite;background:linear-gradient(90deg,var(--muted) 40%,var(--washi) 50%,var(--muted) 60%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes shimmer{0%{background-position:120% 0}100%{background-position:-80% 0}}
+.swipe-thumb{position:absolute;top:5px;left:5px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sakura),var(--cyan));display:grid;place-items:center;font-size:22px;cursor:grab;box-shadow:0 0 18px #ff2d7855;z-index:2}
+.swipe-thumb:active{cursor:grabbing}
+.swipe-fill{position:absolute;top:0;left:0;bottom:0;width:0;background:linear-gradient(90deg,#ff2d7833,#22e4e633);border-radius:999px}
+#welcome .w-date{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
 /* ---------- fond néon ---------- */
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(600px 400px at 85% -5%, #ff2d7826, transparent 60%),
@@ -148,20 +169,11 @@ section{padding:56px 0;scroll-margin-top:20px}
 .leaflet-popup-content a{color:var(--cyan)}
 .leaflet-popup-content b{font-family:"DotGothic16",monospace}
 .leaflet-control-zoom a{background:var(--nuit-2)!important;color:var(--washi)!important;border-color:var(--line)!important}
-.map-legend{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center}
-/* ---------- carnet ---------- */
-.journal-input{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.journal-input textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--washi);font-family:inherit;font-size:14.5px;resize:vertical;min-height:80px}
-.journal-input textarea:focus{outline:2px solid var(--cyan);outline-offset:2px;border-color:transparent}
-.journal-btn{align-self:flex-end;background:linear-gradient(135deg,var(--sakura),var(--cyan));color:var(--nuit);border:none;border-radius:999px;padding:10px 22px;font-family:"DotGothic16",monospace;font-size:14px;cursor:pointer;transition:.2s}
-.journal-btn:hover{opacity:.85}
-.journal-entry{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);margin-bottom:12px}
-.je-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.je-date{font-family:"DotGothic16",monospace;font-size:13px;color:var(--lanterne)}
-.je-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px}
-.je-del:hover{color:var(--sakura)}
-.journal-entry p{font-size:14.5px;color:var(--washi);white-space:pre-wrap;line-height:1.5}
-.journal-empty{color:var(--muted);font-size:14px}
+.map-legend{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center;line-height:1.8}
+.map-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.mf-btn{border:1px solid var(--line);border-radius:999px;background:#ffffff08;color:var(--muted);font-family:inherit;font-size:12.5px;padding:7px 14px;cursor:pointer;transition:.2s}
+.mf-btn:hover{color:var(--washi)}
+.mf-btn.active{color:var(--washi);border-color:var(--cyan);box-shadow:0 0 12px #22e4e644}
 /* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
@@ -176,7 +188,7 @@ nav::-webkit-scrollbar{display:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active{animation:none}}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}}
 /* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
@@ -189,9 +201,27 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 }
 </style>
 </head>
-<body>
+<body class="locked">
 <div class="bg" aria-hidden="true"></div>
 <div class="kanji-bg" aria-hidden="true">日本旅行</div>
+
+<!-- ============ ÉCRAN D'ACCUEIL — SWIPE POUR DÉVOILER ============ -->
+<div id="welcome" role="dialog" aria-label="Écran de bienvenue">
+  <svg class="w-torii" viewBox="0 0 200 150" fill="none" aria-hidden="true">
+    <path d="M8 28 Q100 8 192 28 L186 44 L14 44 Z" fill="#E63946"/>
+    <rect x="28" y="58" width="144" height="10" rx="3" fill="#E63946"/>
+    <rect x="42" y="44" width="14" height="100" rx="3" fill="#E63946"/>
+    <rect x="144" y="44" width="14" height="100" rx="3" fill="#E63946"/>
+    <rect x="93" y="44" width="14" height="14" fill="#E63946"/>
+  </svg>
+  <h1>Bienvenue <span class="names">Jarod &amp; Marco</span><span class="quest">prêt pour l'aventure ?</span></h1>
+  <div class="swipe-track" id="swipeTrack">
+    <div class="swipe-fill" id="swipeFill"></div>
+    <span class="st-label">Swipe pour dévoiler</span>
+    <div class="swipe-thumb" id="swipeThumb">⛩️</div>
+  </div>
+  <p class="w-date">8 → 20 décembre 2026 · Tokyo · Kyoto · Osaka</p>
+</div>
 
 <button type="button" id="musicToggle" aria-label="Musique">🎵</button>
 <div id="musicPlayer"></div>
@@ -204,7 +234,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="adresses" aria-current="false"><span class="ico">🍜</span>Adresses</button>
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
   <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
-  <button type="button" class="navbtn" data-page="carnet" aria-current="false"><span class="ico">✍️</span>Carnet</button>
 </nav>
 
 <main>
@@ -479,25 +508,15 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <p class="eyebrow">地図 — tous les lieux du voyage</p>
         <h2 class="display">Carte</h2>
       </div>
+      <div class="map-filters" id="mapFilters">
+        <button type="button" class="mf-btn active" data-cat="all">Tout</button>
+        <button type="button" class="mf-btn" data-cat="visite">⛩️ Visites</button>
+        <button type="button" class="mf-btn" data-cat="resto">🍜 Restos</button>
+        <button type="button" class="mf-btn" data-cat="shopping">🛍️ Shopping</button>
+        <button type="button" class="mf-btn" data-cat="hotel">🏮 Hôtels</button>
+      </div>
       <div id="map"></div>
       <p class="map-legend">🩷 Tokyo · 🟡 Kyoto · 🩵 Osaka — tape un point pour le détail, puis « Ouvrir dans Maps » pour l'itinéraire précis</p>
-    </section>
-  </div>
-</div>
-
-<!-- ============ PAGE 8 — CARNET DE VOYAGE ============ -->
-<div class="page" id="page-carnet">
-  <div class="wrap">
-    <section id="carnet">
-      <div class="sec-head">
-        <p class="eyebrow">日記 — sauvegardé sur cet appareil</p>
-        <h2 class="display">Carnet</h2>
-      </div>
-      <div class="journal-input">
-        <textarea id="journalText" placeholder="Qu'est-ce qui s'est passé aujourd'hui ?" rows="3"></textarea>
-        <button type="button" id="journalAdd" class="journal-btn">Ajouter la note</button>
-      </div>
-      <div id="journalList"></div>
     </section>
   </div>
 </div>
@@ -510,6 +529,61 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
+/* ============ ÉCRAN DE BIENVENUE — SWIPE ============ */
+(function(){
+  const track = document.getElementById('swipeTrack');
+  const thumb = document.getElementById('swipeThumb');
+  const fill = document.getElementById('swipeFill');
+  const welcome = document.getElementById('welcome');
+  let dragging = false, startX = 0, thumbX = 0, maxX = 0;
+
+  function unlock(){
+    welcome.classList.add('hidden');
+    document.body.classList.remove('locked');
+  }
+  function getMax(){ return track.clientWidth - thumb.clientWidth - 10; }
+  function setThumb(x){
+    thumbX = Math.max(0, Math.min(x, maxX));
+    thumb.style.transform = 'translateX(' + thumbX + 'px)';
+    fill.style.width = (thumbX + thumb.clientWidth + 5) + 'px';
+  }
+  function onStart(clientX){
+    dragging = true;
+    maxX = getMax();
+    startX = clientX - thumbX;
+    thumb.style.transition = 'none';
+    fill.style.transition = 'none';
+  }
+  function onMove(clientX){
+    if (!dragging) return;
+    setThumb(clientX - startX);
+  }
+  function onEnd(){
+    if (!dragging) return;
+    dragging = false;
+    if (thumbX >= maxX * 0.92) {
+      setThumb(maxX);
+      setTimeout(unlock, 150);
+    } else {
+      thumb.style.transition = 'transform .3s ease';
+      fill.style.transition = 'width .3s ease';
+      setThumb(0);
+    }
+  }
+  thumb.addEventListener('touchstart', e => { onStart(e.touches[0].clientX); }, {passive:true});
+  document.addEventListener('touchmove', e => { if(dragging) onMove(e.touches[0].clientX); }, {passive:true});
+  document.addEventListener('touchend', onEnd);
+  thumb.addEventListener('mousedown', e => { e.preventDefault(); onStart(e.clientX); });
+  document.addEventListener('mousemove', e => onMove(e.clientX));
+  document.addEventListener('mouseup', onEnd);
+  // accessibilité clavier : Entrée ou espace pour dévoiler
+  thumb.setAttribute('tabindex','0');
+  thumb.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); maxX = getMax(); setThumb(maxX); setTimeout(unlock, 200); }
+  });
+})();
+
+/* ============ NAVIGATION PAGES ============ */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>{
     p.classList.toggle('active', p.id === 'page-' + id);
@@ -535,7 +609,7 @@ document.querySelectorAll('.check .spot').forEach(a=>{
   a.addEventListener('click', e => e.stopPropagation());
 });
 
-// Musique en boucle (PNL - Tchiki Tchiki, clip officiel YouTube)
+/* ============ MUSIQUE (PNL - Tchiki Tchiki, clip officiel YouTube) ============ */
 let musicPlaying = false;
 const musicBtn = document.getElementById('musicToggle');
 const musicPlayer = document.getElementById('musicPlayer');
@@ -552,7 +626,7 @@ musicBtn.addEventListener('click', () => {
   musicPlaying = !musicPlaying;
 });
 
-// Compte à rebours avant le départ (8 décembre 2026)
+/* ============ COMPTE À REBOURS (8 décembre 2026) ============ */
 function updateCountdown(){
   const target = new Date(2026, 11, 8, 0, 0, 0);
   const now = new Date();
@@ -577,8 +651,87 @@ function updateCountdown(){
 updateCountdown();
 const countdownTimer = setInterval(updateCountdown, 1000);
 
-// Carte globale (Leaflet + OpenStreetMap)
+/* ============ CARTE GLOBALE — TOUS LES LIEUX ============ */
 let mapInstance = null;
+let allMarkers = [];
+const spots = [
+  /* ---- TOKYO · visites & activités ---- */
+  {name:'Senso-ji', cat:'visite', color:'#FF2D78', lat:35.7148, lng:139.7967, desc:"⛩️ Temple le plus ancien de Tokyo · gratuit"},
+  {name:'Meiji Jingu', cat:'visite', color:'#FF2D78', lat:35.6764, lng:139.6993, desc:"⛩️ Sanctuaire dans la forêt · gratuit"},
+  {name:'Shibuya Crossing', cat:'visite', color:'#FF2D78', lat:35.6595, lng:139.7005, desc:"🚦 Le croisement le plus célèbre du monde · gratuit"},
+  {name:'Shibuya Sky', cat:'visite', color:'#FF2D78', lat:35.6585, lng:139.7022, desc:"🌇 Rooftop 360° · 32 € pour 2 · résa ~1 mois avant"},
+  {name:'teamLab Planets', cat:'visite', color:'#FF2D78', lat:35.6494, lng:139.7898, desc:"🎨 Art immersif · 50 € pour 2 · résa obligatoire"},
+  {name:'Tokyo Skytree', cat:'visite', color:'#FF2D78', lat:35.7101, lng:139.8107, desc:"🗼 634 m (option) · 39 € pour 2"},
+  {name:'Tsukiji Outer Market', cat:'visite', color:'#FF2D78', lat:35.6654, lng:139.7707, desc:"🐟 Marché du petit matin · gratuit"},
+  {name:'Jardins Hamarikyu', cat:'visite', color:'#FF2D78', lat:35.6604, lng:139.7633, desc:"🌿 Jardins au bord de la baie"},
+  {name:'Illuminations Marunouchi', cat:'visite', color:'#FF2D78', lat:35.6812, lng:139.7649, desc:"✨ Illuminations de Noël · gratuit"},
+  {name:'Illuminations Roppongi', cat:'visite', color:'#FF2D78', lat:35.6627, lng:139.7315, desc:"✨ Illuminations de Noël · gratuit"},
+  {name:'Parc d\'Ueno', cat:'visite', color:'#FF2D78', lat:35.7141, lng:139.7744, desc:"🏛️ Parc & musées"},
+  {name:'Yanaka', cat:'visite', color:'#FF2D78', lat:35.7259, lng:139.7658, desc:"🏘️ Vieux quartier préservé"},
+  {name:'Odaiba', cat:'visite', color:'#FF2D78', lat:35.6197, lng:139.7756, desc:"🌉 Île futuriste dans la baie"},
+  {name:'Kabukicho', cat:'visite', color:'#FF2D78', lat:35.6949, lng:139.7029, desc:"🌃 Quartier des néons de Shinjuku"},
+  {name:'Takeshita-dori', cat:'visite', color:'#FF2D78', lat:35.6716, lng:139.7031, desc:"🌈 La rue kawaii de Harajuku"},
+  /* ---- TOKYO · restos ---- */
+  {name:'Ramen Nagi', cat:'resto', color:'#FF2D78', lat:35.6944, lng:139.7046, desc:"🍜 Ramen niboshi, Golden Gai · ~15 € pour 2"},
+  {name:'Tempura Tsunahachi', cat:'resto', color:'#FF2D78', lat:35.6917, lng:139.7036, desc:"🍤 Tempura traditionnel · ~31 € pour 2"},
+  {name:'Ichiran Shibuya', cat:'resto', color:'#FF2D78', lat:35.6613, lng:139.7009, desc:"🍜 Tonkotsu en cabine solo · ~14 € pour 2"},
+  {name:'Kaiten-zushi Shibuya', cat:'resto', color:'#FF2D78', lat:35.6600, lng:139.6994, desc:"🍣 Sushis sur tapis roulant · ~25 € pour 2"},
+  {name:'Daikokuya', cat:'resto', color:'#FF2D78', lat:35.7118, lng:139.7947, desc:"🍤 Tendon centenaire, Asakusa · ~28 € pour 2"},
+  {name:'Omoide Yokocho', cat:'resto', color:'#FF2D78', lat:35.6934, lng:139.6994, desc:"🏮 Ruelle yakitori & izakayas · ~19 € pour 2"},
+  /* ---- TOKYO · shopping ---- */
+  {name:'Shibuya 109', cat:'shopping', color:'#FF2D78', lat:35.6598, lng:139.6987, desc:"🛍️ Mode jeune & streetwear"},
+  {name:'Omotesando', cat:'shopping', color:'#FF2D78', lat:35.6652, lng:139.7126, desc:"🛍️ Luxe & architecture"},
+  {name:'Akihabara', cat:'shopping', color:'#FF2D78', lat:35.6984, lng:139.7731, desc:"🎮 Électronique, manga, figurines"},
+  {name:'Ginza', cat:'shopping', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"💎 Grands magasins & luxe"},
+  {name:'Nakamise-dori', cat:'shopping', color:'#FF2D78', lat:35.7127, lng:139.7963, desc:"🎁 Artisanat & souvenirs traditionnels"},
+  {name:'Don Quijote Shinjuku', cat:'shopping', color:'#FF2D78', lat:35.6946, lng:139.7020, desc:"🛒 Le bazar géant ouvert 24h/24"},
+  /* ---- TOKYO · hôtels ---- */
+  {name:'Hôtel Tokyo · Shinjuku', cat:'hotel', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"🏮 6 nuits · 9→15 déc · ~125 €/nuit pour 2"},
+  {name:'Hôtel Tokyo final · Shibuya', cat:'hotel', color:'#FF2D78', lat:35.6580, lng:139.7016, desc:"🏮 1 nuit · 19→20 déc · ~130 €/nuit pour 2"},
+  /* ---- KYOTO · visites ---- */
+  {name:'Fushimi Inari Taisha', cat:'visite', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"⛩️ 10 000 torii · gratuit · avant 8h"},
+  {name:'Kiyomizu-dera', cat:'visite', color:'#FFB13B', lat:34.9949, lng:135.7850, desc:"⛩️ Temple sur pilotis · 6 € pour 2"},
+  {name:'Kinkaku-ji', cat:'visite', color:'#FFB13B', lat:35.0394, lng:135.7292, desc:"✨ Le pavillon d'or · 6 € pour 2"},
+  {name:'Bambouseraie d\'Arashiyama', cat:'visite', color:'#FFB13B', lat:35.0170, lng:135.6710, desc:"🎋 Forêt de bambous · gratuit · tôt le matin"},
+  {name:'Pont Togetsukyo', cat:'visite', color:'#FFB13B', lat:35.0126, lng:135.6777, desc:"🌉 Pont emblématique d'Arashiyama"},
+  {name:'Gion', cat:'visite', color:'#FFB13B', lat:35.0037, lng:135.7752, desc:"🏮 Quartier des geishas · gratuit"},
+  {name:'Higashiyama', cat:'visite', color:'#FFB13B', lat:34.9982, lng:135.7810, desc:"🏘️ Ruelles traditionnelles"},
+  /* ---- KYOTO · restos ---- */
+  {name:'Omen', cat:'resto', color:'#FFB13B', lat:35.0262, lng:135.7947, desc:"🍜 Udon maison près de Ginkaku-ji · ~19 € pour 2"},
+  {name:'Katsukura', cat:'resto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"🍱 Tonkatsu, gare de Kyoto · ~25 € pour 2"},
+  {name:'Musashi Sushi', cat:'resto', color:'#FFB13B', lat:35.0086, lng:135.7683, desc:"🍣 Kaiten-zushi fiable · ~19 € pour 2"},
+  {name:'HIRO Yakiniku', cat:'resto', color:'#FFB13B', lat:35.0043, lng:135.7710, desc:"🥩 Wagyu grillé, Pontocho · ~44 € pour 2"},
+  {name:'Gion Mikaku', cat:'resto', color:'#FFB13B', lat:35.0055, lng:135.7745, desc:"🥩 Bœuf de Kobe, teppanyaki · ~100-150 € pour 2 · à réserver"},
+  {name:'Pontocho-dori', cat:'resto', color:'#FFB13B', lat:35.0071, lng:135.7710, desc:"🏮 80+ izakayas au bord de la Kamogawa · ~40-60 € pour 2"},
+  /* ---- KYOTO · shopping ---- */
+  {name:'Nishiki Market', cat:'shopping', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"🔪 « La cuisine de Kyoto » · couteaux Aritsugu, thé"},
+  {name:'Teramachi & Shinkyogoku', cat:'shopping', color:'#FFB13B', lat:35.0068, lng:135.7671, desc:"🎁 Arcades couvertes, souvenirs"},
+  {name:'Kyoto Handicraft Center', cat:'shopping', color:'#FFB13B', lat:35.0180, lng:135.7828, desc:"🎨 Laque, éventails, kimono"},
+  /* ---- KYOTO · hôtel ---- */
+  {name:'Hôtel Kyoto · gare', cat:'hotel', color:'#FFB13B', lat:34.9870, lng:135.7570, desc:"🏮 3 nuits · 15→18 déc · ~140 €/nuit pour 2"},
+  /* ---- OSAKA · visites ---- */
+  {name:'Château d\'Osaka', cat:'visite', color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"🏯 Château & parc · 8 € pour 2"},
+  {name:'Dotonbori', cat:'visite', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"🌃 Néons, Glico Man, canaux · gratuit"},
+  {name:'Shinsekai', cat:'visite', color:'#22E4E6', lat:34.6524, lng:135.5063, desc:"🗼 Quartier rétro & tour Tsutenkaku"},
+  {name:'Umeda Sky Building', cat:'visite', color:'#22E4E6', lat:34.7053, lng:135.4903, desc:"🌇 Observatoire flottant (option) · 19 € pour 2"},
+  {name:'Universal Studios Japan', cat:'visite', color:'#22E4E6', lat:34.6654, lng:135.4323, desc:"🎢 Parc d'attractions (option) · 108 € pour 2"},
+  /* ---- OSAKA · restos ---- */
+  {name:'Kukuru', cat:'resto', color:'#22E4E6', lat:34.6690, lng:135.5013, desc:"🐙 Takoyaki moelleux · ~7 € pour 2"},
+  {name:'Chibo Okonomiyaki', cat:'resto', color:'#22E4E6', lat:34.6685, lng:135.5023, desc:"🥞 Okonomiyaki sur plaque · ~25 € pour 2"},
+  {name:'Ajinoya', cat:'resto', color:'#22E4E6', lat:34.6679, lng:135.5040, desc:"🥞 Okonomiyaki Bib Gourmand · ~15 € pour 2"},
+  {name:'Daruma Kushikatsu', cat:'resto', color:'#22E4E6', lat:34.6519, lng:135.5061, desc:"🍢 Kushikatsu institution, Shinsekai · ~16 € pour 2"},
+  {name:'Kuromon Ichiba Market', cat:'resto', color:'#22E4E6', lat:34.6656, lng:135.5065, desc:"🍣 Sashimi, wagyu, oden stand par stand · ~13 € pour 2"},
+  /* ---- OSAKA · shopping ---- */
+  {name:'Shinsaibashi-suji', cat:'shopping', color:'#22E4E6', lat:34.6733, lng:135.5012, desc:"🛍️ Arcade couverte de 600 m"},
+  {name:'Den Den Town', cat:'shopping', color:'#22E4E6', lat:34.6624, lng:135.5062, desc:"🎮 L'Akihabara d'Osaka"},
+  {name:'Umeda (grands magasins)', cat:'shopping', color:'#22E4E6', lat:34.7024, lng:135.4959, desc:"🏬 Hankyu, Grand Front, Pokémon Center"},
+  {name:'Amerikamura', cat:'shopping', color:'#22E4E6', lat:34.6724, lng:135.4983, desc:"👕 Vintage, streetwear, disquaires"},
+  {name:'Sennichimae Doguyasuji', cat:'shopping', color:'#22E4E6', lat:34.6650, lng:135.5045, desc:"🔪 Rue des ustensiles de cuisine"},
+  {name:'Don Quijote Dotonbori', cat:'shopping', color:'#22E4E6', lat:34.6685, lng:135.5019, desc:"🛒 Le bazar géant avec sa grande roue"},
+  /* ---- OSAKA · hôtel ---- */
+  {name:'Hôtel Osaka · Namba', cat:'hotel', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🏮 1 nuit · 18→19 déc · ~105 €/nuit pour 2"}
+];
+
 function initMap(){
   if (mapInstance) { mapInstance.invalidateSize(); return; }
   const mapEl = document.getElementById('map');
@@ -589,99 +742,36 @@ function initMap(){
     maxZoom: 18
   }).addTo(mapInstance);
 
-  const spots = [
-    {name:'Shinjuku', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"Hôtel, Omoide Yokocho, Don Quijote, Ramen Nagi"},
-    {name:'Shibuya', color:'#FF2D78', lat:35.6595, lng:139.7005, desc:"Croisement, Shibuya Sky, Shibuya 109, Ichiran"},
-    {name:'Harajuku et Omotesando', color:'#FF2D78', lat:35.6702, lng:139.7026, desc:"Takeshita-dori, Meiji-jingu"},
-    {name:'Asakusa', color:'#FF2D78', lat:35.7148, lng:139.7967, desc:"Senso-ji, Nakamise-dori, Daikokuya"},
-    {name:'Akihabara', color:'#FF2D78', lat:35.6984, lng:139.7731, desc:"Électronique, manga, figurines"},
-    {name:'Ginza', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"Grands magasins, boutiques de luxe"},
-    {name:'Ueno et Yanaka', color:'#FF2D78', lat:35.7141, lng:139.7774, desc:"Parc, musées, vieux quartier"},
-    {name:'Odaiba', color:'#FF2D78', lat:35.6197, lng:139.7756, desc:"teamLab Planets"},
-    {name:'Marunouchi', color:'#FF2D78', lat:35.6812, lng:139.7671, desc:"Illuminations, gare de Tokyo"},
-    {name:'Roppongi', color:'#FF2D78', lat:35.6627, lng:139.7315, desc:"Illuminations"},
-    {name:'Gare de Kyoto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"Hôtel, Katsukura, Porta, Isetan"},
-    {name:'Gion et Pontocho', color:'#FFB13B', lat:35.0037, lng:135.7736, desc:"Gion Mikaku, ruelles, geiko"},
-    {name:'Fushimi Inari', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"10 000 torii"},
-    {name:'Kiyomizu-dera et Higashiyama', color:'#FFB13B', lat:34.9949, lng:135.7850, desc:"Temple, flânerie"},
-    {name:'Arashiyama', color:'#FFB13B', lat:35.0094, lng:135.6669, desc:"Bambouseraie, pont Togetsukyo"},
-    {name:'Kinkaku-ji', color:'#FFB13B', lat:35.0394, lng:135.7292, desc:"Le pavillon d'or"},
-    {name:'Nishiki Market et Shinkyogoku', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"Marché, artisanat, souvenirs"},
-    {name:'Dotonbori', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"Néons, Kukuru, Don Quijote"},
-    {name:'Namba et Shinsaibashi', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"Chibo, Shinsaibashi-suji"},
-    {name:'Umeda', color:'#22E4E6', lat:34.7024, lng:135.4959, desc:"Hôtel, Hankyu, Grand Front"},
-    {name:'Shinsekai', color:'#22E4E6', lat:34.6524, lng:135.5063, desc:"Daruma, kushikatsu"},
-    {name:'Den Den Town', color:'#22E4E6', lat:34.6624, lng:135.5062, desc:"Électronique, culture otaku"},
-    {name:"Château d'Osaka", color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"Château"},
-    {name:'Kuromon Market', color:'#22E4E6', lat:34.6656, lng:135.5065, desc:"Marché, sashimi, wagyu"}
-  ];
-
   spots.forEach(s => {
+    const isHotel = s.cat === 'hotel';
     const marker = L.circleMarker([s.lat, s.lng], {
-      radius: 8,
+      radius: isHotel ? 10 : 7,
       fillColor: s.color,
-      color: '#fff',
-      weight: 1.5,
-      fillOpacity: 0.85
+      color: isHotel ? s.color : '#fff',
+      weight: isHotel ? 3 : 1.5,
+      fillOpacity: isHotel ? 0.4 : 0.85
     }).addTo(mapInstance);
-    const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.name);
+    const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.name.replace(/Hôtel [^·]+· /,'') + (s.color==='#FF2D78'?' Tokyo':s.color==='#FFB13B'?' Kyoto':' Osaka'));
     marker.bindPopup('<b>' + s.name + '</b><br>' + s.desc + '<br><a href="' + mapsUrl + '" target="_blank" rel="noopener">Ouvrir dans Maps ↗</a>');
+    allMarkers.push({marker: marker, cat: s.cat});
   });
 }
 
-// Carnet de voyage (sauvegarde locale sur cet appareil/navigateur)
-function loadJournal(){
-  try {
-    const raw = localStorage.getItem('japan-trip-journal');
-    return raw ? JSON.parse(raw) : [];
-  } catch(e) {
-    console.error('Lecture du carnet impossible', e);
-    return [];
-  }
-}
-function saveJournalData(entries){
-  try {
-    localStorage.setItem('japan-trip-journal', JSON.stringify(entries));
-  } catch(e) {
-    console.error('Sauvegarde du carnet impossible', e);
-  }
-}
-let journalEntries = loadJournal();
-function renderJournal(){
-  const list = document.getElementById('journalList');
-  if (!list) return;
-  if (journalEntries.length === 0) {
-    list.innerHTML = '<p class="journal-empty">Aucune note pour l\'instant. Écris ta première ligne du voyage !</p>';
-    return;
-  }
-  list.innerHTML = journalEntries.slice().reverse().map((entry, i) => {
-    const realIndex = journalEntries.length - 1 - i;
-    const safeText = entry.text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return '<div class="journal-entry"><div class="je-head"><span class="je-date">' + entry.date + '</span><button type="button" class="je-del" data-i="' + realIndex + '" aria-label="Supprimer">✕</button></div><p>' + safeText + '</p></div>';
-  }).join('');
-  document.querySelectorAll('.je-del').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const i = parseInt(btn.dataset.i, 10);
-      journalEntries.splice(i, 1);
-      saveJournalData(journalEntries);
-      renderJournal();
+// Filtres de la carte
+document.querySelectorAll('.mf-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    allMarkers.forEach(m=>{
+      if (cat === 'all' || m.cat === cat) {
+        m.marker.addTo(mapInstance);
+      } else {
+        mapInstance.removeLayer(m.marker);
+      }
     });
   });
-}
-const journalAddBtn = document.getElementById('journalAdd');
-if (journalAddBtn) {
-  journalAddBtn.addEventListener('click', () => {
-    const textEl = document.getElementById('journalText');
-    const text = textEl.value.trim();
-    if (!text) return;
-    const dateStr = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
-    journalEntries.push({date: dateStr, text: text});
-    saveJournalData(journalEntries);
-    textEl.value = '';
-    renderJournal();
-  });
-}
-renderJournal();
+});
 </script>
 </body>
 </html>
