@@ -21,6 +21,7 @@
   --muted:#9a97ad;
   --card:#14142280;
   --line:#ffffff14;
+  --eye-color:#FF2D78;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -83,6 +84,11 @@ body.locked{overflow:hidden;height:100vh}
 .kanji-bg{position:fixed;right:-8px;top:10%;z-index:-1;writing-mode:vertical-rl;
   font-family:"DotGothic16",monospace;font-size:clamp(90px,18vw,180px);
   color:transparent;-webkit-text-stroke:1px #ffffff10;letter-spacing:.25em;user-select:none;pointer-events:none;}
+/* ---------- yeux d'oni ---------- */
+#oniEyes{position:fixed;top:6vh;left:0;right:0;z-index:-1;display:flex;align-items:center;justify-content:center;gap:7vw;pointer-events:none;opacity:.32}
+.oni-eye{width:min(210px,25vw);height:auto;display:block}
+.oni-iris{fill:var(--eye-color);filter:drop-shadow(0 0 16px var(--eye-color)) drop-shadow(0 0 34px var(--eye-color));transition:fill 1s ease}
+.oni-pupil{transition:transform .15s ease-out}
 /* ---------- typographie ---------- */
 .display{font-family:"DotGothic16",monospace;letter-spacing:.04em}
 h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
@@ -207,21 +213,6 @@ section{padding:56px 0;scroll-margin-top:20px}
 .mf-btn{border:1px solid var(--line);border-radius:999px;background:#ffffff08;color:var(--muted);font-family:inherit;font-size:12.5px;padding:7px 14px;cursor:pointer;transition:.2s}
 .mf-btn:hover{color:var(--washi)}
 .mf-btn.active{color:var(--washi);border-color:var(--cyan);box-shadow:0 0 12px #22e4e644}
-/* ---------- village en guerre (vue aérienne) ---------- */
-.battle-scene{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--nuit-2);aspect-ratio:400/260;max-height:75vh}
-.village-bg{width:100%;height:100%;display:block;position:absolute;inset:0}
-.army{position:absolute;inset:0}
-.unit{width:12px;height:12px;position:absolute;transform:translate(-50%,-50%);transition:top 2.6s ease-in-out,left 2.6s ease-in-out,opacity .6s ease,transform .6s ease;border-radius:2px}
-.unit.pink{background:var(--sakura);box-shadow:0 0 5px #ff2d78aa}
-.unit.cyan{background:var(--cyan);box-shadow:0 0 5px #22e4e6aa}
-.unit.defeated{opacity:0;transform:translate(-50%,-50%) scale(.2)}
-.clash-burst{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);font-size:38px;opacity:0;pointer-events:none}
-.clash-burst.burst{animation:burst-pop .6s ease forwards}
-@keyframes burst-pop{0%{transform:translate(-50%,-50%) scale(.3);opacity:0}40%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
-.victory-banner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#000000b0;opacity:0;pointer-events:none;transition:opacity .5s ease}
-.victory-banner.show{opacity:1;pointer-events:auto}
-.vb-title{font-family:"DotGothic16",monospace;font-size:clamp(17px,4.2vw,25px);color:var(--lanterne);text-shadow:0 0 16px #ffb13b90;text-align:center;padding:0 20px}
-.village-caption{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px;letter-spacing:.03em}
 /* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
@@ -236,7 +227,7 @@ nav::-webkit-scrollbar{display:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}#introAnim{display:none}.unit{transition:none!important}.clash-burst{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}#introAnim{display:none}}
 /* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
@@ -252,6 +243,19 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 <body class="locked">
 <div class="bg" aria-hidden="true"></div>
 <div class="kanji-bg" aria-hidden="true">日本旅行</div>
+
+<div id="oniEyes" aria-hidden="true">
+  <svg class="oni-eye" viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2,45 Q50,5 100,18 Q150,5 198,45 Q150,88 100,75 Q50,88 2,45 Z" fill="#050508"/>
+    <circle class="oni-iris" cx="100" cy="46" r="27"/>
+    <circle class="oni-pupil" cx="100" cy="46" r="11" fill="#020203"/>
+  </svg>
+  <svg class="oni-eye" viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2,45 Q50,5 100,18 Q150,5 198,45 Q150,88 100,75 Q50,88 2,45 Z" fill="#050508"/>
+    <circle class="oni-iris" cx="100" cy="46" r="27"/>
+    <circle class="oni-pupil" cx="100" cy="46" r="11" fill="#020203"/>
+  </svg>
+</div>
 
 <!-- ============ ÉCRAN D'ACCUEIL — SWIPE POUR DÉVOILER ============ -->
 <div id="welcome" role="dialog" aria-label="Écran de bienvenue">
@@ -298,7 +302,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
   <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
   <button type="button" class="navbtn" data-page="apps" aria-current="false"><span class="ico">📱</span>Apps</button>
-  <button type="button" class="navbtn" data-page="village" aria-current="false"><span class="ico">⚔️</span>Village</button>
 </nav>
 
 <main>
@@ -623,49 +626,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 9 — VILLAGE EN GUERRE (VUE DU CIEL) ============ -->
-<div class="page" id="page-village">
-  <div class="wrap">
-    <section id="village">
-      <div class="sec-head">
-        <p class="eyebrow">村 — vue du ciel, pixel art original</p>
-        <h2 class="display">Village en guerre</h2>
-      </div>
-      <div class="battle-scene">
-        <svg class="village-bg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="fieldGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#241f3a"/>
-              <stop offset="15%" stop-color="#1e2a22"/>
-              <stop offset="50%" stop-color="#182818"/>
-              <stop offset="85%" stop-color="#16232a"/>
-              <stop offset="100%" stop-color="#1a2e30"/>
-            </linearGradient>
-          </defs>
-          <rect width="400" height="260" fill="url(#fieldGrad)"/>
-          <rect x="0" y="0" width="400" height="30" fill="#2a1420"/>
-          <polygon points="0,30 400,30 400,42 0,42" fill="#ff2d7833"/>
-          <rect x="0" y="230" width="400" height="30" fill="#122a2c"/>
-          <polygon points="0,218 400,218 400,230 0,230" fill="#22e4e633"/>
-          <ellipse cx="70" cy="90" rx="18" ry="10" fill="#20301c" opacity="0.6"/>
-          <ellipse cx="330" cy="170" rx="22" ry="12" fill="#20301c" opacity="0.6"/>
-          <ellipse cx="200" cy="60" rx="14" ry="8" fill="#20301c" opacity="0.5"/>
-          <ellipse cx="150" cy="200" rx="16" ry="9" fill="#20301c" opacity="0.5"/>
-          <line x1="0" y1="130" x2="400" y2="130" stroke="#ffffff20" stroke-width="2" stroke-dasharray="6 6"/>
-        </svg>
-        <div class="army army-pink" id="armyPink"></div>
-        <div class="army army-cyan" id="armyCyan"></div>
-        <div class="clash-burst" id="clashBurst">💥</div>
-        <div class="victory-banner" id="victoryBanner">
-          <p class="vb-title">🏆 <span id="winnerName">—</span> remporte la bataille !</p>
-          <button type="button" id="replayBattle" class="menu-toggle">⟳ Rejouer la bataille</button>
-        </div>
-      </div>
-      <p class="village-caption">⚔️ Vue aérienne d'un affrontement entre deux clans — scène pixel art animée, résultat généré aléatoirement à chaque visite</p>
-    </section>
-  </div>
-</div>
-
 </main>
 
 <footer>
@@ -746,6 +706,32 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   });
 })();
 
+/* ============ YEUX D'ONI — fixent le curseur / le doigt ============ */
+(function(){
+  const pupils = document.querySelectorAll('.oni-pupil');
+  function updateGaze(clientX, clientY){
+    pupils.forEach(pupil => {
+      const eyeSvg = pupil.closest('svg');
+      if (!eyeSvg) return;
+      const rect = eyeSvg.getBoundingClientRect();
+      if (!rect.width) return;
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      let dx = (clientX - cx) / (rect.width/2);
+      let dy = (clientY - cy) / (rect.height/2);
+      dx = Math.max(-1, Math.min(1, dx)) * 9;
+      dy = Math.max(-1, Math.min(1, dy)) * 5;
+      pupil.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    });
+  }
+  document.addEventListener('mousemove', e => updateGaze(e.clientX, e.clientY));
+  document.addEventListener('touchmove', e => { if (e.touches[0]) updateGaze(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+})();
+const pageEyeColors = {
+  itineraire:'#FF2D78', budget:'#22E4E6', hotels:'#FFB13B', activites:'#FF2D78',
+  adresses:'#22E4E6', shopping:'#FFB13B', carte:'#FF2D78', apps:'#22E4E6'
+};
+
 /* ============ NAVIGATION PAGES ============ */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>{
@@ -757,8 +743,8 @@ function showPage(id){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   window.scrollTo({top:0,behavior:'auto'});
+  document.documentElement.style.setProperty('--eye-color', pageEyeColors[id] || '#FF2D78');
   if (id === 'carte') { setTimeout(initMap, 60); }
-  if (id === 'village') { runBattle(); }
 }
 document.querySelectorAll('.navbtn').forEach(b=>{
   b.addEventListener('click', () => showPage(b.dataset.page));
@@ -827,84 +813,6 @@ function updateCountdown(){
 }
 updateCountdown();
 const countdownTimer = setInterval(updateCountdown, 1000);
-
-/* ============ VILLAGE EN GUERRE — bataille vue du ciel ============ */
-let battleTimers = [];
-function clearBattleTimers(){
-  battleTimers.forEach(t => clearTimeout(t));
-  battleTimers = [];
-}
-function setupBattleUnits(){
-  const armyPink = document.getElementById('armyPink');
-  const armyCyan = document.getElementById('armyCyan');
-  if (!armyPink || !armyCyan) return null;
-  armyPink.innerHTML = '';
-  armyCyan.innerHTML = '';
-  const cols = 5, rows = 2;
-  const pinkUnits = [], cyanUnits = [];
-  for (let r=0; r<rows; r++){
-    for (let c=0; c<cols; c++){
-      const u = document.createElement('div');
-      u.className = 'unit pink';
-      u.style.left = (10 + c*18) + '%';
-      u.style.top = (6 + r*8) + '%';
-      armyPink.appendChild(u);
-      pinkUnits.push(u);
-    }
-  }
-  for (let r=0; r<rows; r++){
-    for (let c=0; c<cols; c++){
-      const u = document.createElement('div');
-      u.className = 'unit cyan';
-      u.style.left = (10 + c*18) + '%';
-      u.style.top = (84 + r*8) + '%';
-      armyCyan.appendChild(u);
-      cyanUnits.push(u);
-    }
-  }
-  return {pinkUnits, cyanUnits};
-}
-function runBattle(){
-  clearBattleTimers();
-  const banner = document.getElementById('victoryBanner');
-  const burst = document.getElementById('clashBurst');
-  if (!banner || !burst) return;
-  banner.classList.remove('show');
-  burst.classList.remove('burst');
-  const units = setupBattleUnits();
-  if (!units) return;
-  const {pinkUnits, cyanUnits} = units;
-  const pinkWins = Math.random() < 0.5;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion) {
-    requestAnimationFrame(()=>{
-      pinkUnits.forEach((u,i)=>{ u.style.top = (42 + (i%2)*6) + '%'; });
-      cyanUnits.forEach((u,i)=>{ u.style.top = (52 - (i%2)*6) + '%'; });
-    });
-  } else {
-    pinkUnits.forEach((u,i)=>{ u.style.top = (42 + (i%2)*6) + '%'; });
-    cyanUnits.forEach((u,i)=>{ u.style.top = (52 - (i%2)*6) + '%'; });
-  }
-  const d1 = reduceMotion ? 0 : 2600;
-  const d2 = reduceMotion ? 50 : 2900;
-  const d3 = reduceMotion ? 100 : 4000;
-  battleTimers.push(setTimeout(()=>{ if(!reduceMotion) burst.classList.add('burst'); }, d1));
-  battleTimers.push(setTimeout(()=>{
-    if (pinkWins){
-      cyanUnits.forEach((u,i)=>{ if(i<8) u.classList.add('defeated'); });
-      pinkUnits.forEach((u,i)=>{ if(i<2) u.classList.add('defeated'); });
-    } else {
-      pinkUnits.forEach((u,i)=>{ if(i<8) u.classList.add('defeated'); });
-      cyanUnits.forEach((u,i)=>{ if(i<2) u.classList.add('defeated'); });
-    }
-  }, d2));
-  battleTimers.push(setTimeout(()=>{
-    const winnerEl = document.getElementById('winnerName');
-    if (winnerEl) winnerEl.textContent = pinkWins ? 'Le clan Sakura (rose)' : 'Le clan Ryū (cyan)';
-    banner.classList.add('show');
-  }, d3));
-}
-document.getElementById('replayBattle')?.addEventListener('click', runBattle);
 
 /* ============ CARTE GLOBALE — TOUS LES LIEUX ============ */
 let mapInstance = null;
