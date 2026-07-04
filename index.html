@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>旅 Voyage Japon — Déc 2026 · Perpignan → Tokyo</title>
-<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses et shopping : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
+<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses, shopping et carte : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{
   --nuit:#0B0B14;        /* nuit de Shinjuku */
@@ -72,6 +73,11 @@ section{padding:56px 0;scroll-margin-top:20px}
 .badge.buy{border-color:#ff2d7855;box-shadow:0 0 18px #ff2d7826}
 .scroll-hint{margin-top:34px;color:var(--muted);font-size:12px;letter-spacing:.3em;animation:bounce 2s infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* ---------- compte à rebours ---------- */
+.countdown{display:flex;gap:14px;margin-top:26px;justify-content:center;flex-wrap:wrap}
+.cd-item{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:#ffffff08;min-width:64px}
+.cd-num{font-family:"DotGothic16",monospace;font-size:clamp(22px,5vw,30px);color:var(--cyan);text-shadow:0 0 10px #22e4e680}
+.cd-label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:2px}
 /* ---------- villes / itinéraire ---------- */
 .city{border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px);padding:22px 18px;margin-bottom:22px;position:relative;overflow:hidden}
 .city .k{position:absolute;top:-14px;right:6px;font-family:"DotGothic16",monospace;font-size:96px;opacity:.08;writing-mode:vertical-rl;pointer-events:none}
@@ -134,11 +140,28 @@ section{padding:56px 0;scroll-margin-top:20px}
 /* ---------- bloc info ---------- */
 .tip{margin-top:24px;border:1px dashed var(--line);border-radius:14px;padding:16px 18px;background:#ffffff05;font-size:13.5px;color:var(--muted);line-height:1.6}
 .tip b{color:var(--washi);font-family:"DotGothic16",monospace;font-weight:400;font-size:13px;letter-spacing:.04em}
-/* ---------- bouton musique ---------- */
-#musicToggle{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#0b0b14e6;backdrop-filter:blur(12px);color:var(--washi);font-size:18px;cursor:pointer;box-shadow:0 8px 24px #00000080;transition:.2s}
-#musicToggle:hover,#musicToggle:focus-visible{border-color:var(--sakura);box-shadow:0 0 18px #ff2d7855}
-#musicToggle.playing{animation:pulse 1.6s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
+/* ---------- carte ---------- */
+#map{height:65vh;min-height:420px;border-radius:20px;border:1px solid var(--line);overflow:hidden;background:var(--nuit-2)}
+.leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9)}
+.leaflet-popup-content-wrapper{background:var(--nuit-2);color:var(--washi);border-radius:12px}
+.leaflet-popup-tip{background:var(--nuit-2)}
+.leaflet-popup-content a{color:var(--cyan)}
+.leaflet-popup-content b{font-family:"DotGothic16",monospace}
+.leaflet-control-zoom a{background:var(--nuit-2)!important;color:var(--washi)!important;border-color:var(--line)!important}
+.map-legend{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center}
+/* ---------- carnet ---------- */
+.journal-input{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.journal-input textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--washi);font-family:inherit;font-size:14.5px;resize:vertical;min-height:80px}
+.journal-input textarea:focus{outline:2px solid var(--cyan);outline-offset:2px;border-color:transparent}
+.journal-btn{align-self:flex-end;background:linear-gradient(135deg,var(--sakura),var(--cyan));color:var(--nuit);border:none;border-radius:999px;padding:10px 22px;font-family:"DotGothic16",monospace;font-size:14px;cursor:pointer;transition:.2s}
+.journal-btn:hover{opacity:.85}
+.journal-entry{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);margin-bottom:12px}
+.je-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.je-date{font-family:"DotGothic16",monospace;font-size:13px;color:var(--lanterne)}
+.je-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px}
+.je-del:hover{color:var(--sakura)}
+.journal-entry p{font-size:14.5px;color:var(--washi);white-space:pre-wrap;line-height:1.5}
+.journal-empty{color:var(--muted);font-size:14px}
 /* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
@@ -146,6 +169,11 @@ nav::-webkit-scrollbar{display:none}
 .navbtn span.ico{font-size:16px}
 .navbtn:hover,.navbtn:focus-visible{color:var(--washi);background:#ffffff10}
 .navbtn.active{color:var(--washi);background:#ffffff14;box-shadow:inset 0 0 0 1px #ffffff20}
+/* ---------- bouton musique ---------- */
+#musicToggle{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#0b0b14e6;backdrop-filter:blur(12px);color:var(--washi);font-size:18px;cursor:pointer;box-shadow:0 8px 24px #00000080;transition:.2s}
+#musicToggle:hover,#musicToggle:focus-visible{border-color:var(--sakura);box-shadow:0 0 18px #ff2d7855}
+#musicToggle.playing{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active{animation:none}}
@@ -175,6 +203,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="activites" aria-current="false"><span class="ico">⛩️</span>Activités</button>
   <button type="button" class="navbtn" data-page="adresses" aria-current="false"><span class="ico">🍜</span>Adresses</button>
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
+  <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
+  <button type="button" class="navbtn" data-page="carnet" aria-current="false"><span class="ico">✍️</span>Carnet</button>
 </nav>
 
 <main>
@@ -196,6 +226,12 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <span class="badge"><strong>8 → 20 DÉC 2026</strong></span>
       <span class="badge">👥 2 personnes · 11 nuits</span>
       <span class="badge buy">💴 <strong>3 819 – 4 774 €</strong> tout compris</span>
+    </div>
+    <div class="countdown" id="countdown" aria-label="Compte à rebours avant le départ">
+      <div class="cd-item"><span class="cd-num" id="cd-days">--</span><span class="cd-label">jours</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">heures</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">min</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">sec</span></div>
     </div>
     <p class="scroll-hint">▼ FAIRE DÉFILER</p>
   </header>
@@ -435,12 +471,44 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
+<!-- ============ PAGE 7 — CARTE GLOBALE ============ -->
+<div class="page" id="page-carte">
+  <div class="wrap">
+    <section id="carte">
+      <div class="sec-head">
+        <p class="eyebrow">地図 — tous les lieux du voyage</p>
+        <h2 class="display">Carte</h2>
+      </div>
+      <div id="map"></div>
+      <p class="map-legend">🩷 Tokyo · 🟡 Kyoto · 🩵 Osaka — tape un point pour le détail, puis « Ouvrir dans Maps » pour l'itinéraire précis</p>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 8 — CARNET DE VOYAGE ============ -->
+<div class="page" id="page-carnet">
+  <div class="wrap">
+    <section id="carnet">
+      <div class="sec-head">
+        <p class="eyebrow">日記 — sauvegardé sur cet appareil</p>
+        <h2 class="display">Carnet</h2>
+      </div>
+      <div class="journal-input">
+        <textarea id="journalText" placeholder="Qu'est-ce qui s'est passé aujourd'hui ?" rows="3"></textarea>
+        <button type="button" id="journalAdd" class="journal-btn">Ajouter la note</button>
+      </div>
+      <div id="journalList"></div>
+    </section>
+  </div>
+</div>
+
 </main>
 
 <footer>
   旅 Voyage Japon · 8 → 20 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026 · les liens 📍 ouvrent Google Maps
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>{
@@ -452,6 +520,7 @@ function showPage(id){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   window.scrollTo({top:0,behavior:'auto'});
+  if (id === 'carte') { setTimeout(initMap, 60); }
 }
 document.querySelectorAll('.navbtn').forEach(b=>{
   b.addEventListener('click', () => showPage(b.dataset.page));
@@ -462,7 +531,6 @@ document.querySelectorAll('.check').forEach(el=>{
   el.addEventListener('click',toggle);
   el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
 });
-// Empêche les liens à l'intérieur d'une checklist de cocher/décocher la case en cliquant dessus
 document.querySelectorAll('.check .spot').forEach(a=>{
   a.addEventListener('click', e => e.stopPropagation());
 });
@@ -483,6 +551,137 @@ musicBtn.addEventListener('click', () => {
   }
   musicPlaying = !musicPlaying;
 });
+
+// Compte à rebours avant le départ (8 décembre 2026)
+function updateCountdown(){
+  const target = new Date(2026, 11, 8, 0, 0, 0);
+  const now = new Date();
+  const diff = target - now;
+  const el = document.getElementById('countdown');
+  if (!el) return;
+  if (diff <= 0) {
+    el.innerHTML = '<p style="font-family:\'DotGothic16\',monospace;color:var(--sakura);font-size:16px">🎉 Bon voyage !</p>';
+    clearInterval(countdownTimer);
+    return;
+  }
+  const days = Math.floor(diff/86400000);
+  const hours = Math.floor((diff%86400000)/3600000);
+  const mins = Math.floor((diff%3600000)/60000);
+  const secs = Math.floor((diff%60000)/1000);
+  const dEl=document.getElementById('cd-days'), hEl=document.getElementById('cd-hours'), mEl=document.getElementById('cd-mins'), sEl=document.getElementById('cd-secs');
+  if(dEl) dEl.textContent = days;
+  if(hEl) hEl.textContent = String(hours).padStart(2,'0');
+  if(mEl) mEl.textContent = String(mins).padStart(2,'0');
+  if(sEl) sEl.textContent = String(secs).padStart(2,'0');
+}
+updateCountdown();
+const countdownTimer = setInterval(updateCountdown, 1000);
+
+// Carte globale (Leaflet + OpenStreetMap)
+let mapInstance = null;
+function initMap(){
+  if (mapInstance) { mapInstance.invalidateSize(); return; }
+  const mapEl = document.getElementById('map');
+  if (!mapEl || typeof L === 'undefined') return;
+  mapInstance = L.map('map', {scrollWheelZoom:true}).setView([35.4, 137.2], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(mapInstance);
+
+  const spots = [
+    {name:'Shinjuku', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"Hôtel, Omoide Yokocho, Don Quijote, Ramen Nagi"},
+    {name:'Shibuya', color:'#FF2D78', lat:35.6595, lng:139.7005, desc:"Croisement, Shibuya Sky, Shibuya 109, Ichiran"},
+    {name:'Harajuku et Omotesando', color:'#FF2D78', lat:35.6702, lng:139.7026, desc:"Takeshita-dori, Meiji-jingu"},
+    {name:'Asakusa', color:'#FF2D78', lat:35.7148, lng:139.7967, desc:"Senso-ji, Nakamise-dori, Daikokuya"},
+    {name:'Akihabara', color:'#FF2D78', lat:35.6984, lng:139.7731, desc:"Électronique, manga, figurines"},
+    {name:'Ginza', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"Grands magasins, boutiques de luxe"},
+    {name:'Ueno et Yanaka', color:'#FF2D78', lat:35.7141, lng:139.7774, desc:"Parc, musées, vieux quartier"},
+    {name:'Odaiba', color:'#FF2D78', lat:35.6197, lng:139.7756, desc:"teamLab Planets"},
+    {name:'Marunouchi', color:'#FF2D78', lat:35.6812, lng:139.7671, desc:"Illuminations, gare de Tokyo"},
+    {name:'Roppongi', color:'#FF2D78', lat:35.6627, lng:139.7315, desc:"Illuminations"},
+    {name:'Gare de Kyoto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"Hôtel, Katsukura, Porta, Isetan"},
+    {name:'Gion et Pontocho', color:'#FFB13B', lat:35.0037, lng:135.7736, desc:"Gion Mikaku, ruelles, geiko"},
+    {name:'Fushimi Inari', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"10 000 torii"},
+    {name:'Kiyomizu-dera et Higashiyama', color:'#FFB13B', lat:34.9949, lng:135.7850, desc:"Temple, flânerie"},
+    {name:'Arashiyama', color:'#FFB13B', lat:35.0094, lng:135.6669, desc:"Bambouseraie, pont Togetsukyo"},
+    {name:'Kinkaku-ji', color:'#FFB13B', lat:35.0394, lng:135.7292, desc:"Le pavillon d'or"},
+    {name:'Nishiki Market et Shinkyogoku', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"Marché, artisanat, souvenirs"},
+    {name:'Dotonbori', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"Néons, Kukuru, Don Quijote"},
+    {name:'Namba et Shinsaibashi', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"Chibo, Shinsaibashi-suji"},
+    {name:'Umeda', color:'#22E4E6', lat:34.7024, lng:135.4959, desc:"Hôtel, Hankyu, Grand Front"},
+    {name:'Shinsekai', color:'#22E4E6', lat:34.6524, lng:135.5063, desc:"Daruma, kushikatsu"},
+    {name:'Den Den Town', color:'#22E4E6', lat:34.6624, lng:135.5062, desc:"Électronique, culture otaku"},
+    {name:"Château d'Osaka", color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"Château"},
+    {name:'Kuromon Market', color:'#22E4E6', lat:34.6656, lng:135.5065, desc:"Marché, sashimi, wagyu"}
+  ];
+
+  spots.forEach(s => {
+    const marker = L.circleMarker([s.lat, s.lng], {
+      radius: 8,
+      fillColor: s.color,
+      color: '#fff',
+      weight: 1.5,
+      fillOpacity: 0.85
+    }).addTo(mapInstance);
+    const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.name);
+    marker.bindPopup('<b>' + s.name + '</b><br>' + s.desc + '<br><a href="' + mapsUrl + '" target="_blank" rel="noopener">Ouvrir dans Maps ↗</a>');
+  });
+}
+
+// Carnet de voyage (sauvegarde locale sur cet appareil/navigateur)
+function loadJournal(){
+  try {
+    const raw = localStorage.getItem('japan-trip-journal');
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) {
+    console.error('Lecture du carnet impossible', e);
+    return [];
+  }
+}
+function saveJournalData(entries){
+  try {
+    localStorage.setItem('japan-trip-journal', JSON.stringify(entries));
+  } catch(e) {
+    console.error('Sauvegarde du carnet impossible', e);
+  }
+}
+let journalEntries = loadJournal();
+function renderJournal(){
+  const list = document.getElementById('journalList');
+  if (!list) return;
+  if (journalEntries.length === 0) {
+    list.innerHTML = '<p class="journal-empty">Aucune note pour l\'instant. Écris ta première ligne du voyage !</p>';
+    return;
+  }
+  list.innerHTML = journalEntries.slice().reverse().map((entry, i) => {
+    const realIndex = journalEntries.length - 1 - i;
+    const safeText = entry.text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return '<div class="journal-entry"><div class="je-head"><span class="je-date">' + entry.date + '</span><button type="button" class="je-del" data-i="' + realIndex + '" aria-label="Supprimer">✕</button></div><p>' + safeText + '</p></div>';
+  }).join('');
+  document.querySelectorAll('.je-del').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const i = parseInt(btn.dataset.i, 10);
+      journalEntries.splice(i, 1);
+      saveJournalData(journalEntries);
+      renderJournal();
+    });
+  });
+}
+const journalAddBtn = document.getElementById('journalAdd');
+if (journalAddBtn) {
+  journalAddBtn.addEventListener('click', () => {
+    const textEl = document.getElementById('journalText');
+    const text = textEl.value.trim();
+    if (!text) return;
+    const dateStr = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+    journalEntries.push({date: dateStr, text: text});
+    saveJournalData(journalEntries);
+    textEl.value = '';
+    renderJournal();
+  });
+}
+renderJournal();
 </script>
 </body>
 </html>
