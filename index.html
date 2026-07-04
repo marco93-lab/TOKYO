@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅 Voyage Japon — Déc 2026 · Perpignan → Tokyo</title>
+<meta name="description" content="Itinéraire, budget, hôtels, activités et bonnes adresses : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#0B0B14;        /* nuit de Shinjuku */
+  --nuit-2:#12121f;
+  --sakura:#FF2D78;      /* néon rose */
+  --cyan:#22E4E6;        /* néon Dotonbori */
+  --lanterne:#FFB13B;    /* ambre Kyoto */
+  --torii:#E63946;
+  --washi:#F5F0E8;       /* texte */
+  --muted:#9a97ad;
+  --card:#14142280;
+  --line:#ffffff14;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Zen Kaku Gothic New",system-ui,sans-serif;
+  background:var(--nuit);color:var(--washi);
+  line-height:1.6;overflow-x:hidden;
+  padding-bottom:84px; /* place pour la nav basse mobile */
+}
+/* ---------- fond néon ---------- */
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(600px 400px at 85% -5%, #ff2d7826, transparent 60%),
+  radial-gradient(700px 500px at -10% 30%, #22e4e61f, transparent 60%),
+  radial-gradient(500px 400px at 90% 85%, #ffb13b17, transparent 60%),
+  var(--nuit);}
+.bg::after{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);}
+.kanji-bg{position:fixed;right:-8px;top:10%;z-index:-1;writing-mode:vertical-rl;
+  font-family:"DotGothic16",monospace;font-size:clamp(90px,18vw,180px);
+  color:transparent;-webkit-text-stroke:1px #ffffff10;letter-spacing:.25em;user-select:none;pointer-events:none;}
+/* ---------- typographie ---------- */
+.display{font-family:"DotGothic16",monospace;letter-spacing:.04em}
+h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
+.eyebrow{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+.neon-pink{color:var(--sakura);text-shadow:0 0 10px #ff2d7880,0 0 32px #ff2d7840}
+.neon-cyan{color:var(--cyan);text-shadow:0 0 10px #22e4e680,0 0 32px #22e4e640}
+.neon-amber{color:var(--lanterne);text-shadow:0 0 10px #ffb13b80,0 0 32px #ffb13b40}
+/* ---------- layout ---------- */
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+section{padding:56px 0;scroll-margin-top:20px}
+.sec-head{margin-bottom:26px}
+/* ---------- pages ---------- */
+.page{display:none}
+.page.active{display:block;animation:pagein .35s ease}
+@keyframes pagein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:768px){.page:not(#page-itineraire){padding-top:90px}}
+/* ---------- hero ---------- */
+.hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:48px 18px 32px;position:relative}
+.torii{width:min(240px,60vw);filter:drop-shadow(0 0 14px #e6394680) drop-shadow(0 0 44px #ff2d7833);animation:flicker 4s linear 1}
+@keyframes flicker{0%,100%{opacity:1}3%{opacity:.3}6%{opacity:1}9%{opacity:.5}12%{opacity:1}52%{opacity:1}54%{opacity:.4}56%{opacity:1}}
+.hero h1{font-size:clamp(38px,9vw,72px);line-height:1.1;margin:18px 0 8px}
+.hero .route{font-size:clamp(14px,3.5vw,18px);letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;background:#ffffff08;backdrop-filter:blur(4px)}
+.badge strong{font-family:"DotGothic16",monospace}
+.badge.buy{border-color:#ff2d7855;box-shadow:0 0 18px #ff2d7826}
+.scroll-hint{margin-top:34px;color:var(--muted);font-size:12px;letter-spacing:.3em;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* ---------- villes / itinéraire ---------- */
+.city{border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px);padding:22px 18px;margin-bottom:22px;position:relative;overflow:hidden}
+.city .k{position:absolute;top:-14px;right:6px;font-family:"DotGothic16",monospace;font-size:96px;opacity:.08;writing-mode:vertical-rl;pointer-events:none}
+.city-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.city-head h3{font-family:"DotGothic16",monospace;font-size:24px}
+.nights{font-size:13px;color:var(--muted)}
+.city.tokyo{border-color:#ff2d7840}.city.tokyo .accent{color:var(--sakura)}
+.city.kyoto{border-color:#ffb13b40}.city.kyoto .accent{color:var(--lanterne)}
+.city.osaka{border-color:#22e4e640}.city.osaka .accent{color:var(--cyan)}
+.day{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-top:1px dashed var(--line)}
+.day:first-of-type{border-top:none;margin-top:8px}
+.chip{font-family:"DotGothic16",monospace;font-size:13px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 4px;height:fit-content;background:#ffffff06}
+.day p{font-size:15px}
+.day small{color:var(--muted);display:block;font-size:12.5px;margin-top:2px}
+.transit{display:flex;align-items:center;gap:12px;margin:18px 4px;color:var(--muted);font-size:13.5px}
+.transit .rail{flex:1;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 12px #22e4e666;position:relative}
+.transit .rail::after{content:"🚄";position:absolute;left:50%;top:-13px;transform:translateX(-50%)}
+/* ---------- budget ---------- */
+.budget-row{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.budget-row .lbl{font-size:15px}
+.budget-row .lbl small{display:block;color:var(--muted);font-size:12.5px}
+.budget-row .val{font-family:"DotGothic16",monospace;font-size:15px;white-space:nowrap;color:var(--cyan)}
+.total-card{margin-top:22px;border:1px solid #ff2d7855;border-radius:20px;padding:22px;text-align:center;background:linear-gradient(160deg,#ff2d7812,#22e4e60d);box-shadow:0 0 34px #ff2d781f}
+.total-card .t{font-family:"DotGothic16",monospace;font-size:clamp(28px,8vw,44px)}
+.total-card small{color:var(--muted)}
+/* ---------- hôtels ---------- */
+.grid{display:grid;gap:14px}
+.hotel{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
+.hotel .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.hotel h4{font-family:"DotGothic16",monospace;font-size:17px}
+.hotel .price{font-family:"DotGothic16",monospace;color:var(--lanterne)}
+.hotel p{font-size:13.5px;color:var(--muted);margin-top:6px}
+/* ---------- restos (annexe) ---------- */
+.resto{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
+.resto .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.resto h4{font-family:"DotGothic16",monospace;font-size:17px}
+.resto .price{font-family:"DotGothic16",monospace;color:var(--lanterne);white-space:nowrap}
+.resto p{font-size:13.5px;color:var(--muted);margin-top:6px}
+/* ---------- activités ---------- */
+.acts{display:grid;gap:10px}
+.act{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#ffffff05;font-size:14.5px}
+.act .tag{font-size:11px;letter-spacing:.12em;padding:4px 10px;border-radius:999px;white-space:nowrap;font-family:"DotGothic16",monospace}
+.tag.free{border:1px solid #22e4e655;color:var(--cyan)}
+.tag.pay{border:1px solid #ff2d7855;color:var(--sakura)}
+.act-city{margin:20px 0 10px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+/* ---------- checklist ---------- */
+.check{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card);cursor:pointer;transition:.2s;user-select:none}
+.check:hover{border-color:#ffffff30}
+.check .box{width:24px;height:24px;min-width:24px;border:2px solid var(--muted);border-radius:7px;display:grid;place-items:center;font-size:14px;color:transparent;transition:.2s;margin-top:2px}
+.check.done{opacity:.55}
+.check.done .box{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px #22e4e655}
+.check b{font-size:15px}
+.check small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+/* ---------- bloc info ---------- */
+.tip{margin-top:24px;border:1px dashed var(--line);border-radius:14px;padding:16px 18px;background:#ffffff05;font-size:13.5px;color:var(--muted);line-height:1.6}
+.tip b{color:var(--washi);font-family:"DotGothic16",monospace;font-weight:400;font-size:13px;letter-spacing:.04em}
+/* ---------- nav (page switcher) ---------- */
+nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.navbtn{color:var(--muted);background:none;border:none;font-family:inherit;text-decoration:none;font-size:12px;padding:9px 12px;border-radius:999px;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1;transition:.2s;flex-shrink:0;cursor:pointer}
+.navbtn span.ico{font-size:16px}
+.navbtn:hover,.navbtn:focus-visible{color:var(--washi);background:#ffffff10}
+.navbtn.active{color:var(--washi);background:#ffffff14;box-shadow:inset 0 0 0 1px #ffffff20}
+footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
+a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active{animation:none}}
+/* ---------- ≥ 768px ---------- */
+@media(min-width:768px){
+  body{padding-bottom:0}
+  nav{top:18px;bottom:auto}
+  .navbtn{flex-direction:row;gap:7px;font-size:13px;padding:9px 16px}
+  .grid.h2{grid-template-columns:1fr 1fr}
+  .acts{grid-template-columns:1fr 1fr}
+  .day{grid-template-columns:84px 1fr}
+  section{padding:76px 0}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="kanji-bg" aria-hidden="true">日本旅行</div>
+
+<nav aria-label="Navigation">
+  <button type="button" class="navbtn active" data-page="itineraire" aria-current="page"><span class="ico">🗾</span>Itinéraire</button>
+  <button type="button" class="navbtn" data-page="budget" aria-current="false"><span class="ico">💴</span>Budget</button>
+  <button type="button" class="navbtn" data-page="hotels" aria-current="false"><span class="ico">🏮</span>Hôtels</button>
+  <button type="button" class="navbtn" data-page="activites" aria-current="false"><span class="ico">⛩️</span>Activités</button>
+  <button type="button" class="navbtn" data-page="adresses" aria-current="false"><span class="ico">🍜</span>Adresses</button>
+</nav>
+
+<main>
+
+<!-- ============ PAGE 1 — ITINERAIRE + CHECKLIST RÉSA ============ -->
+<div class="page active" id="page-itineraire">
+
+  <header class="hero">
+    <svg class="torii" viewBox="0 0 200 150" fill="none" role="img" aria-label="Torii néon">
+      <path d="M8 28 Q100 8 192 28 L186 44 L14 44 Z" fill="#E63946"/>
+      <rect x="28" y="58" width="144" height="10" rx="3" fill="#E63946"/>
+      <rect x="42" y="44" width="14" height="100" rx="3" fill="#E63946"/>
+      <rect x="144" y="44" width="14" height="100" rx="3" fill="#E63946"/>
+      <rect x="93" y="44" width="14" height="14" fill="#E63946"/>
+    </svg>
+    <p class="route">Perpignan → Barcelone → Tokyo</p>
+    <h1 class="display"><span class="neon-pink">旅</span> VOYAGE <span class="neon-cyan">JAPON</span></h1>
+    <div class="badges">
+      <span class="badge"><strong>8 → 20 DÉC 2026</strong></span>
+      <span class="badge">👥 2 personnes · 11 nuits</span>
+      <span class="badge buy">💴 <strong>3 819 – 4 774 €</strong> tout compris</span>
+    </div>
+    <p class="scroll-hint">▼ FAIRE DÉFILER</p>
+  </header>
+
+  <div class="wrap">
+    <section id="itineraire">
+      <div class="sec-head">
+        <p class="eyebrow">行程 — jour par jour</p>
+        <h2 class="display">Itinéraire</h2>
+      </div>
+
+      <div class="transit"><span>✈️ 8 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Train Perpignan→BCN 1h20 + vol de nuit</span></div>
+
+      <article class="city tokyo">
+        <span class="k">東京</span>
+        <div class="city-head"><h3 class="accent neon-pink">TOKYO</h3><span class="nights">6 nuits · 9 → 15 déc</span></div>
+        <div class="day"><span class="chip">MER 9</span><p>Arrivée Haneda/Narita, check-in Shinjuku.<small>Soir : Kabukicho &amp; ruelles d'Omoide Yokocho</small></p></div>
+        <div class="day"><span class="chip">JEU 10</span><p>Asakusa : Senso-ji &amp; Nakamise-dori, puis Akihabara.<small>Option : Tokyo Skytree</small></p></div>
+        <div class="day"><span class="chip">VEN 11</span><p>Croisement de Shibuya + Shibuya Sky au coucher du soleil.<small>Harajuku, Takeshita-dori, Meiji-jingu</small></p></div>
+        <div class="day"><span class="chip">SAM 12</span><p>teamLab Planets (résa obligatoire) puis Odaiba.<small>Soir : illuminations de Marunouchi ✨</small></p></div>
+        <div class="day"><span class="chip">DIM 13</span><p>Marché de Tsukiji au petit matin, Ginza, jardins Hamarikyu.<small>Soir : illuminations de Roppongi</small></p></div>
+        <div class="day"><span class="chip">LUN 14</span><p>Parc &amp; musées d'Ueno, vieux quartier de Yanaka.<small>Dernière soirée libre à Shinjuku</small></p></div>
+      </article>
+
+      <div class="transit"><span>MAR 15</span><div class="rail"></div><span>Shinkansen Nozomi 2h15 — siège E côté Mont Fuji 🗻</span></div>
+
+      <article class="city kyoto">
+        <span class="k">京都</span>
+        <div class="city-head"><h3 class="accent neon-amber">KYOTO</h3><span class="nights">3 nuits · 15 → 18 déc</span></div>
+        <div class="day"><span class="chip">MAR 15</span><p>Arrivée midi. Gion &amp; Pontocho à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
+        <div class="day"><span class="chip">MER 16</span><p>Fushimi Inari avant 8h (10 000 torii), Kiyomizu-dera.<small>Flânerie dans Higashiyama</small></p></div>
+        <div class="day"><span class="chip">JEU 17</span><p>Bambouseraie d'Arashiyama tôt, pont Togetsukyo.<small>Après-midi : Kinkaku-ji, le pavillon d'or</small></p></div>
+      </article>
+
+      <div class="transit"><span>VEN 18</span><div class="rail"></div><span>Train JR — 15 min</span></div>
+
+      <article class="city osaka">
+        <span class="k">大阪</span>
+        <div class="city-head"><h3 class="accent neon-cyan">OSAKA</h3><span class="nights">1 nuit · 18 → 19 déc</span></div>
+        <div class="day"><span class="chip">VEN 18</span><p>Château d'Osaka l'après-midi.<small>Soir : néons de Dotonbori + street food (takoyaki !) 🐙</small></p></div>
+        <div class="day"><span class="chip">SAM 19</span><p>Marché Kuromon &amp; Shinsekai le matin.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
+      </article>
+
+      <div class="transit"><span>SAM 19</span><div class="rail"></div><span>Shinkansen Shin-Osaka → Tokyo 2h30</span></div>
+
+      <article class="city tokyo">
+        <span class="k">最後</span>
+        <div class="city-head"><h3 class="accent neon-pink">TOKYO — FINAL</h3><span class="nights">1 nuit · 19 → 20 déc</span></div>
+        <div class="day"><span class="chip">SAM 19</span><p>Dernière soirée à Shibuya.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
+        <div class="day"><span class="chip">DIM 20</span><p>Vol retour Tokyo → Barcelone, puis train vers Perpignan.<small>また ね、日本 — à bientôt, Japon</small></p></div>
+      </article>
+    </section>
+
+    <!-- ============ CHECKLIST ============ -->
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">予約 — dans l'ordre, tape pour cocher</p>
+        <h2 class="display">Checklist résa</h2>
+      </div>
+      <div class="grid">
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vols A/R Barcelone ↔ Tokyo</b><small>Juillet-août 2026 · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Train Perpignan ↔ Barcelone</b><small>À l'ouverture des ventes · SNCF Connect / Trainline</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vols confirmés · annulation gratuite · Kyoto en premier</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · teamLab Planets</b><small>Dès ouverture du calendrier (J-60/90) · créneau 12 déc</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · Shibuya Sky</b><small>~1 mois avant · créneau coucher de soleil 16h-16h30</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>6 · Shinkansen × 2 trajets</b><small>J-30 à 10h (heure JP) : 8 nov &amp; 19 nov 2026 · appli Smart-EX · siège E</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>7 · eSIM data Japon</b><small>1 semaine avant · Airalo / Ubigi · ~10-15 €/pers</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>8 · Carte Suica mobile</b><small>Avant départ · Apple Wallet / appli Suica</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>9 · Assurance voyage</b><small>40-80 € pour 2 · 12 jours</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>10 · Visit Japan Web</b><small>Quelques jours avant · QR code douane &amp; immigration</small></span></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 2 — BUDGET ============ -->
+<div class="page" id="page-budget">
+  <div class="wrap">
+    <section id="budget">
+      <div class="sec-head">
+        <p class="eyebrow">予算 — pour 2 personnes</p>
+        <h2 class="display">Budget</h2>
+      </div>
+      <div class="budget-row"><span class="lbl">Train Perpignan ↔ Barcelone<small>A/R × 2, résa anticipée</small></span><span class="val">80 – 120 €</span></div>
+      <div class="budget-row"><span class="lbl">Vols A/R Barcelone ↔ Tokyo<small>660–780 €/pers · Etihad, ANA, Qatar · 1 escale</small></span><span class="val">1 320 – 1 560 €</span></div>
+      <div class="budget-row"><span class="lbl">Hôtels — 11 nuits<small>Tokyo 7 · Kyoto 3 · Osaka 1 (double 3★)</small></span><span class="val">1 225 – 1 590 €</span></div>
+      <div class="budget-row"><span class="lbl">Shinkansen + trains JR<small>Tokyo→Kyoto, Kyoto→Osaka, Osaka→Tokyo</small></span><span class="val">≈ 370 €</span></div>
+      <div class="budget-row"><span class="lbl">Transports urbains &amp; aéroports<small>Suica ~6 €/jour/pers</small></span><span class="val">130 – 180 €</span></div>
+      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, château</small></span><span class="val">150 – 250 €</span></div>
+      <div class="budget-row"><span class="lbl">Repas<small>Ramen, izakaya, konbini — ~55 €/jour pour 2</small></span><span class="val">550 – 700 €</span></div>
+      <div class="total-card">
+        <small>TOTAL · 2 PERSONNES · 12 JOURS</small>
+        <div class="t"><span class="neon-pink">3 819</span> – <span class="neon-cyan">4 774 €</span></div>
+        <small>Prix relevés en juillet 2026 pour décembre 2026 · taux ≈ 160 ¥/€</small>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 3 — HOTELS ============ -->
+<div class="page" id="page-hotels">
+  <div class="wrap">
+    <section id="hotels">
+      <div class="sec-head">
+        <p class="eyebrow">宿 — chambre double, prix pour 2</p>
+        <h2 class="display">Hôtels</h2>
+      </div>
+      <div class="grid h2">
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · arrivée</h4><span class="price">~125 €/nuit</span></div><p>6 nuits · 9→15 déc — Shinjuku (hyper-connecté) ou Asakusa (charme + budget)</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-amber">Kyoto</h4><span class="price">~140 €/nuit</span></div><p>3 nuits · 15→18 déc — quartier de la gare (−46 % vs moyenne ville) ou Gion</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>1 nuit · 18→19 déc — Namba / Dotonbori, tout à pied le soir</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 19→20 déc — Shibuya ou gare de Tokyo pour un départ facile</p></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 4 — ACTIVITES ============ -->
+<div class="page" id="page-activites">
+  <div class="wrap">
+    <section id="activites">
+      <div class="sec-head">
+        <p class="eyebrow">体験 — prix pour 2 personnes</p>
+        <h2 class="display">Activités</h2>
+      </div>
+      <p class="act-city neon-pink">— Tokyo</p>
+      <div class="acts">
+        <div class="act"><span>teamLab Planets <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="tag pay">50 €</span></div>
+        <div class="act"><span>Shibuya Sky — rooftop 360°</span><span class="tag pay">32 €</span></div>
+        <div class="act"><span>Tokyo Skytree <small style="color:var(--muted)">(option)</small></span><span class="tag pay">39 €</span></div>
+        <div class="act"><span>Senso-ji · Meiji-jingu · croisement Shibuya</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Illuminations Marunouchi / Roppongi ✨</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Marché de Tsukiji (outer market)</span><span class="tag free">GRATUIT</span></div>
+      </div>
+      <p class="act-city neon-amber">— Kyoto</p>
+      <div class="acts">
+        <div class="act"><span>Fushimi Inari — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Kinkaku-ji, le pavillon d'or</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span>Kiyomizu-dera</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span>Bambouseraie d'Arashiyama · Gion</span><span class="tag free">GRATUIT</span></div>
+      </div>
+      <p class="act-city neon-cyan">— Osaka</p>
+      <div class="acts">
+        <div class="act"><span>Château d'Osaka</span><span class="tag pay">8 €</span></div>
+        <div class="act"><span>Umeda Sky Building <small style="color:var(--muted)">(option)</small></span><span class="tag pay">19 €</span></div>
+        <div class="act"><span>Dotonbori · Kuromon · Shinsekai</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Universal Studios Japan <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="tag pay">108 €</span></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 5 — ADRESSES / RESTAURANTS ============ -->
+<div class="page" id="page-adresses">
+  <div class="wrap">
+    <section id="adresses">
+      <div class="sec-head">
+        <p class="eyebrow">食事 — annexe gourmande, prix moyen pour 2</p>
+        <h2 class="display">Où manger</h2>
+      </div>
+
+      <p class="act-city neon-pink">— Tokyo</p>
+      <div class="grid h2">
+        <div class="resto"><div class="top"><h4 class="neon-pink">Ramen Nagi</h4><span class="price">~15 €</span></div><p>📍 Shinjuku, Golden Gai · ramen niboshi (bouillon de sardines séchées), une référence du quartier</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink">Tempura Tsunahachi</h4><span class="price">~31 €</span></div><p>📍 Shinjuku · menu tempura traditionnel — crevette, légumes, riz et soupe miso</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink">Ichiran</h4><span class="price">~14 €</span></div><p>📍 Shibuya · tonkotsu ramen en cabine individuelle, sauce secrète personnalisable</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink">Kaiten-zushi</h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink">Daikokuya</h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink">Omoide Yokocho</h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p></div>
+      </div>
+
+      <p class="act-city neon-amber">— Kyoto</p>
+      <div class="grid h2">
+        <div class="resto"><div class="top"><h4 class="neon-amber">Omen</h4><span class="price">~19 €</span></div><p>📍 Près de Ginkaku-ji · udon fait maison, tempura, salade thon-avocat</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber">Katsukura</h4><span class="price">~25 €</span></div><p>📍 Gare de Kyoto (food court) · tonkatsu, rituel du sésame à moudre soi-même</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber">Musashi Sushi</h4><span class="price">~19 €</span></div><p>📍 Centre-ville · kaiten-zushi fiable, fruits de mer de saison</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber">HIRO Yakiniku</h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber">Gion Mikaku</h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber">Pontocho-dori</h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p></div>
+      </div>
+
+      <p class="act-city neon-cyan">— Osaka</p>
+      <div class="grid h2">
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Kukuru</h4><span class="price">~7 €</span></div><p>📍 Dotonbori · takoyaki moelleux, institution du quartier (2 portions)</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Chibo Okonomiyaki</h4><span class="price">~25 €</span></div><p>📍 Namba · okonomiyaki à cuisiner soi-même sur la plaque</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Ajinoya</h4><span class="price">~15 €</span></div><p>📍 Dotonbori · okonomiyaki généreux, Bib Gourmand, moins cher que Chibo</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Daruma</h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Kuromon Ichiba Market</h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan">Dotonbori</h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p></div>
+      </div>
+
+      <div class="tip">💡 <b>BON À SAVOIR</b><br>Pas de pourboire au Japon · prévoir des espèces pour les petites adresses (izakaya, marchés, ramen-ya) · réservation conseillée pour Gion Mikaku et les tables kaiseki, jusqu'à une semaine à l'avance.</div>
+    </section>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  旅 Voyage Japon · 8 → 20 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026
+</footer>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.toggle('active', p.id === 'page-' + id);
+  });
+  document.querySelectorAll('.navbtn').forEach(b=>{
+    const on = b.dataset.page === id;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-current', on ? 'page' : 'false');
+  });
+  window.scrollTo({top:0,behavior:'auto'});
+}
+document.querySelectorAll('.navbtn').forEach(b=>{
+  b.addEventListener('click', () => showPage(b.dataset.page));
+});
+
+document.querySelectorAll('.check').forEach(el=>{
+  const toggle=()=>el.classList.toggle('done');
+  el.addEventListener('click',toggle);
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+});
+</script>
+</body>
+</html>
