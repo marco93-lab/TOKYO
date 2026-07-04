@@ -888,9 +888,10 @@ function initMap(){
   const mapEl = document.getElementById('map');
   if (!mapEl || typeof L === 'undefined') return;
   mapInstance = L.map('map', {scrollWheelZoom:true}).setView([35.4, 137.2], 6);
-  L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-    attribution: 'Fond de carte : <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use" target="_blank" rel="noopener">Wikimedia</a> · Données : &copy; OpenStreetMap contributors',
-    maxZoom: 18
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18,
+    subdomains: 'abc'
   }).addTo(mapInstance);
 
   spots.forEach(s => {
