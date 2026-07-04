@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>旅 Voyage Japon — Déc 2026 · Perpignan → Tokyo</title>
-<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses, shopping et carte : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
+<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses, shopping, carte et applications : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -170,6 +170,14 @@ section{padding:56px 0;scroll-margin-top:20px}
 .resto h4{font-family:"DotGothic16",monospace;font-size:17px}
 .resto .price{font-family:"DotGothic16",monospace;color:var(--lanterne);white-space:nowrap}
 .resto p{font-size:13.5px;color:var(--muted);margin-top:6px}
+.menu-toggle{margin-top:12px;background:none;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-family:inherit;font-size:12px;padding:6px 12px;cursor:pointer;transition:.2s}
+.menu-toggle:hover,.menu-toggle:focus-visible{color:var(--washi);border-color:var(--cyan)}
+.menu-toggle.open{color:var(--cyan);border-color:var(--cyan)}
+.menu-drop{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.menu-drop.open{max-height:320px;margin-top:10px}
+.menu-item{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:7px 0;border-top:1px dashed var(--line)}
+.menu-item:first-child{border-top:none}
+.menu-item span:last-child{font-family:"DotGothic16",monospace;color:var(--lanterne);white-space:nowrap}
 /* ---------- shopping ---------- */
 .shop{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
 .shop .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
@@ -219,14 +227,11 @@ nav::-webkit-scrollbar{display:none}
 .navbtn span.ico{font-size:16px}
 .navbtn:hover,.navbtn:focus-visible{color:var(--washi);background:#ffffff10}
 .navbtn.active{color:var(--washi);background:#ffffff14;box-shadow:inset 0 0 0 1px #ffffff20}
-/* ---------- bouton + panneau musique ---------- */
+/* ---------- bouton musique ---------- */
 #musicToggle{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#0b0b14e6;backdrop-filter:blur(12px);color:var(--washi);font-size:18px;cursor:pointer;box-shadow:0 8px 24px #00000080;transition:.2s}
 #musicToggle:hover,#musicToggle:focus-visible{border-color:var(--sakura);box-shadow:0 0 18px #ff2d7855}
 #musicToggle.playing{animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
-#musicPlayer{position:fixed;top:66px;right:14px;z-index:59;width:min(240px,60vw);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px #000000a0;display:none;border:1px solid var(--line)}
-#musicPlayer.open{display:block}
-#musicPlayer iframe{display:block;width:100%;height:135px;border:0}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label,.pixel-walkers{animation:none}.pixel-walkers,#introAnim{display:none}}
@@ -327,7 +332,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 </div>
 
 <button type="button" id="musicToggle" aria-label="Musique">🎵</button>
-<div id="musicPlayer"></div>
+<audio id="bgMusic" src="musique.mp3" loop preload="none"></audio>
 
 <nav aria-label="Navigation">
   <button type="button" class="navbtn active" data-page="itineraire" aria-current="page"><span class="ico">🗾</span>Itinéraire</button>
@@ -528,35 +533,35 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 
       <p class="act-city neon-pink">— Tokyo</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ramen+Nagi+Golden+Gai+Shinjuku+Tokyo" target="_blank" rel="noopener">Ramen Nagi</a></h4><span class="price">~15 €</span></div><p>📍 Shinjuku, Golden Gai · ramen niboshi (bouillon de sardines séchées), une référence du quartier</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tempura+Tsunahachi+Shinjuku+Tokyo" target="_blank" rel="noopener">Tempura Tsunahachi</a></h4><span class="price">~31 €</span></div><p>📍 Shinjuku · menu tempura traditionnel — crevette, légumes, riz et soupe miso</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ichiran+Shibuya+Tokyo" target="_blank" rel="noopener">Ichiran</a></h4><span class="price">~14 €</span></div><p>📍 Shibuya · tonkotsu ramen en cabine individuelle, sauce secrète personnalisable</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=kaiten+zushi+Shibuya+Tokyo" target="_blank" rel="noopener">Kaiten-zushi</a></h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daikokuya+Tempura+Asakusa+Tokyo" target="_blank" rel="noopener">Daikokuya</a></h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ramen+Nagi+Golden+Gai+Shinjuku+Tokyo" target="_blank" rel="noopener">Ramen Nagi</a></h4><span class="price">~15 €</span></div><p>📍 Shinjuku, Golden Gai · ramen niboshi (bouillon de sardines séchées), une référence du quartier</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Ramen niboshi classique</span><span>900 ¥</span></div><div class="menu-item"><span>Ramen spécial (chashu + œuf mariné)</span><span>1 300 ¥</span></div><div class="menu-item"><span>Supplément nouilles (kaedama)</span><span>150 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tempura+Tsunahachi+Shinjuku+Tokyo" target="_blank" rel="noopener">Tempura Tsunahachi</a></h4><span class="price">~31 €</span></div><p>📍 Shinjuku · menu tempura traditionnel — crevette, légumes, riz et soupe miso</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Tendon (bol tempura + riz)</span><span>1 800 ¥</span></div><div class="menu-item"><span>Assortiment tempura + riz + miso</span><span>3 200 ¥</span></div><div class="menu-item"><span>Tempura udon</span><span>1 600 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ichiran+Shibuya+Tokyo" target="_blank" rel="noopener">Ichiran</a></h4><span class="price">~14 €</span></div><p>📍 Shibuya · tonkotsu ramen en cabine individuelle, sauce secrète personnalisable</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Ramen tonkotsu classique</span><span>980 ¥</span></div><div class="menu-item"><span>Ramen + nouilles suppl. + œuf</span><span>1 320 ¥</span></div><div class="menu-item"><span>Sélection 5 garnitures</span><span>1 490 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=kaiten+zushi+Shibuya+Tokyo" target="_blank" rel="noopener">Kaiten-zushi</a></h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Assiettes standard (2 pièces)</span><span>150-300 ¥</span></div><div class="menu-item"><span>Assiettes premium (thon gras, oursin)</span><span>400-600 ¥</span></div><div class="menu-item"><span>Soupe miso</span><span>100 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daikokuya+Tempura+Asakusa+Tokyo" target="_blank" rel="noopener">Daikokuya</a></h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Tendon classique</span><span>1 500 ¥</span></div><div class="menu-item"><span>Kakiage-don (tempura de légumes)</span><span>1 300 ¥</span></div><div class="menu-item"><span>Assortiment tempura</span><span>2 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette yakitori (à l'unité)</span><span>150-300 ¥</span></div><div class="menu-item"><span>Assortiment 5 brochettes</span><span>1 000 ¥</span></div><div class="menu-item"><span>Bière pression</span><span>500 ¥</span></div></div></div>
       </div>
 
       <p class="act-city neon-amber">— Kyoto</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omen+Ginkakuji+Kyoto" target="_blank" rel="noopener">Omen</a></h4><span class="price">~19 €</span></div><p>📍 Près de Ginkaku-ji · udon fait maison, tempura, salade thon-avocat</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Katsukura+Kyoto+Station" target="_blank" rel="noopener">Katsukura</a></h4><span class="price">~25 €</span></div><p>📍 Gare de Kyoto (food court) · tonkatsu, rituel du sésame à moudre soi-même</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Musashi+Sushi+Kyoto" target="_blank" rel="noopener">Musashi Sushi</a></h4><span class="price">~19 €</span></div><p>📍 Centre-ville · kaiten-zushi fiable, fruits de mer de saison</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=HIRO+Yakiniku+Pontocho+Kyoto" target="_blank" rel="noopener">HIRO Yakiniku</a></h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Mikaku+Kyoto" target="_blank" rel="noopener">Gion Mikaku</a></h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a></h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omen+Ginkakuji+Kyoto" target="_blank" rel="noopener">Omen</a></h4><span class="price">~19 €</span></div><p>📍 Près de Ginkaku-ji · udon fait maison, tempura, salade thon-avocat</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Omen (udon + légumes à tremper)</span><span>1 500 ¥</span></div><div class="menu-item"><span>Supplément tempura</span><span>800 ¥</span></div><div class="menu-item"><span>Salade thon-avocat</span><span>700 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Katsukura+Kyoto+Station" target="_blank" rel="noopener">Katsukura</a></h4><span class="price">~25 €</span></div><p>📍 Gare de Kyoto (food court) · tonkatsu, rituel du sésame à moudre soi-même</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Rosu katsu (échine, set)</span><span>1 800 ¥</span></div><div class="menu-item"><span>Hire katsu (filet, set)</span><span>2 000 ¥</span></div><div class="menu-item"><span>Curry katsu</span><span>1 600 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Musashi+Sushi+Kyoto" target="_blank" rel="noopener">Musashi Sushi</a></h4><span class="price">~19 €</span></div><p>📍 Centre-ville · kaiten-zushi fiable, fruits de mer de saison</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Assiettes standard (2 pièces)</span><span>160-350 ¥</span></div><div class="menu-item"><span>Assiettes premium</span><span>400-700 ¥</span></div><div class="menu-item"><span>Soupe miso</span><span>100 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=HIRO+Yakiniku+Pontocho+Kyoto" target="_blank" rel="noopener">HIRO Yakiniku</a></h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Set déjeuner yakiniku</span><span>2 500 ¥</span></div><div class="menu-item"><span>Assortiment bœuf premium (portion)</span><span>1 800 ¥</span></div><div class="menu-item"><span>Riz + banchan</span><span>300 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Mikaku+Kyoto" target="_blank" rel="noopener">Gion Mikaku</a></h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Menu Kobe A4 (steak + accompagnements)</span><span>12-18 000 ¥</span></div><div class="menu-item"><span>Menu dégustation complet</span><span>20 000+ ¥</span></div><div class="menu-item"><span>Suppl. foie gras / légumes grillés</span><span>2 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a></h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Izakaya simple (plats à partager)</span><span>2-3 000 ¥/pers</span></div><div class="menu-item"><span>Restaurant traditionnel</span><span>5-8 000 ¥/pers</span></div><div class="menu-item"><span>Kaiseki haut de gamme</span><span>15 000+ ¥/pers</span></div></div></div>
       </div>
 
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kukuru+Takoyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Kukuru</a></h4><span class="price">~7 €</span></div><p>📍 Dotonbori · takoyaki moelleux, institution du quartier (2 portions)</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Chibo+Okonomiyaki+Namba+Osaka" target="_blank" rel="noopener">Chibo Okonomiyaki</a></h4><span class="price">~25 €</span></div><p>📍 Namba · okonomiyaki à cuisiner soi-même sur la plaque</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ajinoya+Okonomiyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Ajinoya</a></h4><span class="price">~15 €</span></div><p>📍 Dotonbori · okonomiyaki généreux, Bib Gourmand, moins cher que Chibo</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daruma+Kushikatsu+Shinsekai+Osaka" target="_blank" rel="noopener">Daruma</a></h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon Ichiba Market</a></h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kukuru+Takoyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Kukuru</a></h4><span class="price">~7 €</span></div><p>📍 Dotonbori · takoyaki moelleux, institution du quartier (2 portions)</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Takoyaki nature (8 pièces)</span><span>600 ¥</span></div><div class="menu-item"><span>Takoyaki fromage / mentaiko (8 pièces)</span><span>750 ¥</span></div><div class="menu-item"><span>Takoyaki spécial (garniture premium)</span><span>900 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Chibo+Okonomiyaki+Namba+Osaka" target="_blank" rel="noopener">Chibo Okonomiyaki</a></h4><span class="price">~25 €</span></div><p>📍 Namba · okonomiyaki à cuisiner soi-même sur la plaque</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Okonomiyaki porc</span><span>1 400 ¥</span></div><div class="menu-item"><span>Okonomiyaki fruits de mer</span><span>1 800 ¥</span></div><div class="menu-item"><span>Okonomiyaki mixte (porc + fruits de mer)</span><span>2 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ajinoya+Okonomiyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Ajinoya</a></h4><span class="price">~15 €</span></div><p>📍 Dotonbori · okonomiyaki généreux, Bib Gourmand, moins cher que Chibo</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Okonomiyaki classique</span><span>1 100 ¥</span></div><div class="menu-item"><span>Modan-yaki (+ nouilles yakisoba)</span><span>1 300 ¥</span></div><div class="menu-item"><span>Negi-yaki (à la ciboule)</span><span>1 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daruma+Kushikatsu+Shinsekai+Osaka" target="_blank" rel="noopener">Daruma</a></h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette à l'unité</span><span>143 ¥</span></div><div class="menu-item"><span>Combo Dotonbori (9 brochettes)</span><span>1 450 ¥</span></div><div class="menu-item"><span>Combo Shinsekai (grand assortiment)</span><span>2 250 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon Ichiba Market</a></h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette de wagyu grillé</span><span>800-1 500 ¥</span></div><div class="menu-item"><span>Sashimi / sushi à l'unité</span><span>300-600 ¥</span></div><div class="menu-item"><span>Oursin frais (uni)</span><span>1-2 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Takoyaki (8 pièces)</span><span>500-700 ¥</span></div><div class="menu-item"><span>Kushikatsu (brochette)</span><span>120-260 ¥</span></div><div class="menu-item"><span>Okonomiyaki</span><span>1 000-1 800 ¥</span></div></div></div>
       </div>
 
-      <div class="tip">💡 <b>BON À SAVOIR</b><br>Pas de pourboire au Japon · prévoir des espèces pour les petites adresses (izakaya, marchés, ramen-ya) · réservation conseillée pour Gion Mikaku et les tables kaiseki, jusqu'à une semaine à l'avance.</div>
+      <div class="tip">💡 <b>BON À SAVOIR</b><br>Menus et prix indicatifs relevés en juillet 2026, susceptibles de changer — à vérifier sur place ou sur Tabelog. Pas de pourboire au Japon · prévoir des espèces pour les petites adresses (izakaya, marchés, ramen-ya) · réservation conseillée pour Gion Mikaku et les tables kaiseki, jusqu'à une semaine à l'avance.</div>
     </section>
   </div>
 </div>
@@ -767,24 +772,35 @@ document.querySelectorAll('.check').forEach(el=>{
 document.querySelectorAll('.check .spot').forEach(a=>{
   a.addEventListener('click', e => e.stopPropagation());
 });
+document.querySelectorAll('.menu-toggle').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const drop = btn.nextElementSibling;
+    const isOpen = drop.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.textContent = isOpen ? 'Masquer le menu ▴' : 'Voir le menu ▾';
+  });
+});
 
-/* ============ MUSIQUE — panneau visible (fix mobile) ============ */
-let musicOpen = false;
+/* ============ MUSIQUE — fichier local (musique.mp3 à la racine du site) ============ */
 const musicBtn = document.getElementById('musicToggle');
-const musicPlayer = document.getElementById('musicPlayer');
+const bgMusic = document.getElementById('bgMusic');
+let musicPlaying = false;
 musicBtn.addEventListener('click', () => {
-  if (!musicOpen) {
-    musicPlayer.innerHTML = '<iframe src="https://www.youtube.com/embed/B0jTN6ZigZc?autoplay=1&loop=1&playlist=B0jTN6ZigZc&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    musicPlayer.classList.add('open');
-    musicBtn.classList.add('playing');
-    musicBtn.textContent = '🔊';
+  if (!musicPlaying) {
+    bgMusic.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '🔊';
+      musicPlaying = true;
+    }).catch(err => {
+      console.error('Lecture impossible', err);
+      alert("Impossible de lire musique.mp3 — vérifie qu'il est bien à la racine du site, à côté d'index.html.");
+    });
   } else {
-    musicPlayer.innerHTML = '';
-    musicPlayer.classList.remove('open');
+    bgMusic.pause();
     musicBtn.classList.remove('playing');
     musicBtn.textContent = '🎵';
+    musicPlaying = false;
   }
-  musicOpen = !musicOpen;
 });
 
 /* ============ COMPTE À REBOURS (8 décembre 2026) ============ */
@@ -886,8 +902,8 @@ function initMap(){
   const mapEl = document.getElementById('map');
   if (!mapEl || typeof L === 'undefined') return;
   mapInstance = L.map('map', {scrollWheelZoom:true}).setView([35.4, 137.2], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
+  L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+    attribution: 'Fond de carte : <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use" target="_blank" rel="noopener">Wikimedia</a> · Données : &copy; OpenStreetMap contributors',
     maxZoom: 18
   }).addTo(mapInstance);
 
