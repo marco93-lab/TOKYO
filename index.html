@@ -48,6 +48,9 @@ h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
 .neon-pink{color:var(--sakura);text-shadow:0 0 10px #ff2d7880,0 0 32px #ff2d7840}
 .neon-cyan{color:var(--cyan);text-shadow:0 0 10px #22e4e680,0 0 32px #22e4e640}
 .neon-amber{color:var(--lanterne);text-shadow:0 0 10px #ffb13b80,0 0 32px #ffb13b40}
+/* ---------- liens vers lieux (Maps) ---------- */
+.spot{color:inherit;text-decoration:underline dotted;text-decoration-color:#ffffff4d;text-underline-offset:3px;transition:.2s}
+.spot:hover,.spot:focus-visible{color:var(--cyan);text-decoration-color:var(--cyan)}
 /* ---------- layout ---------- */
 .wrap{max-width:960px;margin:0 auto;padding:0 18px}
 section{padding:56px 0;scroll-margin-top:20px}
@@ -194,12 +197,12 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city tokyo">
         <span class="k">東京</span>
         <div class="city-head"><h3 class="accent neon-pink">TOKYO</h3><span class="nights">6 nuits · 9 → 15 déc</span></div>
-        <div class="day"><span class="chip">MER 9</span><p>Arrivée Haneda/Narita, check-in Shinjuku.<small>Soir : Kabukicho &amp; ruelles d'Omoide Yokocho</small></p></div>
-        <div class="day"><span class="chip">JEU 10</span><p>Asakusa : Senso-ji &amp; Nakamise-dori, puis Akihabara.<small>Option : Tokyo Skytree</small></p></div>
-        <div class="day"><span class="chip">VEN 11</span><p>Croisement de Shibuya + Shibuya Sky au coucher du soleil.<small>Harajuku, Takeshita-dori, Meiji-jingu</small></p></div>
-        <div class="day"><span class="chip">SAM 12</span><p>teamLab Planets (résa obligatoire) puis Odaiba.<small>Soir : illuminations de Marunouchi ✨</small></p></div>
-        <div class="day"><span class="chip">DIM 13</span><p>Marché de Tsukiji au petit matin, Ginza, jardins Hamarikyu.<small>Soir : illuminations de Roppongi</small></p></div>
-        <div class="day"><span class="chip">LUN 14</span><p>Parc &amp; musées d'Ueno, vieux quartier de Yanaka.<small>Dernière soirée libre à Shinjuku</small></p></div>
+        <div class="day"><span class="chip">MER 9</span><p>Arrivée Haneda/Narita, check-in <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a>.<small>Soir : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kabukicho+Tokyo" target="_blank" rel="noopener">Kabukicho</a> &amp; ruelles d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></small></p></div>
+        <div class="day"><span class="chip">JEU 10</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a>, puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Akihabara+Tokyo" target="_blank" rel="noopener">Akihabara</a>.<small>Option : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a></small></p></div>
+        <div class="day"><span class="chip">VEN 11</span><p>Croisement de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Shibuya</a> + <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> au coucher du soleil.<small><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Takeshita-dori</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></small></p></div>
+        <div class="day"><span class="chip">SAM 12</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> (résa obligatoire) puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> ✨</small></p></div>
+        <div class="day"><span class="chip">DIM 13</span><p>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> au petit matin, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>, jardins <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Hamarikyu+Gardens+Tokyo" target="_blank" rel="noopener">Hamarikyu</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a></small></p></div>
+        <div class="day"><span class="chip">LUN 14</span><p>Parc &amp; musées d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ueno+Park+Tokyo" target="_blank" rel="noopener">Ueno</a>, vieux quartier de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>.<small>Dernière soirée libre à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a></small></p></div>
       </article>
 
       <div class="transit"><span>MAR 15</span><div class="rail"></div><span>Shinkansen Nozomi 2h15 — siège E côté Mont Fuji 🗻</span></div>
@@ -207,9 +210,9 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city kyoto">
         <span class="k">京都</span>
         <div class="city-head"><h3 class="accent neon-amber">KYOTO</h3><span class="nights">3 nuits · 15 → 18 déc</span></div>
-        <div class="day"><span class="chip">MAR 15</span><p>Arrivée midi. Gion &amp; Pontocho à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
-        <div class="day"><span class="chip">MER 16</span><p>Fushimi Inari avant 8h (10 000 torii), Kiyomizu-dera.<small>Flânerie dans Higashiyama</small></p></div>
-        <div class="day"><span class="chip">JEU 17</span><p>Bambouseraie d'Arashiyama tôt, pont Togetsukyo.<small>Après-midi : Kinkaku-ji, le pavillon d'or</small></p></div>
+        <div class="day"><span class="chip">MAR 15</span><p>Arrivée midi. <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho</a> à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
+        <div class="day"><span class="chip">MER 16</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> avant 8h (10 000 torii), <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a>.<small>Flânerie dans <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a></small></p></div>
+        <div class="day"><span class="chip">JEU 17</span><p>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> tôt, pont <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener">Togetsukyo</a>.<small>Après-midi : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</small></p></div>
       </article>
 
       <div class="transit"><span>VEN 18</span><div class="rail"></div><span>Train JR — 15 min</span></div>
@@ -217,8 +220,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city osaka">
         <span class="k">大阪</span>
         <div class="city-head"><h3 class="accent neon-cyan">OSAKA</h3><span class="nights">1 nuit · 18 → 19 déc</span></div>
-        <div class="day"><span class="chip">VEN 18</span><p>Château d'Osaka l'après-midi.<small>Soir : néons de Dotonbori + street food (takoyaki !) 🐙</small></p></div>
-        <div class="day"><span class="chip">SAM 19</span><p>Marché Kuromon &amp; Shinsekai le matin.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
+        <div class="day"><span class="chip">VEN 18</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a> l'après-midi.<small>Soir : néons de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> + street food (takoyaki !) 🐙</small></p></div>
+        <div class="day"><span class="chip">SAM 19</span><p>Marché <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a> le matin.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
       </article>
 
       <div class="transit"><span>SAM 19</span><div class="rail"></div><span>Shinkansen Shin-Osaka → Tokyo 2h30</span></div>
@@ -226,7 +229,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city tokyo">
         <span class="k">最後</span>
         <div class="city-head"><h3 class="accent neon-pink">TOKYO — FINAL</h3><span class="nights">1 nuit · 19 → 20 déc</span></div>
-        <div class="day"><span class="chip">SAM 19</span><p>Dernière soirée à Shibuya.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
+        <div class="day"><span class="chip">SAM 19</span><p>Dernière soirée à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a>.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
         <div class="day"><span class="chip">DIM 20</span><p>Vol retour Tokyo → Barcelone, puis train vers Perpignan.<small>また ね、日本 — à bientôt, Japon</small></p></div>
       </article>
     </section>
@@ -241,8 +244,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vols A/R Barcelone ↔ Tokyo</b><small>Juillet-août 2026 · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Train Perpignan ↔ Barcelone</b><small>À l'ouverture des ventes · SNCF Connect / Trainline</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vols confirmés · annulation gratuite · Kyoto en premier</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · teamLab Planets</b><small>Dès ouverture du calendrier (J-60/90) · créneau 12 déc</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · Shibuya Sky</b><small>~1 mois avant · créneau coucher de soleil 16h-16h30</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a></b><small>Dès ouverture du calendrier (J-60/90) · créneau 12 déc</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a></b><small>~1 mois avant · créneau coucher de soleil 16h-16h30</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>6 · Shinkansen × 2 trajets</b><small>J-30 à 10h (heure JP) : 8 nov &amp; 19 nov 2026 · appli Smart-EX · siège E</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>7 · eSIM data Japon</b><small>1 semaine avant · Airalo / Ubigi · ~10-15 €/pers</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>8 · Carte Suica mobile</b><small>Avant départ · Apple Wallet / appli Suica</small></span></div>
@@ -286,10 +289,10 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Hôtels</h2>
       </div>
       <div class="grid h2">
-        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · arrivée</h4><span class="price">~125 €/nuit</span></div><p>6 nuits · 9→15 déc — Shinjuku (hyper-connecté) ou Asakusa (charme + budget)</p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-amber">Kyoto</h4><span class="price">~140 €/nuit</span></div><p>3 nuits · 15→18 déc — quartier de la gare (−46 % vs moyenne ville) ou Gion</p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>1 nuit · 18→19 déc — Namba / Dotonbori, tout à pied le soir</p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 19→20 déc — Shibuya ou gare de Tokyo pour un départ facile</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · arrivée</h4><span class="price">~125 €/nuit</span></div><p>6 nuits · 9→15 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> (hyper-connecté) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> (charme + budget)</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-amber">Kyoto</h4><span class="price">~140 €/nuit</span></div><p>3 nuits · 15→18 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener">quartier de la gare</a> (−46 % vs moyenne ville) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>1 nuit · 18→19 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Namba+Osaka" target="_blank" rel="noopener">Namba</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a>, tout à pied le soir</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 19→20 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a> ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Station" target="_blank" rel="noopener">gare de Tokyo</a> pour un départ facile</p></div>
       </div>
     </section>
   </div>
@@ -305,26 +308,26 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       </div>
       <p class="act-city neon-pink">— Tokyo</p>
       <div class="acts">
-        <div class="act"><span>teamLab Planets <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="tag pay">50 €</span></div>
-        <div class="act"><span>Shibuya Sky — rooftop 360°</span><span class="tag pay">32 €</span></div>
-        <div class="act"><span>Tokyo Skytree <small style="color:var(--muted)">(option)</small></span><span class="tag pay">39 €</span></div>
-        <div class="act"><span>Senso-ji · Meiji-jingu · croisement Shibuya</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Illuminations Marunouchi / Roppongi ✨</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Marché de Tsukiji (outer market)</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="tag pay">50 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> — rooftop 360°</span><span class="tag pay">32 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">39 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">croisement Shibuya</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Illuminations <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> ✨</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> (outer market)</span><span class="tag free">GRATUIT</span></div>
       </div>
       <p class="act-city neon-amber">— Kyoto</p>
       <div class="acts">
-        <div class="act"><span>Fushimi Inari — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Kinkaku-ji, le pavillon d'or</span><span class="tag pay">6 €</span></div>
-        <div class="act"><span>Kiyomizu-dera</span><span class="tag pay">6 €</span></div>
-        <div class="act"><span>Bambouseraie d'Arashiyama · Gion</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a></span><span class="tag pay">6 €</span></div>
+        <div class="act"><span>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="tag free">GRATUIT</span></div>
       </div>
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="acts">
-        <div class="act"><span>Château d'Osaka</span><span class="tag pay">8 €</span></div>
-        <div class="act"><span>Umeda Sky Building <small style="color:var(--muted)">(option)</small></span><span class="tag pay">19 €</span></div>
-        <div class="act"><span>Dotonbori · Kuromon · Shinsekai</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Universal Studios Japan <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="tag pay">108 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a></span><span class="tag pay">8 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Umeda+Sky+Building+Osaka" target="_blank" rel="noopener">Umeda Sky Building</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">19 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="tag pay">108 €</span></div>
       </div>
     </section>
   </div>
@@ -341,32 +344,32 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 
       <p class="act-city neon-pink">— Tokyo</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-pink">Ramen Nagi</h4><span class="price">~15 €</span></div><p>📍 Shinjuku, Golden Gai · ramen niboshi (bouillon de sardines séchées), une référence du quartier</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink">Tempura Tsunahachi</h4><span class="price">~31 €</span></div><p>📍 Shinjuku · menu tempura traditionnel — crevette, légumes, riz et soupe miso</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink">Ichiran</h4><span class="price">~14 €</span></div><p>📍 Shibuya · tonkotsu ramen en cabine individuelle, sauce secrète personnalisable</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink">Kaiten-zushi</h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink">Daikokuya</h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-pink">Omoide Yokocho</h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ramen+Nagi+Golden+Gai+Shinjuku+Tokyo" target="_blank" rel="noopener">Ramen Nagi</a></h4><span class="price">~15 €</span></div><p>📍 Shinjuku, Golden Gai · ramen niboshi (bouillon de sardines séchées), une référence du quartier</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tempura+Tsunahachi+Shinjuku+Tokyo" target="_blank" rel="noopener">Tempura Tsunahachi</a></h4><span class="price">~31 €</span></div><p>📍 Shinjuku · menu tempura traditionnel — crevette, légumes, riz et soupe miso</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ichiran+Shibuya+Tokyo" target="_blank" rel="noopener">Ichiran</a></h4><span class="price">~14 €</span></div><p>📍 Shibuya · tonkotsu ramen en cabine individuelle, sauce secrète personnalisable</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=kaiten+zushi+Shibuya+Tokyo" target="_blank" rel="noopener">Kaiten-zushi</a></h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daikokuya+Tempura+Asakusa+Tokyo" target="_blank" rel="noopener">Daikokuya</a></h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p></div>
       </div>
 
       <p class="act-city neon-amber">— Kyoto</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-amber">Omen</h4><span class="price">~19 €</span></div><p>📍 Près de Ginkaku-ji · udon fait maison, tempura, salade thon-avocat</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber">Katsukura</h4><span class="price">~25 €</span></div><p>📍 Gare de Kyoto (food court) · tonkatsu, rituel du sésame à moudre soi-même</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber">Musashi Sushi</h4><span class="price">~19 €</span></div><p>📍 Centre-ville · kaiten-zushi fiable, fruits de mer de saison</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber">HIRO Yakiniku</h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber">Gion Mikaku</h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-amber">Pontocho-dori</h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omen+Ginkakuji+Kyoto" target="_blank" rel="noopener">Omen</a></h4><span class="price">~19 €</span></div><p>📍 Près de Ginkaku-ji · udon fait maison, tempura, salade thon-avocat</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Katsukura+Kyoto+Station" target="_blank" rel="noopener">Katsukura</a></h4><span class="price">~25 €</span></div><p>📍 Gare de Kyoto (food court) · tonkatsu, rituel du sésame à moudre soi-même</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Musashi+Sushi+Kyoto" target="_blank" rel="noopener">Musashi Sushi</a></h4><span class="price">~19 €</span></div><p>📍 Centre-ville · kaiten-zushi fiable, fruits de mer de saison</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=HIRO+Yakiniku+Pontocho+Kyoto" target="_blank" rel="noopener">HIRO Yakiniku</a></h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Mikaku+Kyoto" target="_blank" rel="noopener">Gion Mikaku</a></h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a></h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p></div>
       </div>
 
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="grid h2">
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Kukuru</h4><span class="price">~7 €</span></div><p>📍 Dotonbori · takoyaki moelleux, institution du quartier (2 portions)</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Chibo Okonomiyaki</h4><span class="price">~25 €</span></div><p>📍 Namba · okonomiyaki à cuisiner soi-même sur la plaque</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Ajinoya</h4><span class="price">~15 €</span></div><p>📍 Dotonbori · okonomiyaki généreux, Bib Gourmand, moins cher que Chibo</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Daruma</h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Kuromon Ichiba Market</h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p></div>
-        <div class="resto"><div class="top"><h4 class="neon-cyan">Dotonbori</h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kukuru+Takoyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Kukuru</a></h4><span class="price">~7 €</span></div><p>📍 Dotonbori · takoyaki moelleux, institution du quartier (2 portions)</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Chibo+Okonomiyaki+Namba+Osaka" target="_blank" rel="noopener">Chibo Okonomiyaki</a></h4><span class="price">~25 €</span></div><p>📍 Namba · okonomiyaki à cuisiner soi-même sur la plaque</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ajinoya+Okonomiyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Ajinoya</a></h4><span class="price">~15 €</span></div><p>📍 Dotonbori · okonomiyaki généreux, Bib Gourmand, moins cher que Chibo</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daruma+Kushikatsu+Shinsekai+Osaka" target="_blank" rel="noopener">Daruma</a></h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon Ichiba Market</a></h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p></div>
       </div>
 
       <div class="tip">💡 <b>BON À SAVOIR</b><br>Pas de pourboire au Japon · prévoir des espèces pour les petites adresses (izakaya, marchés, ramen-ya) · réservation conseillée pour Gion Mikaku et les tables kaiseki, jusqu'à une semaine à l'avance.</div>
@@ -377,7 +380,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 </main>
 
 <footer>
-  旅 Voyage Japon · 8 → 20 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026
+  旅 Voyage Japon · 8 → 20 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026 · les liens 📍 ouvrent Google Maps
 </footer>
 
 <script>
@@ -400,6 +403,10 @@ document.querySelectorAll('.check').forEach(el=>{
   const toggle=()=>el.classList.toggle('done');
   el.addEventListener('click',toggle);
   el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+});
+// Empêche les liens à l'intérieur d'une checklist de cocher/décocher la case en cliquant dessus
+document.querySelectorAll('.check .spot').forEach(a=>{
+  a.addEventListener('click', e => e.stopPropagation());
 });
 </script>
 </body>
