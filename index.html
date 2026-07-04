@@ -1,9 +1,4 @@
-/* ---------- village en guerre (vue aérienne) ---------- */
-.battle-scene{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--nuit-2);aspect-ratio:400/260;max-height:75vh}
-.village-bg{width:100%;height:100%;display:block;position:absolute;inset:0}
-.army{position:absolute;inset:0}
-.unit{width:12px;height:12px;position:absolute;transform:translate(-50%,-50%);transition:top 2.6s ease-in-out,left 2.6s ease-in-out,opacity .6s ease,transform .6s ease;border-radius:2px}
-.unit.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -212,17 +207,20 @@ section{padding:56px 0;scroll-margin-top:20px}
 .mf-btn{border:1px solid var(--line);border-radius:999px;background:#ffffff08;color:var(--muted);font-family:inherit;font-size:12.5px;padding:7px 14px;cursor:pointer;transition:.2s}
 .mf-btn:hover{color:var(--washi)}
 .mf-btn.active{color:var(--washi);border-color:var(--cyan);box-shadow:0 0 12px #22e4e644}
-/* ---------- village en guerre ---------- */
-.battle-scene{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--nuit-2);aspect-ratio:16/9;max-height:70vh}
-.village-bg{width:100%;height:100%;display:block}
-.fighters{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:50px;padding-bottom:6%}
-.fighter svg{display:block;image-rendering:pixelated;filter:drop-shadow(0 4px 6px #00000090)}
-.fighter-left{animation:lunge-right 1.8s ease-in-out infinite}
-.fighter-right{animation:lunge-left 1.8s ease-in-out infinite}
-@keyframes lunge-right{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
-@keyframes lunge-left{0%,100%{transform:translateX(0) scaleX(-1)}50%{transform:translateX(-26px) scaleX(-1)}}
-.clash-fx{position:absolute;left:50%;bottom:30%;transform:translate(-50%,50%) scale(.6);font-family:"DotGothic16",monospace;font-size:34px;color:var(--sakura);text-shadow:0 0 14px #ff2d78a0,0 0 30px #ff2d7860;opacity:0;pointer-events:none;animation:clash-flash 1.8s ease-in-out infinite}
-@keyframes clash-flash{0%,42%,58%,100%{opacity:0;transform:translate(-50%,50%) scale(.6) rotate(0deg)}48%,52%{opacity:1;transform:translate(-50%,50%) scale(1.3) rotate(20deg)}}
+/* ---------- village en guerre (vue aérienne) ---------- */
+.battle-scene{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--nuit-2);aspect-ratio:400/260;max-height:75vh}
+.village-bg{width:100%;height:100%;display:block;position:absolute;inset:0}
+.army{position:absolute;inset:0}
+.unit{width:12px;height:12px;position:absolute;transform:translate(-50%,-50%);transition:top 2.6s ease-in-out,left 2.6s ease-in-out,opacity .6s ease,transform .6s ease;border-radius:2px}
+.unit.pink{background:var(--sakura);box-shadow:0 0 5px #ff2d78aa}
+.unit.cyan{background:var(--cyan);box-shadow:0 0 5px #22e4e6aa}
+.unit.defeated{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+.clash-burst{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);font-size:38px;opacity:0;pointer-events:none}
+.clash-burst.burst{animation:burst-pop .6s ease forwards}
+@keyframes burst-pop{0%{transform:translate(-50%,-50%) scale(.3);opacity:0}40%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
+.victory-banner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#000000b0;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.victory-banner.show{opacity:1;pointer-events:auto}
+.vb-title{font-family:"DotGothic16",monospace;font-size:clamp(17px,4.2vw,25px);color:var(--lanterne);text-shadow:0 0 16px #ffb13b90;text-align:center;padding:0 20px}
 .village-caption{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px;letter-spacing:.03em}
 /* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
@@ -238,7 +236,7 @@ nav::-webkit-scrollbar{display:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label,.fighter-left,.fighter-right,.clash-fx{animation:none}#introAnim{display:none}}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}#introAnim{display:none}.unit{transition:none!important}.clash-burst{animation:none!important}}
 /* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
@@ -625,83 +623,45 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 9 — VILLAGE EN GUERRE ============ -->
+<!-- ============ PAGE 9 — VILLAGE EN GUERRE (VUE DU CIEL) ============ -->
 <div class="page" id="page-village">
   <div class="wrap">
     <section id="village">
       <div class="sec-head">
-        <p class="eyebrow">村 — scène animée, pixel art original</p>
+        <p class="eyebrow">村 — vue du ciel, pixel art original</p>
         <h2 class="display">Village en guerre</h2>
       </div>
       <div class="battle-scene">
-        <svg class="village-bg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <svg class="village-bg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1a0f2e"/>
-              <stop offset="60%" stop-color="#12121f"/>
-              <stop offset="100%" stop-color="#0B0B14"/>
+            <linearGradient id="fieldGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#241f3a"/>
+              <stop offset="15%" stop-color="#1e2a22"/>
+              <stop offset="50%" stop-color="#182818"/>
+              <stop offset="85%" stop-color="#16232a"/>
+              <stop offset="100%" stop-color="#1a2e30"/>
             </linearGradient>
           </defs>
-          <rect x="0" y="0" width="400" height="220" fill="url(#skyGrad)"/>
-          <circle cx="335" cy="40" r="20" fill="#FFB13B" opacity="0.85"/>
-          <circle cx="335" cy="40" r="34" fill="#FFB13B" opacity="0.12"/>
-          <polygon points="0,170 55,110 115,170" fill="#181826"/>
-          <polygon points="90,170 175,95 260,170" fill="#12121f"/>
-          <polygon points="230,170 300,120 370,170" fill="#181826"/>
-          <g fill="#08080e">
-            <path d="M4,180 L34,150 L64,180 Z"/>
-            <rect x="14" y="180" width="40" height="26"/>
-            <path d="M84,186 L124,140 L164,186 Z"/>
-            <rect x="94" y="186" width="60" height="30"/>
-            <path d="M184,180 L209,155 L234,180 Z"/>
-            <rect x="192" y="180" width="34" height="26"/>
-            <path d="M254,186 L296,132 L338,186 Z"/>
-            <rect x="264" y="186" width="64" height="30"/>
-            <path d="M348,180 L373,158 L398,180 Z"/>
-            <rect x="356" y="180" width="34" height="26"/>
-          </g>
-          <circle cx="39" cy="176" r="3" fill="#FF2D78"/>
-          <circle cx="124" cy="182" r="3" fill="#FF2D78"/>
-          <circle cx="296" cy="182" r="3" fill="#FF2D78"/>
-          <circle cx="373" cy="176" r="3" fill="#FF2D78"/>
+          <rect width="400" height="260" fill="url(#fieldGrad)"/>
+          <rect x="0" y="0" width="400" height="30" fill="#2a1420"/>
+          <polygon points="0,30 400,30 400,42 0,42" fill="#ff2d7833"/>
+          <rect x="0" y="230" width="400" height="30" fill="#122a2c"/>
+          <polygon points="0,218 400,218 400,230 0,230" fill="#22e4e633"/>
+          <ellipse cx="70" cy="90" rx="18" ry="10" fill="#20301c" opacity="0.6"/>
+          <ellipse cx="330" cy="170" rx="22" ry="12" fill="#20301c" opacity="0.6"/>
+          <ellipse cx="200" cy="60" rx="14" ry="8" fill="#20301c" opacity="0.5"/>
+          <ellipse cx="150" cy="200" rx="16" ry="9" fill="#20301c" opacity="0.5"/>
+          <line x1="0" y1="130" x2="400" y2="130" stroke="#ffffff20" stroke-width="2" stroke-dasharray="6 6"/>
         </svg>
-        <div class="fighters">
-          <div class="fighter fighter-left">
-            <svg viewBox="0 0 60 80" width="64" height="86">
-              <rect x="14" y="56" width="10" height="20" fill="#1c1c26"/>
-              <rect x="30" y="56" width="10" height="20" fill="#1c1c26"/>
-              <rect x="12" y="30" width="30" height="28" fill="#2a2a3a"/>
-              <rect x="16" y="34" width="22" height="8" fill="#3d3d52"/>
-              <rect x="18" y="14" width="20" height="18" fill="#e8b98a"/>
-              <rect x="15" y="10" width="26" height="6" fill="#111"/>
-              <rect x="15" y="17" width="8" height="4" fill="#d92b3f"/>
-              <rect x="21" y="19" width="3" height="3" fill="#111"/>
-              <rect x="30" y="19" width="3" height="3" fill="#111"/>
-              <rect x="36" y="14" width="9" height="24" fill="#2a2a3a"/>
-              <rect x="42" y="0" width="4" height="18" fill="#dcdcdc"/>
-              <rect x="38" y="16" width="12" height="4" fill="#7a4a1a"/>
-            </svg>
-          </div>
-          <div class="clash-fx">斬</div>
-          <div class="fighter fighter-right">
-            <svg viewBox="0 0 60 80" width="64" height="86">
-              <rect x="14" y="56" width="10" height="20" fill="#3a1418"/>
-              <rect x="30" y="56" width="10" height="20" fill="#3a1418"/>
-              <rect x="12" y="30" width="30" height="28" fill="#5a1f26"/>
-              <rect x="16" y="34" width="22" height="8" fill="#7a2b34"/>
-              <rect x="18" y="14" width="20" height="18" fill="#e8b98a"/>
-              <rect x="15" y="10" width="26" height="6" fill="#111"/>
-              <rect x="15" y="17" width="8" height="4" fill="#FFB13B"/>
-              <rect x="21" y="19" width="3" height="3" fill="#111"/>
-              <rect x="30" y="19" width="3" height="3" fill="#111"/>
-              <rect x="36" y="14" width="9" height="24" fill="#5a1f26"/>
-              <rect x="42" y="0" width="4" height="18" fill="#dcdcdc"/>
-              <rect x="38" y="16" width="12" height="4" fill="#7a4a1a"/>
-            </svg>
-          </div>
+        <div class="army army-pink" id="armyPink"></div>
+        <div class="army army-cyan" id="armyCyan"></div>
+        <div class="clash-burst" id="clashBurst">💥</div>
+        <div class="victory-banner" id="victoryBanner">
+          <p class="vb-title">🏆 <span id="winnerName">—</span> remporte la bataille !</p>
+          <button type="button" id="replayBattle" class="menu-toggle">⟳ Rejouer la bataille</button>
         </div>
       </div>
-      <p class="village-caption">⚔️ Deux clans s'affrontent aux portes du village, sous la pleine lune — scène pixel art animée, purement décorative</p>
+      <p class="village-caption">⚔️ Vue aérienne d'un affrontement entre deux clans — scène pixel art animée, résultat généré aléatoirement à chaque visite</p>
     </section>
   </div>
 </div>
@@ -798,6 +758,7 @@ function showPage(id){
   });
   window.scrollTo({top:0,behavior:'auto'});
   if (id === 'carte') { setTimeout(initMap, 60); }
+  if (id === 'village') { runBattle(); }
 }
 document.querySelectorAll('.navbtn').forEach(b=>{
   b.addEventListener('click', () => showPage(b.dataset.page));
@@ -866,6 +827,84 @@ function updateCountdown(){
 }
 updateCountdown();
 const countdownTimer = setInterval(updateCountdown, 1000);
+
+/* ============ VILLAGE EN GUERRE — bataille vue du ciel ============ */
+let battleTimers = [];
+function clearBattleTimers(){
+  battleTimers.forEach(t => clearTimeout(t));
+  battleTimers = [];
+}
+function setupBattleUnits(){
+  const armyPink = document.getElementById('armyPink');
+  const armyCyan = document.getElementById('armyCyan');
+  if (!armyPink || !armyCyan) return null;
+  armyPink.innerHTML = '';
+  armyCyan.innerHTML = '';
+  const cols = 5, rows = 2;
+  const pinkUnits = [], cyanUnits = [];
+  for (let r=0; r<rows; r++){
+    for (let c=0; c<cols; c++){
+      const u = document.createElement('div');
+      u.className = 'unit pink';
+      u.style.left = (10 + c*18) + '%';
+      u.style.top = (6 + r*8) + '%';
+      armyPink.appendChild(u);
+      pinkUnits.push(u);
+    }
+  }
+  for (let r=0; r<rows; r++){
+    for (let c=0; c<cols; c++){
+      const u = document.createElement('div');
+      u.className = 'unit cyan';
+      u.style.left = (10 + c*18) + '%';
+      u.style.top = (84 + r*8) + '%';
+      armyCyan.appendChild(u);
+      cyanUnits.push(u);
+    }
+  }
+  return {pinkUnits, cyanUnits};
+}
+function runBattle(){
+  clearBattleTimers();
+  const banner = document.getElementById('victoryBanner');
+  const burst = document.getElementById('clashBurst');
+  if (!banner || !burst) return;
+  banner.classList.remove('show');
+  burst.classList.remove('burst');
+  const units = setupBattleUnits();
+  if (!units) return;
+  const {pinkUnits, cyanUnits} = units;
+  const pinkWins = Math.random() < 0.5;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    requestAnimationFrame(()=>{
+      pinkUnits.forEach((u,i)=>{ u.style.top = (42 + (i%2)*6) + '%'; });
+      cyanUnits.forEach((u,i)=>{ u.style.top = (52 - (i%2)*6) + '%'; });
+    });
+  } else {
+    pinkUnits.forEach((u,i)=>{ u.style.top = (42 + (i%2)*6) + '%'; });
+    cyanUnits.forEach((u,i)=>{ u.style.top = (52 - (i%2)*6) + '%'; });
+  }
+  const d1 = reduceMotion ? 0 : 2600;
+  const d2 = reduceMotion ? 50 : 2900;
+  const d3 = reduceMotion ? 100 : 4000;
+  battleTimers.push(setTimeout(()=>{ if(!reduceMotion) burst.classList.add('burst'); }, d1));
+  battleTimers.push(setTimeout(()=>{
+    if (pinkWins){
+      cyanUnits.forEach((u,i)=>{ if(i<8) u.classList.add('defeated'); });
+      pinkUnits.forEach((u,i)=>{ if(i<2) u.classList.add('defeated'); });
+    } else {
+      pinkUnits.forEach((u,i)=>{ if(i<8) u.classList.add('defeated'); });
+      cyanUnits.forEach((u,i)=>{ if(i<2) u.classList.add('defeated'); });
+    }
+  }, d2));
+  battleTimers.push(setTimeout(()=>{
+    const winnerEl = document.getElementById('winnerName');
+    if (winnerEl) winnerEl.textContent = pinkWins ? 'Le clan Sakura (rose)' : 'Le clan Ryū (cyan)';
+    banner.classList.add('show');
+  }, d3));
+}
+document.getElementById('replayBattle')?.addEventListener('click', runBattle);
 
 /* ============ CARTE GLOBALE — TOUS LES LIEUX ============ */
 let mapInstance = null;
