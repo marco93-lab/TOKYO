@@ -51,6 +51,26 @@ body.locked{overflow:hidden;height:100vh}
 .swipe-thumb:active{cursor:grabbing}
 .swipe-fill{position:absolute;top:0;left:0;bottom:0;width:0;background:linear-gradient(90deg,#ff2d7833,#22e4e633);border-radius:999px}
 #welcome .w-date{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+/* ---------- intro animée ---------- */
+#introAnim{position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--nuit);opacity:0;visibility:hidden;transition:opacity .5s ease;cursor:pointer;pointer-events:none}
+#introAnim.playing{opacity:1;visibility:visible;pointer-events:auto}
+#introAnim.fade-out{opacity:0}
+.intro-torii{width:min(180px,44vw)}
+.torii-path{stroke-dasharray:900;stroke-dashoffset:900;filter:drop-shadow(0 0 8px #ff2d7880)}
+#introAnim.playing .torii-path{animation:torii-draw 1s ease forwards}
+@keyframes torii-draw{to{stroke-dashoffset:0}}
+.intro-stage{position:relative;width:100%;height:110px}
+.intro-kanji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);font-family:"DotGothic16",monospace;font-size:clamp(56px,16vw,100px);color:var(--sakura);text-shadow:0 0 20px #ff2d78a0,0 0 60px #ff2d7860;opacity:0}
+#introAnim.playing .intro-kanji{animation:kanji-flash 1.6s ease forwards;animation-delay:.9s}
+@keyframes kanji-flash{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}30%,70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.15)}}
+.intro-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
+#introAnim.playing .intro-title{animation:title-in .8s ease forwards;animation-delay:2.2s}
+@keyframes title-in{from{opacity:0;transform:translate(-50%,-38%)}to{opacity:1;transform:translate(-50%,-50%)}}
+.intro-title h2{font-size:clamp(22px,6.5vw,38px)}
+.intro-title p{margin-top:10px;font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.intro-skip{position:absolute;bottom:34px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);opacity:0}
+#introAnim.playing .intro-skip{animation:skip-in 1s ease forwards;animation-delay:1.4s}
+@keyframes skip-in{to{opacity:.7}}
 /* ---------- fond néon ---------- */
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(600px 400px at 85% -5%, #ff2d7826, transparent 60%),
@@ -63,6 +83,19 @@ body.locked{overflow:hidden;height:100vh}
 .kanji-bg{position:fixed;right:-8px;top:10%;z-index:-1;writing-mode:vertical-rl;
   font-family:"DotGothic16",monospace;font-size:clamp(90px,18vw,180px);
   color:transparent;-webkit-text-stroke:1px #ffffff10;letter-spacing:.25em;user-select:none;pointer-events:none;}
+/* ---------- petits marcheurs pixel art ---------- */
+.pixel-walkers{position:fixed;left:0;right:0;bottom:90px;z-index:40;pointer-events:none;height:60px}
+@media(min-width:768px){.pixel-walkers{bottom:18px}}
+.walker{position:absolute;bottom:0;left:0;will-change:transform}
+.walker svg{display:block;image-rendering:pixelated;filter:drop-shadow(0 4px 5px #00000070)}
+@keyframes walk-across{from{transform:translateX(-12vw)}to{transform:translateX(112vw)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.walker-1{animation:walk-across 26s linear infinite}
+.walker-1 svg{animation:bob .32s ease-in-out infinite alternate}
+.walker-2{animation:walk-across 34s linear infinite 9s}
+.walker-2 svg{animation:bob .38s ease-in-out infinite alternate}
+.walker-3{animation:walk-across 30s linear infinite 19s}
+.walker-3 svg{animation:bob .28s ease-in-out infinite alternate}
 /* ---------- typographie ---------- */
 .display{font-family:"DotGothic16",monospace;letter-spacing:.04em}
 h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
@@ -142,6 +175,11 @@ section{padding:56px 0;scroll-margin-top:20px}
 .shop .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .shop h4{font-family:"DotGothic16",monospace;font-size:17px}
 .shop p{font-size:13.5px;color:var(--muted);margin-top:6px}
+/* ---------- applications ---------- */
+.appcard{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
+.appcard .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.appcard h4{font-family:"DotGothic16",monospace;font-size:17px}
+.appcard p{font-size:13.5px;color:var(--muted);margin-top:6px}
 /* ---------- activités ---------- */
 .acts{display:grid;gap:10px}
 .act{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#ffffff05;font-size:14.5px}
@@ -181,14 +219,17 @@ nav::-webkit-scrollbar{display:none}
 .navbtn span.ico{font-size:16px}
 .navbtn:hover,.navbtn:focus-visible{color:var(--washi);background:#ffffff10}
 .navbtn.active{color:var(--washi);background:#ffffff14;box-shadow:inset 0 0 0 1px #ffffff20}
-/* ---------- bouton musique ---------- */
+/* ---------- bouton + panneau musique ---------- */
 #musicToggle{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#0b0b14e6;backdrop-filter:blur(12px);color:var(--washi);font-size:18px;cursor:pointer;box-shadow:0 8px 24px #00000080;transition:.2s}
 #musicToggle:hover,#musicToggle:focus-visible{border-color:var(--sakura);box-shadow:0 0 18px #ff2d7855}
 #musicToggle.playing{animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
+#musicPlayer{position:fixed;top:66px;right:14px;z-index:59;width:min(240px,60vw);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px #000000a0;display:none;border:1px solid var(--line)}
+#musicPlayer.open{display:block}
+#musicPlayer iframe{display:block;width:100%;height:135px;border:0}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label,.pixel-walkers{animation:none}.pixel-walkers,#introAnim{display:none}}
 /* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
@@ -223,6 +264,68 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <p class="w-date">8 → 20 décembre 2026 · Tokyo · Kyoto · Osaka</p>
 </div>
 
+<!-- ============ INTRO ANIMÉE (après déverrouillage) ============ -->
+<div id="introAnim" aria-hidden="true">
+  <svg class="intro-torii" viewBox="0 0 200 150" fill="none" stroke="#FF2D78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path class="torii-path" d="M20 30 Q100 10 180 30 M20 30 L14 46 M180 30 L186 46 M14 46 L186 46 M40 46 L40 140 M56 46 L56 140 M144 46 L144 140 M160 46 L160 140 M28 70 L172 70"/>
+  </svg>
+  <div class="intro-stage">
+    <div class="intro-kanji">日本</div>
+    <div class="intro-title">
+      <h2 class="display"><span class="neon-pink">旅</span> VOYAGE <span class="neon-cyan">JAPON</span></h2>
+      <p>Perpignan → Barcelone → Tokyo</p>
+    </div>
+  </div>
+  <p class="intro-skip">Toucher pour passer</p>
+</div>
+
+<!-- ============ PETITS MARCHEURS PIXEL ART (originaux) ============ -->
+<div class="pixel-walkers" aria-hidden="true">
+  <div class="walker walker-1">
+    <svg viewBox="0 0 56 64" width="42" height="48">
+      <rect x="16" y="4" width="24" height="16" fill="#1c1c26"/>
+      <rect x="20" y="10" width="16" height="8" fill="#e8b98a"/>
+      <rect x="22" y="13" width="3" height="3" fill="#111"/>
+      <rect x="31" y="13" width="3" height="3" fill="#111"/>
+      <rect x="16" y="12" width="24" height="4" fill="#d92b3f"/>
+      <rect x="38" y="14" width="10" height="4" fill="#d92b3f"/>
+      <rect x="16" y="20" width="24" height="22" fill="#1c1c26"/>
+      <rect x="12" y="22" width="6" height="14" fill="#1c1c26"/>
+      <rect x="38" y="22" width="6" height="14" fill="#1c1c26"/>
+      <rect x="18" y="42" width="8" height="16" fill="#111118"/>
+      <rect x="30" y="42" width="8" height="16" fill="#111118"/>
+    </svg>
+  </div>
+  <div class="walker walker-2">
+    <svg viewBox="0 0 56 64" width="42" height="48">
+      <rect x="14" y="4" width="8" height="8" fill="#f2e2c4"/>
+      <rect x="34" y="4" width="8" height="8" fill="#f2e2c4"/>
+      <rect x="18" y="2" width="20" height="6" fill="#c9a227"/>
+      <rect x="24" y="0" width="8" height="4" fill="#c9a227"/>
+      <rect x="14" y="10" width="28" height="16" fill="#f2e2c4"/>
+      <rect x="20" y="17" width="3" height="3" fill="#111"/>
+      <rect x="33" y="17" width="3" height="3" fill="#111"/>
+      <rect x="25" y="21" width="6" height="3" fill="#e8a2a2"/>
+      <rect x="16" y="26" width="24" height="18" fill="#d9d0b8"/>
+      <rect x="22" y="30" width="12" height="10" fill="#e8a2a2" opacity=".5"/>
+      <rect x="42" y="30" width="6" height="14" fill="#f2e2c4"/>
+      <rect x="18" y="44" width="8" height="14" fill="#f2e2c4"/>
+      <rect x="30" y="44" width="8" height="14" fill="#f2e2c4"/>
+    </svg>
+  </div>
+  <div class="walker walker-3">
+    <svg viewBox="0 0 56 64" width="38" height="44">
+      <polygon points="28,4 48,44 8,44" fill="#fdfaf0"/>
+      <rect x="8" y="30" width="40" height="14" fill="#1c1c1c"/>
+      <rect x="20" y="16" width="3" height="3" fill="#111"/>
+      <rect x="33" y="16" width="3" height="3" fill="#111"/>
+      <path d="M22 24 Q28 28 34 24" stroke="#111" stroke-width="2" fill="none"/>
+      <rect x="18" y="44" width="6" height="12" fill="#fdfaf0"/>
+      <rect x="32" y="44" width="6" height="12" fill="#fdfaf0"/>
+    </svg>
+  </div>
+</div>
+
 <button type="button" id="musicToggle" aria-label="Musique">🎵</button>
 <div id="musicPlayer"></div>
 
@@ -234,6 +337,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="adresses" aria-current="false"><span class="ico">🍜</span>Adresses</button>
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
   <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
+  <button type="button" class="navbtn" data-page="apps" aria-current="false"><span class="ico">📱</span>Apps</button>
 </nav>
 
 <main>
@@ -521,6 +625,43 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
+<!-- ============ PAGE 8 — APPLICATIONS UTILES ============ -->
+<div class="page" id="page-apps">
+  <div class="wrap">
+    <section id="apps">
+      <div class="sec-head">
+        <p class="eyebrow">アプリ — à installer avant le départ</p>
+        <h2 class="display">Applications</h2>
+      </div>
+
+      <p class="act-city neon-pink">— Se déplacer</p>
+      <div class="grid h2">
+        <div class="appcard"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/search?q=Google+Maps+app" target="_blank" rel="noopener">Google Maps</a></h4><span class="tag cat">NAVIGATION</span></div><p>📍 Repérage, itinéraires à pied ou en transport, horaires en temps réel</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/search?q=Japan+Transit+Planner+app" target="_blank" rel="noopener">Japan Transit Planner</a></h4><span class="tag cat">TRAINS</span></div><p>🚄 LA référence pour les trains : horaires précis, quais, correspondances</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/search?q=Suica+Apple+Wallet+Japon" target="_blank" rel="noopener">Suica</a></h4><span class="tag cat">PAIEMENT</span></div><p>💳 iPhone : s'ajoute directement dans Wallet, sans appli à télécharger · Android : disponibilité limitée selon le modèle</p></div>
+      </div>
+
+      <p class="act-city neon-amber">— Communiquer</p>
+      <div class="grid h2">
+        <div class="appcard"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/search?q=Google+Traduction+app" target="_blank" rel="noopener">Google Traduction</a></h4><span class="tag cat">TRADUCTION</span></div><p>🔤 Traduction de texte + scan photo de menus et panneaux</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/search?q=LINE+app+messenger" target="_blank" rel="noopener">LINE</a></h4><span class="tag cat">MESSAGERIE</span></div><p>💬 La messagerie n°1 au Japon, utile pour contacts et réservations</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/search?q=Omotenashi+Guide+app" target="_blank" rel="noopener">Omotenashi Guide</a></h4><span class="tag cat">TRADUCTION</span></div><p>📢 Transcription instantanée des annonces et panneaux alentour</p></div>
+      </div>
+
+      <p class="act-city neon-cyan">— Argent, repas &amp; sécurité</p>
+      <div class="grid h2">
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Revolut+Wise+carte+voyage" target="_blank" rel="noopener">Revolut / Wise</a></h4><span class="tag cat">ARGENT</span></div><p>💶 Carte sans frais à l'étranger pour retraits et paiements</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Tabelog+app" target="_blank" rel="noopener">Tabelog</a></h4><span class="tag cat">RESTOS</span></div><p>⭐ Le « TripAdvisor japonais », notes fiables et exigeantes des locaux</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Safety+Tips+JNTO+app" target="_blank" rel="noopener">Safety Tips (JNTO)</a></h4><span class="tag cat">SÉCURITÉ</span></div><p>🚨 Alertes séismes, numéros d'urgence, infos officielles en anglais</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Visit+Japan+Web" target="_blank" rel="noopener">Visit Japan Web</a></h4><span class="tag cat">OFFICIEL</span></div><p>🛂 QR code douane &amp; immigration — déjà dans la checklist résa</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=ecbo+cloak+app" target="_blank" rel="noopener">ecbo cloak</a></h4><span class="tag cat">BAGAGES</span></div><p>🧳 Localiser des consignes à bagages près de sa position</p></div>
+      </div>
+
+      <div class="tip">💡 <b>BON À SAVOIR</b><br>Installe tout avant le départ (au Wi-Fi) · télécharge le pack japonais hors-ligne dans Google Traduction · configure Suica dans Apple Wallet avant d'atterrir pour passer les portillons directement.</div>
+    </section>
+  </div>
+</div>
+
 </main>
 
 <footer>
@@ -537,9 +678,28 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   const welcome = document.getElementById('welcome');
   let dragging = false, startX = 0, thumbX = 0, maxX = 0;
 
+  let introTimeout;
   function unlock(){
     welcome.classList.add('hidden');
-    document.body.classList.remove('locked');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const intro = document.getElementById('introAnim');
+    if (reduceMotion || !intro) {
+      document.body.classList.remove('locked');
+      return;
+    }
+    intro.classList.add('playing');
+    introTimeout = setTimeout(finishIntro, 3600);
+    intro.addEventListener('click', finishIntro, {once:true});
+  }
+  function finishIntro(){
+    clearTimeout(introTimeout);
+    const intro = document.getElementById('introAnim');
+    if (!intro || intro.classList.contains('fade-out')) return;
+    intro.classList.add('fade-out');
+    setTimeout(()=>{
+      intro.style.display = 'none';
+      document.body.classList.remove('locked');
+    }, 500);
   }
   function getMax(){ return track.clientWidth - thumb.clientWidth - 10; }
   function setThumb(x){
@@ -576,7 +736,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   thumb.addEventListener('mousedown', e => { e.preventDefault(); onStart(e.clientX); });
   document.addEventListener('mousemove', e => onMove(e.clientX));
   document.addEventListener('mouseup', onEnd);
-  // accessibilité clavier : Entrée ou espace pour dévoiler
   thumb.setAttribute('tabindex','0');
   thumb.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); maxX = getMax(); setThumb(maxX); setTimeout(unlock, 200); }
@@ -609,21 +768,23 @@ document.querySelectorAll('.check .spot').forEach(a=>{
   a.addEventListener('click', e => e.stopPropagation());
 });
 
-/* ============ MUSIQUE (PNL - Tchiki Tchiki, clip officiel YouTube) ============ */
-let musicPlaying = false;
+/* ============ MUSIQUE — panneau visible (fix mobile) ============ */
+let musicOpen = false;
 const musicBtn = document.getElementById('musicToggle');
 const musicPlayer = document.getElementById('musicPlayer');
 musicBtn.addEventListener('click', () => {
-  if (!musicPlaying) {
-    musicPlayer.innerHTML = '<iframe width="1" height="1" style="position:fixed;bottom:0;right:0;opacity:0;pointer-events:none" src="https://www.youtube.com/embed/B0jTN6ZigZc?autoplay=1&loop=1&playlist=B0jTN6ZigZc" allow="autoplay" frameborder="0"></iframe>';
+  if (!musicOpen) {
+    musicPlayer.innerHTML = '<iframe src="https://www.youtube.com/embed/B0jTN6ZigZc?autoplay=1&loop=1&playlist=B0jTN6ZigZc&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    musicPlayer.classList.add('open');
     musicBtn.classList.add('playing');
     musicBtn.textContent = '🔊';
   } else {
     musicPlayer.innerHTML = '';
+    musicPlayer.classList.remove('open');
     musicBtn.classList.remove('playing');
     musicBtn.textContent = '🎵';
   }
-  musicPlaying = !musicPlaying;
+  musicOpen = !musicOpen;
 });
 
 /* ============ COMPTE À REBOURS (8 décembre 2026) ============ */
@@ -655,7 +816,6 @@ const countdownTimer = setInterval(updateCountdown, 1000);
 let mapInstance = null;
 let allMarkers = [];
 const spots = [
-  /* ---- TOKYO · visites & activités ---- */
   {name:'Senso-ji', cat:'visite', color:'#FF2D78', lat:35.7148, lng:139.7967, desc:"⛩️ Temple le plus ancien de Tokyo · gratuit"},
   {name:'Meiji Jingu', cat:'visite', color:'#FF2D78', lat:35.6764, lng:139.6993, desc:"⛩️ Sanctuaire dans la forêt · gratuit"},
   {name:'Shibuya Crossing', cat:'visite', color:'#FF2D78', lat:35.6595, lng:139.7005, desc:"🚦 Le croisement le plus célèbre du monde · gratuit"},
@@ -671,24 +831,20 @@ const spots = [
   {name:'Odaiba', cat:'visite', color:'#FF2D78', lat:35.6197, lng:139.7756, desc:"🌉 Île futuriste dans la baie"},
   {name:'Kabukicho', cat:'visite', color:'#FF2D78', lat:35.6949, lng:139.7029, desc:"🌃 Quartier des néons de Shinjuku"},
   {name:'Takeshita-dori', cat:'visite', color:'#FF2D78', lat:35.6716, lng:139.7031, desc:"🌈 La rue kawaii de Harajuku"},
-  /* ---- TOKYO · restos ---- */
   {name:'Ramen Nagi', cat:'resto', color:'#FF2D78', lat:35.6944, lng:139.7046, desc:"🍜 Ramen niboshi, Golden Gai · ~15 € pour 2"},
   {name:'Tempura Tsunahachi', cat:'resto', color:'#FF2D78', lat:35.6917, lng:139.7036, desc:"🍤 Tempura traditionnel · ~31 € pour 2"},
   {name:'Ichiran Shibuya', cat:'resto', color:'#FF2D78', lat:35.6613, lng:139.7009, desc:"🍜 Tonkotsu en cabine solo · ~14 € pour 2"},
   {name:'Kaiten-zushi Shibuya', cat:'resto', color:'#FF2D78', lat:35.6600, lng:139.6994, desc:"🍣 Sushis sur tapis roulant · ~25 € pour 2"},
   {name:'Daikokuya', cat:'resto', color:'#FF2D78', lat:35.7118, lng:139.7947, desc:"🍤 Tendon centenaire, Asakusa · ~28 € pour 2"},
   {name:'Omoide Yokocho', cat:'resto', color:'#FF2D78', lat:35.6934, lng:139.6994, desc:"🏮 Ruelle yakitori & izakayas · ~19 € pour 2"},
-  /* ---- TOKYO · shopping ---- */
   {name:'Shibuya 109', cat:'shopping', color:'#FF2D78', lat:35.6598, lng:139.6987, desc:"🛍️ Mode jeune & streetwear"},
   {name:'Omotesando', cat:'shopping', color:'#FF2D78', lat:35.6652, lng:139.7126, desc:"🛍️ Luxe & architecture"},
   {name:'Akihabara', cat:'shopping', color:'#FF2D78', lat:35.6984, lng:139.7731, desc:"🎮 Électronique, manga, figurines"},
   {name:'Ginza', cat:'shopping', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"💎 Grands magasins & luxe"},
   {name:'Nakamise-dori', cat:'shopping', color:'#FF2D78', lat:35.7127, lng:139.7963, desc:"🎁 Artisanat & souvenirs traditionnels"},
   {name:'Don Quijote Shinjuku', cat:'shopping', color:'#FF2D78', lat:35.6946, lng:139.7020, desc:"🛒 Le bazar géant ouvert 24h/24"},
-  /* ---- TOKYO · hôtels ---- */
   {name:'Hôtel Tokyo · Shinjuku', cat:'hotel', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"🏮 6 nuits · 9→15 déc · ~125 €/nuit pour 2"},
   {name:'Hôtel Tokyo final · Shibuya', cat:'hotel', color:'#FF2D78', lat:35.6580, lng:139.7016, desc:"🏮 1 nuit · 19→20 déc · ~130 €/nuit pour 2"},
-  /* ---- KYOTO · visites ---- */
   {name:'Fushimi Inari Taisha', cat:'visite', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"⛩️ 10 000 torii · gratuit · avant 8h"},
   {name:'Kiyomizu-dera', cat:'visite', color:'#FFB13B', lat:34.9949, lng:135.7850, desc:"⛩️ Temple sur pilotis · 6 € pour 2"},
   {name:'Kinkaku-ji', cat:'visite', color:'#FFB13B', lat:35.0394, lng:135.7292, desc:"✨ Le pavillon d'or · 6 € pour 2"},
@@ -696,39 +852,32 @@ const spots = [
   {name:'Pont Togetsukyo', cat:'visite', color:'#FFB13B', lat:35.0126, lng:135.6777, desc:"🌉 Pont emblématique d'Arashiyama"},
   {name:'Gion', cat:'visite', color:'#FFB13B', lat:35.0037, lng:135.7752, desc:"🏮 Quartier des geishas · gratuit"},
   {name:'Higashiyama', cat:'visite', color:'#FFB13B', lat:34.9982, lng:135.7810, desc:"🏘️ Ruelles traditionnelles"},
-  /* ---- KYOTO · restos ---- */
   {name:'Omen', cat:'resto', color:'#FFB13B', lat:35.0262, lng:135.7947, desc:"🍜 Udon maison près de Ginkaku-ji · ~19 € pour 2"},
   {name:'Katsukura', cat:'resto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"🍱 Tonkatsu, gare de Kyoto · ~25 € pour 2"},
   {name:'Musashi Sushi', cat:'resto', color:'#FFB13B', lat:35.0086, lng:135.7683, desc:"🍣 Kaiten-zushi fiable · ~19 € pour 2"},
   {name:'HIRO Yakiniku', cat:'resto', color:'#FFB13B', lat:35.0043, lng:135.7710, desc:"🥩 Wagyu grillé, Pontocho · ~44 € pour 2"},
   {name:'Gion Mikaku', cat:'resto', color:'#FFB13B', lat:35.0055, lng:135.7745, desc:"🥩 Bœuf de Kobe, teppanyaki · ~100-150 € pour 2 · à réserver"},
   {name:'Pontocho-dori', cat:'resto', color:'#FFB13B', lat:35.0071, lng:135.7710, desc:"🏮 80+ izakayas au bord de la Kamogawa · ~40-60 € pour 2"},
-  /* ---- KYOTO · shopping ---- */
   {name:'Nishiki Market', cat:'shopping', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"🔪 « La cuisine de Kyoto » · couteaux Aritsugu, thé"},
   {name:'Teramachi & Shinkyogoku', cat:'shopping', color:'#FFB13B', lat:35.0068, lng:135.7671, desc:"🎁 Arcades couvertes, souvenirs"},
   {name:'Kyoto Handicraft Center', cat:'shopping', color:'#FFB13B', lat:35.0180, lng:135.7828, desc:"🎨 Laque, éventails, kimono"},
-  /* ---- KYOTO · hôtel ---- */
   {name:'Hôtel Kyoto · gare', cat:'hotel', color:'#FFB13B', lat:34.9870, lng:135.7570, desc:"🏮 3 nuits · 15→18 déc · ~140 €/nuit pour 2"},
-  /* ---- OSAKA · visites ---- */
   {name:'Château d\'Osaka', cat:'visite', color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"🏯 Château & parc · 8 € pour 2"},
   {name:'Dotonbori', cat:'visite', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"🌃 Néons, Glico Man, canaux · gratuit"},
   {name:'Shinsekai', cat:'visite', color:'#22E4E6', lat:34.6524, lng:135.5063, desc:"🗼 Quartier rétro & tour Tsutenkaku"},
   {name:'Umeda Sky Building', cat:'visite', color:'#22E4E6', lat:34.7053, lng:135.4903, desc:"🌇 Observatoire flottant (option) · 19 € pour 2"},
   {name:'Universal Studios Japan', cat:'visite', color:'#22E4E6', lat:34.6654, lng:135.4323, desc:"🎢 Parc d'attractions (option) · 108 € pour 2"},
-  /* ---- OSAKA · restos ---- */
   {name:'Kukuru', cat:'resto', color:'#22E4E6', lat:34.6690, lng:135.5013, desc:"🐙 Takoyaki moelleux · ~7 € pour 2"},
   {name:'Chibo Okonomiyaki', cat:'resto', color:'#22E4E6', lat:34.6685, lng:135.5023, desc:"🥞 Okonomiyaki sur plaque · ~25 € pour 2"},
   {name:'Ajinoya', cat:'resto', color:'#22E4E6', lat:34.6679, lng:135.5040, desc:"🥞 Okonomiyaki Bib Gourmand · ~15 € pour 2"},
   {name:'Daruma Kushikatsu', cat:'resto', color:'#22E4E6', lat:34.6519, lng:135.5061, desc:"🍢 Kushikatsu institution, Shinsekai · ~16 € pour 2"},
   {name:'Kuromon Ichiba Market', cat:'resto', color:'#22E4E6', lat:34.6656, lng:135.5065, desc:"🍣 Sashimi, wagyu, oden stand par stand · ~13 € pour 2"},
-  /* ---- OSAKA · shopping ---- */
   {name:'Shinsaibashi-suji', cat:'shopping', color:'#22E4E6', lat:34.6733, lng:135.5012, desc:"🛍️ Arcade couverte de 600 m"},
   {name:'Den Den Town', cat:'shopping', color:'#22E4E6', lat:34.6624, lng:135.5062, desc:"🎮 L'Akihabara d'Osaka"},
   {name:'Umeda (grands magasins)', cat:'shopping', color:'#22E4E6', lat:34.7024, lng:135.4959, desc:"🏬 Hankyu, Grand Front, Pokémon Center"},
   {name:'Amerikamura', cat:'shopping', color:'#22E4E6', lat:34.6724, lng:135.4983, desc:"👕 Vintage, streetwear, disquaires"},
   {name:'Sennichimae Doguyasuji', cat:'shopping', color:'#22E4E6', lat:34.6650, lng:135.5045, desc:"🔪 Rue des ustensiles de cuisine"},
   {name:'Don Quijote Dotonbori', cat:'shopping', color:'#22E4E6', lat:34.6685, lng:135.5019, desc:"🛒 Le bazar géant avec sa grande roue"},
-  /* ---- OSAKA · hôtel ---- */
   {name:'Hôtel Osaka · Namba', cat:'hotel', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🏮 1 nuit · 18→19 déc · ~105 €/nuit pour 2"}
 ];
 
@@ -757,7 +906,6 @@ function initMap(){
   });
 }
 
-// Filtres de la carte
 document.querySelectorAll('.mf-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
