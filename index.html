@@ -83,19 +83,6 @@ body.locked{overflow:hidden;height:100vh}
 .kanji-bg{position:fixed;right:-8px;top:10%;z-index:-1;writing-mode:vertical-rl;
   font-family:"DotGothic16",monospace;font-size:clamp(90px,18vw,180px);
   color:transparent;-webkit-text-stroke:1px #ffffff10;letter-spacing:.25em;user-select:none;pointer-events:none;}
-/* ---------- petits marcheurs pixel art ---------- */
-.pixel-walkers{position:fixed;left:0;right:0;bottom:90px;z-index:40;pointer-events:none;height:60px}
-@media(min-width:768px){.pixel-walkers{bottom:18px}}
-.walker{position:absolute;bottom:0;left:0;will-change:transform}
-.walker svg{display:block;image-rendering:pixelated;filter:drop-shadow(0 4px 5px #00000070)}
-@keyframes walk-across{from{transform:translateX(-12vw)}to{transform:translateX(112vw)}}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.walker-1{animation:walk-across 26s linear infinite}
-.walker-1 svg{animation:bob .32s ease-in-out infinite alternate}
-.walker-2{animation:walk-across 34s linear infinite 9s}
-.walker-2 svg{animation:bob .38s ease-in-out infinite alternate}
-.walker-3{animation:walk-across 30s linear infinite 19s}
-.walker-3 svg{animation:bob .28s ease-in-out infinite alternate}
 /* ---------- typographie ---------- */
 .display{font-family:"DotGothic16",monospace;letter-spacing:.04em}
 h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
@@ -220,6 +207,18 @@ section{padding:56px 0;scroll-margin-top:20px}
 .mf-btn{border:1px solid var(--line);border-radius:999px;background:#ffffff08;color:var(--muted);font-family:inherit;font-size:12.5px;padding:7px 14px;cursor:pointer;transition:.2s}
 .mf-btn:hover{color:var(--washi)}
 .mf-btn.active{color:var(--washi);border-color:var(--cyan);box-shadow:0 0 12px #22e4e644}
+/* ---------- village en guerre ---------- */
+.battle-scene{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--nuit-2);aspect-ratio:16/9;max-height:70vh}
+.village-bg{width:100%;height:100%;display:block}
+.fighters{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:50px;padding-bottom:6%}
+.fighter svg{display:block;image-rendering:pixelated;filter:drop-shadow(0 4px 6px #00000090)}
+.fighter-left{animation:lunge-right 1.8s ease-in-out infinite}
+.fighter-right{animation:lunge-left 1.8s ease-in-out infinite}
+@keyframes lunge-right{0%,100%{transform:translateX(0)}50%{transform:translateX(26px)}}
+@keyframes lunge-left{0%,100%{transform:translateX(0) scaleX(-1)}50%{transform:translateX(-26px) scaleX(-1)}}
+.clash-fx{position:absolute;left:50%;bottom:30%;transform:translate(-50%,50%) scale(.6);font-family:"DotGothic16",monospace;font-size:34px;color:var(--sakura);text-shadow:0 0 14px #ff2d78a0,0 0 30px #ff2d7860;opacity:0;pointer-events:none;animation:clash-flash 1.8s ease-in-out infinite}
+@keyframes clash-flash{0%,42%,58%,100%{opacity:0;transform:translate(-50%,50%) scale(.6) rotate(0deg)}48%,52%{opacity:1;transform:translate(-50%,50%) scale(1.3) rotate(20deg)}}
+.village-caption{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px;letter-spacing:.03em}
 /* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
@@ -234,7 +233,7 @@ nav::-webkit-scrollbar{display:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px #22e4e655}50%{box-shadow:0 0 20px #22e4e6aa}}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label,.pixel-walkers{animation:none}.pixel-walkers,#introAnim{display:none}}
+@media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label,.fighter-left,.fighter-right,.clash-fx{animation:none}#introAnim{display:none}}
 /* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
@@ -284,53 +283,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <p class="intro-skip">Toucher pour passer</p>
 </div>
 
-<!-- ============ PETITS MARCHEURS PIXEL ART (originaux) ============ -->
-<div class="pixel-walkers" aria-hidden="true">
-  <div class="walker walker-1">
-    <svg viewBox="0 0 56 64" width="42" height="48">
-      <rect x="16" y="4" width="24" height="16" fill="#1c1c26"/>
-      <rect x="20" y="10" width="16" height="8" fill="#e8b98a"/>
-      <rect x="22" y="13" width="3" height="3" fill="#111"/>
-      <rect x="31" y="13" width="3" height="3" fill="#111"/>
-      <rect x="16" y="12" width="24" height="4" fill="#d92b3f"/>
-      <rect x="38" y="14" width="10" height="4" fill="#d92b3f"/>
-      <rect x="16" y="20" width="24" height="22" fill="#1c1c26"/>
-      <rect x="12" y="22" width="6" height="14" fill="#1c1c26"/>
-      <rect x="38" y="22" width="6" height="14" fill="#1c1c26"/>
-      <rect x="18" y="42" width="8" height="16" fill="#111118"/>
-      <rect x="30" y="42" width="8" height="16" fill="#111118"/>
-    </svg>
-  </div>
-  <div class="walker walker-2">
-    <svg viewBox="0 0 56 64" width="42" height="48">
-      <rect x="14" y="4" width="8" height="8" fill="#f2e2c4"/>
-      <rect x="34" y="4" width="8" height="8" fill="#f2e2c4"/>
-      <rect x="18" y="2" width="20" height="6" fill="#c9a227"/>
-      <rect x="24" y="0" width="8" height="4" fill="#c9a227"/>
-      <rect x="14" y="10" width="28" height="16" fill="#f2e2c4"/>
-      <rect x="20" y="17" width="3" height="3" fill="#111"/>
-      <rect x="33" y="17" width="3" height="3" fill="#111"/>
-      <rect x="25" y="21" width="6" height="3" fill="#e8a2a2"/>
-      <rect x="16" y="26" width="24" height="18" fill="#d9d0b8"/>
-      <rect x="22" y="30" width="12" height="10" fill="#e8a2a2" opacity=".5"/>
-      <rect x="42" y="30" width="6" height="14" fill="#f2e2c4"/>
-      <rect x="18" y="44" width="8" height="14" fill="#f2e2c4"/>
-      <rect x="30" y="44" width="8" height="14" fill="#f2e2c4"/>
-    </svg>
-  </div>
-  <div class="walker walker-3">
-    <svg viewBox="0 0 56 64" width="38" height="44">
-      <polygon points="28,4 48,44 8,44" fill="#fdfaf0"/>
-      <rect x="8" y="30" width="40" height="14" fill="#1c1c1c"/>
-      <rect x="20" y="16" width="3" height="3" fill="#111"/>
-      <rect x="33" y="16" width="3" height="3" fill="#111"/>
-      <path d="M22 24 Q28 28 34 24" stroke="#111" stroke-width="2" fill="none"/>
-      <rect x="18" y="44" width="6" height="12" fill="#fdfaf0"/>
-      <rect x="32" y="44" width="6" height="12" fill="#fdfaf0"/>
-    </svg>
-  </div>
-</div>
-
 <button type="button" id="musicToggle" aria-label="Musique">🎵</button>
 <audio id="bgMusic" src="musique.mp3" loop preload="none"></audio>
 
@@ -343,6 +295,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
   <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
   <button type="button" class="navbtn" data-page="apps" aria-current="false"><span class="ico">📱</span>Apps</button>
+  <button type="button" class="navbtn" data-page="village" aria-current="false"><span class="ico">⚔️</span>Village</button>
 </nav>
 
 <main>
@@ -663,6 +616,87 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       </div>
 
       <div class="tip">💡 <b>BON À SAVOIR</b><br>Installe tout avant le départ (au Wi-Fi) · télécharge le pack japonais hors-ligne dans Google Traduction · configure Suica dans Apple Wallet avant d'atterrir pour passer les portillons directement.</div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ PAGE 9 — VILLAGE EN GUERRE ============ -->
+<div class="page" id="page-village">
+  <div class="wrap">
+    <section id="village">
+      <div class="sec-head">
+        <p class="eyebrow">村 — scène animée, pixel art original</p>
+        <h2 class="display">Village en guerre</h2>
+      </div>
+      <div class="battle-scene">
+        <svg class="village-bg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a0f2e"/>
+              <stop offset="60%" stop-color="#12121f"/>
+              <stop offset="100%" stop-color="#0B0B14"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="400" height="220" fill="url(#skyGrad)"/>
+          <circle cx="335" cy="40" r="20" fill="#FFB13B" opacity="0.85"/>
+          <circle cx="335" cy="40" r="34" fill="#FFB13B" opacity="0.12"/>
+          <polygon points="0,170 55,110 115,170" fill="#181826"/>
+          <polygon points="90,170 175,95 260,170" fill="#12121f"/>
+          <polygon points="230,170 300,120 370,170" fill="#181826"/>
+          <g fill="#08080e">
+            <path d="M4,180 L34,150 L64,180 Z"/>
+            <rect x="14" y="180" width="40" height="26"/>
+            <path d="M84,186 L124,140 L164,186 Z"/>
+            <rect x="94" y="186" width="60" height="30"/>
+            <path d="M184,180 L209,155 L234,180 Z"/>
+            <rect x="192" y="180" width="34" height="26"/>
+            <path d="M254,186 L296,132 L338,186 Z"/>
+            <rect x="264" y="186" width="64" height="30"/>
+            <path d="M348,180 L373,158 L398,180 Z"/>
+            <rect x="356" y="180" width="34" height="26"/>
+          </g>
+          <circle cx="39" cy="176" r="3" fill="#FF2D78"/>
+          <circle cx="124" cy="182" r="3" fill="#FF2D78"/>
+          <circle cx="296" cy="182" r="3" fill="#FF2D78"/>
+          <circle cx="373" cy="176" r="3" fill="#FF2D78"/>
+        </svg>
+        <div class="fighters">
+          <div class="fighter fighter-left">
+            <svg viewBox="0 0 60 80" width="64" height="86">
+              <rect x="14" y="56" width="10" height="20" fill="#1c1c26"/>
+              <rect x="30" y="56" width="10" height="20" fill="#1c1c26"/>
+              <rect x="12" y="30" width="30" height="28" fill="#2a2a3a"/>
+              <rect x="16" y="34" width="22" height="8" fill="#3d3d52"/>
+              <rect x="18" y="14" width="20" height="18" fill="#e8b98a"/>
+              <rect x="15" y="10" width="26" height="6" fill="#111"/>
+              <rect x="15" y="17" width="8" height="4" fill="#d92b3f"/>
+              <rect x="21" y="19" width="3" height="3" fill="#111"/>
+              <rect x="30" y="19" width="3" height="3" fill="#111"/>
+              <rect x="36" y="14" width="9" height="24" fill="#2a2a3a"/>
+              <rect x="42" y="0" width="4" height="18" fill="#dcdcdc"/>
+              <rect x="38" y="16" width="12" height="4" fill="#7a4a1a"/>
+            </svg>
+          </div>
+          <div class="clash-fx">斬</div>
+          <div class="fighter fighter-right">
+            <svg viewBox="0 0 60 80" width="64" height="86">
+              <rect x="14" y="56" width="10" height="20" fill="#3a1418"/>
+              <rect x="30" y="56" width="10" height="20" fill="#3a1418"/>
+              <rect x="12" y="30" width="30" height="28" fill="#5a1f26"/>
+              <rect x="16" y="34" width="22" height="8" fill="#7a2b34"/>
+              <rect x="18" y="14" width="20" height="18" fill="#e8b98a"/>
+              <rect x="15" y="10" width="26" height="6" fill="#111"/>
+              <rect x="15" y="17" width="8" height="4" fill="#FFB13B"/>
+              <rect x="21" y="19" width="3" height="3" fill="#111"/>
+              <rect x="30" y="19" width="3" height="3" fill="#111"/>
+              <rect x="36" y="14" width="9" height="24" fill="#5a1f26"/>
+              <rect x="42" y="0" width="4" height="18" fill="#dcdcdc"/>
+              <rect x="38" y="16" width="12" height="4" fill="#7a4a1a"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="village-caption">⚔️ Deux clans s'affrontent aux portes du village, sous la pleine lune — scène pixel art animée, purement décorative</p>
     </section>
   </div>
 </div>
