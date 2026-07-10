@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>旅 Voyage Japon — Déc 2026 · Perpignan → Tokyo</title>
-<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses, shopping, carte et applications : Tokyo, Kyoto, Osaka du 8 au 20 décembre 2026 pour 2 personnes.">
+<meta name="description" content="Itinéraire, budget, hôtels, activités, bonnes adresses, shopping, carte et applications : Tokyo, Kyoto, Osaka du 1 au 16 décembre 2026 pour 2 personnes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{
-  --nuit:#0B0B14;        /* nuit de Shinjuku */
+  --nuit:#0B0B14;
   --nuit-2:#12121f;
-  --sakura:#FF2D78;      /* néon rose */
-  --cyan:#22E4E6;        /* néon Dotonbori */
-  --lanterne:#FFB13B;    /* ambre Kyoto */
+  --sakura:#FF2D78;
+  --cyan:#22E4E6;
+  --lanterne:#FFB13B;
   --torii:#E63946;
-  --washi:#F5F0E8;       /* texte */
+  --washi:#F5F0E8;
   --muted:#9a97ad;
   --card:#14142280;
   --line:#ffffff14;
@@ -29,10 +29,9 @@ body{
   font-family:"Zen Kaku Gothic New",system-ui,sans-serif;
   background:var(--nuit);color:var(--washi);
   line-height:1.6;overflow-x:hidden;
-  padding-bottom:84px; /* place pour la nav basse mobile */
+  padding-bottom:84px;
 }
 body.locked{overflow:hidden;height:100vh}
-/* ---------- écran d'accueil (swipe) ---------- */
 #welcome{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:34px;text-align:center;padding:24px;
   background:
   radial-gradient(600px 400px at 85% -5%, #ff2d7830, transparent 60%),
@@ -52,7 +51,6 @@ body.locked{overflow:hidden;height:100vh}
 .swipe-thumb:active{cursor:grabbing}
 .swipe-fill{position:absolute;top:0;left:0;bottom:0;width:0;background:linear-gradient(90deg,#ff2d7833,#22e4e633);border-radius:999px}
 #welcome .w-date{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
-/* ---------- intro animée ---------- */
 #introAnim{position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--nuit);opacity:0;visibility:hidden;transition:opacity .5s ease;cursor:pointer;pointer-events:none}
 #introAnim.playing{opacity:1;visibility:visible;pointer-events:auto}
 #introAnim.fade-out{opacity:0}
@@ -72,7 +70,6 @@ body.locked{overflow:hidden;height:100vh}
 .intro-skip{position:absolute;bottom:34px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);opacity:0}
 #introAnim.playing .intro-skip{animation:skip-in 1s ease forwards;animation-delay:1.4s}
 @keyframes skip-in{to{opacity:.7}}
-/* ---------- fond néon ---------- */
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(600px 400px at 85% -5%, #ff2d7826, transparent 60%),
   radial-gradient(700px 500px at -10% 30%, #22e4e61f, transparent 60%),
@@ -84,31 +81,25 @@ body.locked{overflow:hidden;height:100vh}
 .kanji-bg{position:fixed;right:-8px;top:10%;z-index:-1;writing-mode:vertical-rl;
   font-family:"DotGothic16",monospace;font-size:clamp(90px,18vw,180px);
   color:transparent;-webkit-text-stroke:1px #ffffff10;letter-spacing:.25em;user-select:none;pointer-events:none;}
-/* ---------- yeux d'oni ---------- */
 #oniEyes{position:fixed;top:6vh;left:0;right:0;z-index:-1;display:flex;align-items:center;justify-content:center;gap:7vw;pointer-events:none;opacity:.32}
 .oni-eye{width:min(210px,25vw);height:auto;display:block}
 .oni-iris{fill:var(--eye-color);filter:drop-shadow(0 0 16px var(--eye-color)) drop-shadow(0 0 34px var(--eye-color));transition:fill 1s ease}
 .oni-pupil{transition:transform .15s ease-out}
-/* ---------- typographie ---------- */
 .display{font-family:"DotGothic16",monospace;letter-spacing:.04em}
 h2.display{font-size:clamp(26px,6vw,40px);margin-bottom:6px}
 .eyebrow{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
 .neon-pink{color:var(--sakura);text-shadow:0 0 10px #ff2d7880,0 0 32px #ff2d7840}
 .neon-cyan{color:var(--cyan);text-shadow:0 0 10px #22e4e680,0 0 32px #22e4e640}
 .neon-amber{color:var(--lanterne);text-shadow:0 0 10px #ffb13b80,0 0 32px #ffb13b40}
-/* ---------- liens vers lieux (Maps) ---------- */
 .spot{color:inherit;text-decoration:underline dotted;text-decoration-color:#ffffff4d;text-underline-offset:3px;transition:.2s}
 .spot:hover,.spot:focus-visible{color:var(--cyan);text-decoration-color:var(--cyan)}
-/* ---------- layout ---------- */
 .wrap{max-width:960px;margin:0 auto;padding:0 18px}
 section{padding:56px 0;scroll-margin-top:20px}
 .sec-head{margin-bottom:26px}
-/* ---------- pages ---------- */
 .page{display:none}
 .page.active{display:block;animation:pagein .35s ease}
 @keyframes pagein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(min-width:768px){.page:not(#page-itineraire){padding-top:90px}}
-/* ---------- hero ---------- */
 .hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:48px 18px 32px;position:relative}
 .torii{width:min(240px,60vw);filter:drop-shadow(0 0 14px #e6394680) drop-shadow(0 0 44px #ff2d7833);animation:flicker 4s linear 1}
 @keyframes flicker{0%,100%{opacity:1}3%{opacity:.3}6%{opacity:1}9%{opacity:.5}12%{opacity:1}52%{opacity:1}54%{opacity:.4}56%{opacity:1}}
@@ -120,12 +111,10 @@ section{padding:56px 0;scroll-margin-top:20px}
 .badge.buy{border-color:#ff2d7855;box-shadow:0 0 18px #ff2d7826}
 .scroll-hint{margin-top:34px;color:var(--muted);font-size:12px;letter-spacing:.3em;animation:bounce 2s infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-/* ---------- compte à rebours ---------- */
 .countdown{display:flex;gap:14px;margin-top:26px;justify-content:center;flex-wrap:wrap}
 .cd-item{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:#ffffff08;min-width:64px}
 .cd-num{font-family:"DotGothic16",monospace;font-size:clamp(22px,5vw,30px);color:var(--cyan);text-shadow:0 0 10px #22e4e680}
 .cd-label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:2px}
-/* ---------- villes / itinéraire ---------- */
 .city{border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px);padding:22px 18px;margin-bottom:22px;position:relative;overflow:hidden}
 .city .k{position:absolute;top:-14px;right:6px;font-family:"DotGothic16",monospace;font-size:96px;opacity:.08;writing-mode:vertical-rl;pointer-events:none}
 .city-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
@@ -142,7 +131,6 @@ section{padding:56px 0;scroll-margin-top:20px}
 .transit{display:flex;align-items:center;gap:12px;margin:18px 4px;color:var(--muted);font-size:13.5px}
 .transit .rail{flex:1;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 12px #22e4e666;position:relative}
 .transit .rail::after{content:"🚄";position:absolute;left:50%;top:-13px;transform:translateX(-50%)}
-/* ---------- budget ---------- */
 .budget-row{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
 .budget-row .lbl{font-size:15px}
 .budget-row .lbl small{display:block;color:var(--muted);font-size:12.5px}
@@ -150,14 +138,12 @@ section{padding:56px 0;scroll-margin-top:20px}
 .total-card{margin-top:22px;border:1px solid #ff2d7855;border-radius:20px;padding:22px;text-align:center;background:linear-gradient(160deg,#ff2d7812,#22e4e60d);box-shadow:0 0 34px #ff2d781f}
 .total-card .t{font-family:"DotGothic16",monospace;font-size:clamp(28px,8vw,44px)}
 .total-card small{color:var(--muted)}
-/* ---------- hôtels ---------- */
 .grid{display:grid;gap:14px}
 .hotel{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
 .hotel .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .hotel h4{font-family:"DotGothic16",monospace;font-size:17px}
 .hotel .price{font-family:"DotGothic16",monospace;color:var(--lanterne)}
 .hotel p{font-size:13.5px;color:var(--muted);margin-top:6px}
-/* ---------- restos (annexe) ---------- */
 .resto{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
 .resto .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .resto h4{font-family:"DotGothic16",monospace;font-size:17px}
@@ -171,17 +157,14 @@ section{padding:56px 0;scroll-margin-top:20px}
 .menu-item{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:7px 0;border-top:1px dashed var(--line)}
 .menu-item:first-child{border-top:none}
 .menu-item span:last-child{font-family:"DotGothic16",monospace;color:var(--lanterne);white-space:nowrap}
-/* ---------- shopping ---------- */
 .shop{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
 .shop .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .shop h4{font-family:"DotGothic16",monospace;font-size:17px}
 .shop p{font-size:13.5px;color:var(--muted);margin-top:6px}
-/* ---------- applications ---------- */
 .appcard{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
 .appcard .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .appcard h4{font-family:"DotGothic16",monospace;font-size:17px}
 .appcard p{font-size:13.5px;color:var(--muted);margin-top:6px}
-/* ---------- activités ---------- */
 .acts{display:grid;gap:10px}
 .act{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#ffffff05;font-size:14.5px}
 .tag{font-size:11px;letter-spacing:.12em;padding:4px 10px;border-radius:999px;white-space:nowrap;font-family:"DotGothic16",monospace}
@@ -189,7 +172,6 @@ section{padding:56px 0;scroll-margin-top:20px}
 .tag.pay{border:1px solid #ff2d7855;color:var(--sakura)}
 .tag.cat{border:1px solid #ffffff30;color:var(--washi)}
 .act-city{margin:20px 0 10px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
-/* ---------- checklist ---------- */
 .check{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card);cursor:pointer;transition:.2s;user-select:none}
 .check:hover{border-color:#ffffff30}
 .check .box{width:24px;height:24px;min-width:24px;border:2px solid var(--muted);border-radius:7px;display:grid;place-items:center;font-size:14px;color:transparent;transition:.2s;margin-top:2px}
@@ -197,10 +179,8 @@ section{padding:56px 0;scroll-margin-top:20px}
 .check.done .box{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px #22e4e655}
 .check b{font-size:15px}
 .check small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
-/* ---------- bloc info ---------- */
 .tip{margin-top:24px;border:1px dashed var(--line);border-radius:14px;padding:16px 18px;background:#ffffff05;font-size:13.5px;color:var(--muted);line-height:1.6}
 .tip b{color:var(--washi);font-family:"DotGothic16",monospace;font-weight:400;font-size:13px;letter-spacing:.04em}
-/* ---------- carte ---------- */
 #map{height:65vh;min-height:420px;border-radius:20px;border:1px solid var(--line);overflow:hidden;background:var(--nuit-2)}
 .leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9)}
 .leaflet-popup-content-wrapper{background:var(--nuit-2);color:var(--washi);border-radius:12px}
@@ -213,14 +193,12 @@ section{padding:56px 0;scroll-margin-top:20px}
 .mf-btn{border:1px solid var(--line);border-radius:999px;background:#ffffff08;color:var(--muted);font-family:inherit;font-size:12.5px;padding:7px 14px;cursor:pointer;transition:.2s}
 .mf-btn:hover{color:var(--washi)}
 .mf-btn.active{color:var(--washi);border-color:var(--cyan);box-shadow:0 0 12px #22e4e644}
-/* ---------- nav (page switcher) ---------- */
 nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:6px;border-radius:999px;background:#0b0b14e6;border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:0 8px 30px #00000080;max-width:95vw;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 .navbtn{color:var(--muted);background:none;border:none;font-family:inherit;text-decoration:none;font-size:12px;padding:9px 12px;border-radius:999px;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1;transition:.2s;flex-shrink:0;cursor:pointer}
 .navbtn span.ico{font-size:16px}
 .navbtn:hover,.navbtn:focus-visible{color:var(--washi);background:#ffffff10}
 .navbtn.active{color:var(--washi);background:#ffffff14;box-shadow:inset 0 0 0 1px #ffffff20}
-/* ---------- bouton musique ---------- */
 #musicToggle{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#0b0b14e6;backdrop-filter:blur(12px);color:var(--washi);font-size:18px;cursor:pointer;box-shadow:0 8px 24px #00000080;transition:.2s}
 #musicToggle:hover,#musicToggle:focus-visible{border-color:var(--sakura);box-shadow:0 0 18px #ff2d7855}
 #musicToggle.playing{animation:pulse 1.6s ease-in-out infinite}
@@ -228,7 +206,6 @@ nav::-webkit-scrollbar{display:none}
 footer{text-align:center;color:var(--muted);font-size:12.5px;padding:40px 18px 20px}
 a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.torii,.scroll-hint,.page.active,.st-label{animation:none}#introAnim{display:none}}
-/* ---------- ≥ 768px ---------- */
 @media(min-width:768px){
   body{padding-bottom:0}
   nav{top:18px;bottom:auto}
@@ -257,7 +234,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </svg>
 </div>
 
-<!-- ============ ÉCRAN D'ACCUEIL — SWIPE POUR DÉVOILER ============ -->
 <div id="welcome" role="dialog" aria-label="Écran de bienvenue">
   <svg class="w-torii" viewBox="0 0 200 150" fill="none" aria-hidden="true">
     <path d="M8 28 Q100 8 192 28 L186 44 L14 44 Z" fill="#E63946"/>
@@ -272,10 +248,9 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
     <span class="st-label">Swipe pour dévoiler</span>
     <div class="swipe-thumb" id="swipeThumb">⛩️</div>
   </div>
-  <p class="w-date">8 → 20 décembre 2026 · Tokyo · Kyoto · Osaka</p>
+  <p class="w-date">1 → 16 décembre 2026 · Tokyo · Kyoto · Osaka</p>
 </div>
 
-<!-- ============ INTRO ANIMÉE (après déverrouillage) ============ -->
 <div id="introAnim" aria-hidden="true">
   <svg class="intro-torii" viewBox="0 0 200 150" fill="none" stroke="#FF2D78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
     <path class="torii-path" d="M20 30 Q100 10 180 30 M20 30 L14 46 M180 30 L186 46 M14 46 L186 46 M40 46 L40 140 M56 46 L56 140 M144 46 L144 140 M160 46 L160 140 M28 70 L172 70"/>
@@ -306,7 +281,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 
 <main>
 
-<!-- ============ PAGE 1 — ITINERAIRE + CHECKLIST RÉSA ============ -->
 <div class="page active" id="page-itineraire">
 
   <header class="hero">
@@ -320,9 +294,9 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
     <p class="route">Perpignan → Barcelone → Tokyo</p>
     <h1 class="display"><span class="neon-pink">旅</span> VOYAGE <span class="neon-cyan">JAPON</span></h1>
     <div class="badges">
-      <span class="badge"><strong>8 → 20 DÉC 2026</strong></span>
-      <span class="badge">👥 2 personnes · 11 nuits</span>
-      <span class="badge buy">💴 <strong>3 819 – 4 774 €</strong> tout compris</span>
+      <span class="badge"><strong>1 → 16 DÉC 2026</strong></span>
+      <span class="badge">👥 2 personnes · 14 nuits au Japon</span>
+      <span class="badge buy">💴 <strong>4 420 – 5 340 €</strong> tout compris</span>
     </div>
     <div class="countdown" id="countdown" aria-label="Compte à rebours avant le départ">
       <div class="cd-item"><span class="cd-num" id="cd-days">--</span><span class="cd-label">jours</span></div>
@@ -340,71 +314,71 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Itinéraire</h2>
       </div>
 
-      <div class="transit"><span>✈️ 8 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Train Perpignan→BCN 1h20 + vol de nuit</span></div>
+      <div class="transit"><span>✈️ 1 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Train Perpignan→BCN 1h20 + vol direct de nuit</span></div>
 
       <article class="city tokyo">
         <span class="k">東京</span>
-        <div class="city-head"><h3 class="accent neon-pink">TOKYO</h3><span class="nights">6 nuits · 9 → 15 déc</span></div>
-        <div class="day"><span class="chip">MER 9</span><p>Arrivée Haneda/Narita, check-in <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a>.<small>Soir : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kabukicho+Tokyo" target="_blank" rel="noopener">Kabukicho</a> &amp; ruelles d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></small></p></div>
-        <div class="day"><span class="chip">JEU 10</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a>, puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Akihabara+Tokyo" target="_blank" rel="noopener">Akihabara</a>.<small>Option : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a></small></p></div>
-        <div class="day"><span class="chip">VEN 11</span><p>Croisement de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Shibuya</a> + <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> au coucher du soleil.<small><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Takeshita-dori</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></small></p></div>
-        <div class="day"><span class="chip">SAM 12</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> (résa obligatoire) puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> ✨</small></p></div>
-        <div class="day"><span class="chip">DIM 13</span><p>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> au petit matin, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>, jardins <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Hamarikyu+Gardens+Tokyo" target="_blank" rel="noopener">Hamarikyu</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a></small></p></div>
-        <div class="day"><span class="chip">LUN 14</span><p>Parc &amp; musées d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ueno+Park+Tokyo" target="_blank" rel="noopener">Ueno</a>, vieux quartier de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>.<small>Dernière soirée libre à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a></small></p></div>
+        <div class="city-head"><h3 class="accent neon-pink">TOKYO</h3><span class="nights">7 nuits · 2 → 9 déc</span></div>
+        <div class="day"><span class="chip">MER 2</span><p>Arrivée Narita (NRT), check-in <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a>.<small>Soir : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kabukicho+Tokyo" target="_blank" rel="noopener">Kabukicho</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></small></p></div>
+        <div class="day"><span class="chip">JEU 3</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a>, puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Akihabara+Tokyo" target="_blank" rel="noopener">Akihabara</a>.<small>Option : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a></small></p></div>
+        <div class="day"><span class="chip">VEN 4</span><p>Croisement de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Shibuya</a> + <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> au coucher du soleil.<small><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Takeshita-dori</a>, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></small></p></div>
+        <div class="day"><span class="chip">SAM 5</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> (résa obligatoire) puis <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> ✨</small></p></div>
+        <div class="day"><span class="chip">DIM 6</span><p>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> au petit matin, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>, jardins <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Hamarikyu+Gardens+Tokyo" target="_blank" rel="noopener">Hamarikyu</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a></small></p></div>
+        <div class="day"><span class="chip">LUN 7</span><p>Parc &amp; musées d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ueno+Park+Tokyo" target="_blank" rel="noopener">Ueno</a>, vieux quartier de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>.</p></div>
+        <div class="day"><span class="chip">MAR 8</span><p>Jour libre / rattrapage shopping <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>.<small>Dernière soirée avant Kyoto</small></p></div>
       </article>
 
-      <div class="transit"><span>MAR 15</span><div class="rail"></div><span>Shinkansen Nozomi 2h15 — siège E côté Mont Fuji 🗻</span></div>
+      <div class="transit"><span>MER 9</span><div class="rail"></div><span>Shinkansen Nozomi 2h15 — siège E côté Mont Fuji 🗻</span></div>
 
       <article class="city kyoto">
         <span class="k">京都</span>
-        <div class="city-head"><h3 class="accent neon-amber">KYOTO</h3><span class="nights">3 nuits · 15 → 18 déc</span></div>
-        <div class="day"><span class="chip">MAR 15</span><p>Arrivée midi. <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho</a> à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
-        <div class="day"><span class="chip">MER 16</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> avant 8h (10 000 torii), <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a>.<small>Flânerie dans <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a></small></p></div>
-        <div class="day"><span class="chip">JEU 17</span><p>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> tôt, pont <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener">Togetsukyo</a>.<small>Après-midi : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</small></p></div>
+        <div class="city-head"><h3 class="accent neon-amber">KYOTO</h3><span class="nights">4 nuits · 9 → 13 déc</span></div>
+        <div class="day"><span class="chip">MER 9</span><p>Arrivée midi. <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho</a> à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
+        <div class="day"><span class="chip">JEU 10</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> avant 8h (10 000 torii), <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a>.<small>Flânerie dans <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a></small></p></div>
+        <div class="day"><span class="chip">VEN 11</span><p>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> tôt, pont <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener">Togetsukyo</a>.<small>Après-midi : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</small></p></div>
+        <div class="day"><span class="chip">SAM 12</span><p>Excursion à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nara+Japan" target="_blank" rel="noopener">Nara</a> : <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims.<small>Retour Kyoto en soirée</small></p></div>
       </article>
 
-      <div class="transit"><span>VEN 18</span><div class="rail"></div><span>Train JR — 15 min</span></div>
+      <div class="transit"><span>DIM 13</span><div class="rail"></div><span>Train JR — 15 min</span></div>
 
       <article class="city osaka">
         <span class="k">大阪</span>
-        <div class="city-head"><h3 class="accent neon-cyan">OSAKA</h3><span class="nights">1 nuit · 18 → 19 déc</span></div>
-        <div class="day"><span class="chip">VEN 18</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a> l'après-midi.<small>Soir : néons de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> + street food (takoyaki !) 🐙</small></p></div>
-        <div class="day"><span class="chip">SAM 19</span><p>Marché <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> &amp; <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a> le matin.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
+        <div class="city-head"><h3 class="accent neon-cyan">OSAKA</h3><span class="nights">2 nuits · 13 → 15 déc</span></div>
+        <div class="day"><span class="chip">DIM 13</span><p><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a> l'après-midi.<small>Soir : néons de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> + street food (takoyaki !) 🐙</small></p></div>
+        <div class="day"><span class="chip">LUN 14</span><p>Marché <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> le matin, journée <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> (option) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a>.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
       </article>
 
-      <div class="transit"><span>SAM 19</span><div class="rail"></div><span>Shinkansen Shin-Osaka → Tokyo 2h30</span></div>
+      <div class="transit"><span>MAR 15</span><div class="rail"></div><span>Shinkansen Shin-Osaka → Tokyo 2h30</span></div>
 
       <article class="city tokyo">
         <span class="k">最後</span>
-        <div class="city-head"><h3 class="accent neon-pink">TOKYO — FINAL</h3><span class="nights">1 nuit · 19 → 20 déc</span></div>
-        <div class="day"><span class="chip">SAM 19</span><p>Dernière soirée à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a>.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
-        <div class="day"><span class="chip">DIM 20</span><p>Vol retour Tokyo → Barcelone, puis train vers Perpignan.<small>また ね、日本 — à bientôt, Japon</small></p></div>
+        <div class="city-head"><h3 class="accent neon-pink">TOKYO — FINAL</h3><span class="nights">1 nuit · 15 → 16 déc</span></div>
+        <div class="day"><span class="chip">MAR 15</span><p>Dernière soirée à <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a>, hôtel proche Haneda.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
+        <div class="day"><span class="chip">MER 16</span><p>Transfert Haneda (HND), vol retour vers Barcelone.<small>また ね、日本 — à bientôt, Japon</small></p></div>
       </article>
     </section>
 
-    <!-- ============ CHECKLIST ============ -->
     <section id="checklist">
       <div class="sec-head">
         <p class="eyebrow">予約 — dans l'ordre, tape pour cocher</p>
         <h2 class="display">Checklist résa</h2>
       </div>
       <div class="grid">
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vols A/R Barcelone ↔ Tokyo</b><small>Juillet-août 2026 · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vol direct A/R Barcelone ↔ Tokyo</b><small>NRT à l'aller, HND au retour · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Train Perpignan ↔ Barcelone</b><small>À l'ouverture des ventes · SNCF Connect / Trainline</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vols confirmés · annulation gratuite · Kyoto en premier</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a></b><small>Dès ouverture du calendrier (J-60/90) · créneau 12 déc</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a></b><small>~1 mois avant · créneau coucher de soleil 16h-16h30</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>6 · Shinkansen × 2 trajets</b><small>J-30 à 10h (heure JP) : 8 nov &amp; 19 nov 2026 · appli Smart-EX · siège E</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vol confirmé · annulation gratuite · Kyoto en premier</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a></b><small>Dès ouverture du calendrier (J-60/90) · créneau 5 déc</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a></b><small>~1 mois avant · créneau coucher de soleil, 4 déc</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>6 · Shinkansen × 3 trajets</b><small>J-30 à 10h (heure JP) : 9 nov &amp; 15 nov 2026 · appli Smart-EX · siège E</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>7 · eSIM data Japon</b><small>1 semaine avant · Airalo / Ubigi · ~10-15 €/pers</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>8 · Carte Suica mobile</b><small>Avant départ · Apple Wallet / appli Suica</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>9 · Assurance voyage</b><small>40-80 € pour 2 · 12 jours</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>9 · Assurance voyage</b><small>50-90 € pour 2 · 16 jours</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>10 · Visit Japan Web</b><small>Quelques jours avant · QR code douane &amp; immigration</small></span></div>
       </div>
     </section>
   </div>
 </div>
 
-<!-- ============ PAGE 2 — BUDGET ============ -->
 <div class="page" id="page-budget">
   <div class="wrap">
     <section id="budget">
@@ -413,22 +387,21 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Budget</h2>
       </div>
       <div class="budget-row"><span class="lbl">Train Perpignan ↔ Barcelone<small>A/R × 2, résa anticipée</small></span><span class="val">80 – 120 €</span></div>
-      <div class="budget-row"><span class="lbl">Vols A/R Barcelone ↔ Tokyo<small>660–780 €/pers · Etihad, ANA, Qatar · 1 escale</small></span><span class="val">1 320 – 1 560 €</span></div>
-      <div class="budget-row"><span class="lbl">Hôtels — 11 nuits<small>Tokyo 7 · Kyoto 3 · Osaka 1 (double 3★)</small></span><span class="val">1 225 – 1 590 €</span></div>
+      <div class="budget-row"><span class="lbl">Vols A/R Barcelone ↔ Tokyo<small>660–825 €/pers · vol direct</small></span><span class="val">1 320 – 1 650 €</span></div>
+      <div class="budget-row"><span class="lbl">Hôtels — 14 nuits<small>Tokyo 7+1 · Kyoto 4 · Osaka 2 (double 3★)</small></span><span class="val">1 650 – 1 900 €</span></div>
       <div class="budget-row"><span class="lbl">Shinkansen + trains JR<small>Tokyo→Kyoto, Kyoto→Osaka, Osaka→Tokyo</small></span><span class="val">≈ 370 €</span></div>
-      <div class="budget-row"><span class="lbl">Transports urbains &amp; aéroports<small>Suica ~6 €/jour/pers</small></span><span class="val">130 – 180 €</span></div>
-      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, château</small></span><span class="val">150 – 250 €</span></div>
-      <div class="budget-row"><span class="lbl">Repas<small>Ramen, izakaya, konbini — ~55 €/jour pour 2</small></span><span class="val">550 – 700 €</span></div>
+      <div class="budget-row"><span class="lbl">Transports urbains &amp; aéroports<small>Suica ~6 €/jour/pers</small></span><span class="val">150 – 190 €</span></div>
+      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, château, Nara</small></span><span class="val">150 – 260 €</span></div>
+      <div class="budget-row"><span class="lbl">Repas<small>Ramen, izakaya, konbini — ~55 €/jour pour 2</small></span><span class="val">700 – 850 €</span></div>
       <div class="total-card">
-        <small>TOTAL · 2 PERSONNES · 12 JOURS</small>
-        <div class="t"><span class="neon-pink">3 819</span> – <span class="neon-cyan">4 774 €</span></div>
+        <small>TOTAL · 2 PERSONNES · 16 JOURS</small>
+        <div class="t"><span class="neon-pink">4 420</span> – <span class="neon-cyan">5 340 €</span></div>
         <small>Prix relevés en juillet 2026 pour décembre 2026 · taux ≈ 160 ¥/€</small>
       </div>
     </section>
   </div>
 </div>
 
-<!-- ============ PAGE 3 — HOTELS ============ -->
 <div class="page" id="page-hotels">
   <div class="wrap">
     <section id="hotels">
@@ -437,16 +410,15 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Hôtels</h2>
       </div>
       <div class="grid h2">
-        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · arrivée</h4><span class="price">~125 €/nuit</span></div><p>6 nuits · 9→15 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> (hyper-connecté) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> (charme + budget)</p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-amber">Kyoto</h4><span class="price">~140 €/nuit</span></div><p>3 nuits · 15→18 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener">quartier de la gare</a> (−46 % vs moyenne ville) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>1 nuit · 18→19 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Namba+Osaka" target="_blank" rel="noopener">Namba</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a>, tout à pied le soir</p></div>
-        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 19→20 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a> ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Station" target="_blank" rel="noopener">gare de Tokyo</a> pour un départ facile</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · arrivée</h4><span class="price">~125 €/nuit</span></div><p>7 nuits · 2→9 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> (hyper-connecté) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> (charme + budget)</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-amber">Kyoto</h4><span class="price">~140 €/nuit</span></div><p>4 nuits · 9→13 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener">quartier de la gare</a> (pratique pour Nara) ou <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>2 nuits · 13→15 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Namba+Osaka" target="_blank" rel="noopener">Namba</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a>, tout à pied le soir</p></div>
+        <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 15→16 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a> ou proche de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Tokyo" target="_blank" rel="noopener">Haneda</a> pour un départ facile</p></div>
       </div>
     </section>
   </div>
 </div>
 
-<!-- ============ PAGE 4 — ACTIVITES ============ -->
 <div class="page" id="page-activites">
   <div class="wrap">
     <section id="activites">
@@ -463,12 +435,13 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="act"><span>Illuminations <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> ✨</span><span class="tag free">GRATUIT</span></div>
         <div class="act"><span>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> (outer market)</span><span class="tag free">GRATUIT</span></div>
       </div>
-      <p class="act-city neon-amber">— Kyoto</p>
+      <p class="act-city neon-amber">— Kyoto &amp; Nara</p>
       <div class="acts">
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="tag pay">6 €</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a></span><span class="tag pay">6 €</span></div>
         <div class="act"><span>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims, Nara</span><span class="tag pay">6 €</span></div>
       </div>
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="acts">
@@ -481,7 +454,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 5 — ADRESSES / RESTAURANTS ============ -->
 <div class="page" id="page-adresses">
   <div class="wrap">
     <section id="adresses">
@@ -525,7 +497,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 6 — SHOPPING ============ -->
 <div class="page" id="page-shopping">
   <div class="wrap">
     <section id="shopping">
@@ -568,7 +539,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 7 — CARTE GLOBALE ============ -->
 <div class="page" id="page-carte">
   <div class="wrap">
     <section id="carte">
@@ -589,7 +559,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
-<!-- ============ PAGE 8 — APPLICATIONS UTILES ============ -->
 <div class="page" id="page-apps">
   <div class="wrap">
     <section id="apps">
@@ -629,12 +598,11 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 </main>
 
 <footer>
-  旅 Voyage Japon · 8 → 20 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026 · les liens 📍 ouvrent Google Maps
+  旅 Voyage Japon · 1 → 16 décembre 2026 · fait avec 🍜 — prix indicatifs relevés en juillet 2026 · les liens 📍 ouvrent Google Maps
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-/* ============ ÉCRAN DE BIENVENUE — SWIPE ============ */
 (function(){
   const track = document.getElementById('swipeTrack');
   const thumb = document.getElementById('swipeThumb');
@@ -706,7 +674,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   });
 })();
 
-/* ============ YEUX D'ONI — fixent le curseur / le doigt ============ */
 (function(){
   const pupils = document.querySelectorAll('.oni-pupil');
   function updateGaze(clientX, clientY){
@@ -732,7 +699,6 @@ const pageEyeColors = {
   adresses:'#22E4E6', shopping:'#FFB13B', carte:'#FF2D78', apps:'#22E4E6'
 };
 
-/* ============ NAVIGATION PAGES ============ */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>{
     p.classList.toggle('active', p.id === 'page-' + id);
@@ -767,7 +733,6 @@ document.querySelectorAll('.menu-toggle').forEach(btn=>{
   });
 });
 
-/* ============ MUSIQUE — fichier local (musique.mp3 à la racine du site) ============ */
 const musicBtn = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
 let musicPlaying = false;
@@ -789,9 +754,8 @@ musicBtn.addEventListener('click', () => {
   }
 });
 
-/* ============ COMPTE À REBOURS (8 décembre 2026) ============ */
 function updateCountdown(){
-  const target = new Date(2026, 11, 8, 0, 0, 0);
+  const target = new Date(2026, 11, 1, 0, 0, 0);
   const now = new Date();
   const diff = target - now;
   const el = document.getElementById('countdown');
@@ -814,7 +778,6 @@ function updateCountdown(){
 updateCountdown();
 const countdownTimer = setInterval(updateCountdown, 1000);
 
-/* ============ CARTE GLOBALE — TOUS LES LIEUX ============ */
 let mapInstance = null;
 let allMarkers = [];
 const spots = [
@@ -845,8 +808,8 @@ const spots = [
   {name:'Ginza', cat:'shopping', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"💎 Grands magasins & luxe"},
   {name:'Nakamise-dori', cat:'shopping', color:'#FF2D78', lat:35.7127, lng:139.7963, desc:"🎁 Artisanat & souvenirs traditionnels"},
   {name:'Don Quijote Shinjuku', cat:'shopping', color:'#FF2D78', lat:35.6946, lng:139.7020, desc:"🛒 Le bazar géant ouvert 24h/24"},
-  {name:'Hôtel Tokyo · Shinjuku', cat:'hotel', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"🏮 6 nuits · 9→15 déc · ~125 €/nuit pour 2"},
-  {name:'Hôtel Tokyo final · Shibuya', cat:'hotel', color:'#FF2D78', lat:35.6580, lng:139.7016, desc:"🏮 1 nuit · 19→20 déc · ~130 €/nuit pour 2"},
+  {name:'Hôtel Tokyo · Shinjuku', cat:'hotel', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"🏮 7 nuits · 2→9 déc · ~125 €/nuit pour 2"},
+  {name:'Hôtel Tokyo final · Shibuya', cat:'hotel', color:'#FF2D78', lat:35.6580, lng:139.7016, desc:"🏮 1 nuit · 15→16 déc · ~130 €/nuit pour 2"},
   {name:'Fushimi Inari Taisha', cat:'visite', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"⛩️ 10 000 torii · gratuit · avant 8h"},
   {name:'Kiyomizu-dera', cat:'visite', color:'#FFB13B', lat:34.9949, lng:135.7850, desc:"⛩️ Temple sur pilotis · 6 € pour 2"},
   {name:'Kinkaku-ji', cat:'visite', color:'#FFB13B', lat:35.0394, lng:135.7292, desc:"✨ Le pavillon d'or · 6 € pour 2"},
@@ -854,16 +817,16 @@ const spots = [
   {name:'Pont Togetsukyo', cat:'visite', color:'#FFB13B', lat:35.0126, lng:135.6777, desc:"🌉 Pont emblématique d'Arashiyama"},
   {name:'Gion', cat:'visite', color:'#FFB13B', lat:35.0037, lng:135.7752, desc:"🏮 Quartier des geishas · gratuit"},
   {name:'Higashiyama', cat:'visite', color:'#FFB13B', lat:34.9982, lng:135.7810, desc:"🏘️ Ruelles traditionnelles"},
+  {name:'Todai-ji, Nara', cat:'visite', color:'#FFB13B', lat:34.6889, lng:135.8398, desc:"🦌 Temple géant & parc aux daims · 6 € pour 2"},
   {name:'Omen', cat:'resto', color:'#FFB13B', lat:35.0262, lng:135.7947, desc:"🍜 Udon maison près de Ginkaku-ji · ~19 € pour 2"},
   {name:'Katsukura', cat:'resto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"🍱 Tonkatsu, gare de Kyoto · ~25 € pour 2"},
-  {name:'Musashi Sushi', cat:'resto', color:'#FFB13B', lat:35.0086, lng:135.7683, desc:"🍣 Kaiten-zushi fiable · ~19 € pour 2"},
   {name:'HIRO Yakiniku', cat:'resto', color:'#FFB13B', lat:35.0043, lng:135.7710, desc:"🥩 Wagyu grillé, Pontocho · ~44 € pour 2"},
   {name:'Gion Mikaku', cat:'resto', color:'#FFB13B', lat:35.0055, lng:135.7745, desc:"🥩 Bœuf de Kobe, teppanyaki · ~100-150 € pour 2 · à réserver"},
   {name:'Pontocho-dori', cat:'resto', color:'#FFB13B', lat:35.0071, lng:135.7710, desc:"🏮 80+ izakayas au bord de la Kamogawa · ~40-60 € pour 2"},
   {name:'Nishiki Market', cat:'shopping', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"🔪 « La cuisine de Kyoto » · couteaux Aritsugu, thé"},
   {name:'Teramachi & Shinkyogoku', cat:'shopping', color:'#FFB13B', lat:35.0068, lng:135.7671, desc:"🎁 Arcades couvertes, souvenirs"},
   {name:'Kyoto Handicraft Center', cat:'shopping', color:'#FFB13B', lat:35.0180, lng:135.7828, desc:"🎨 Laque, éventails, kimono"},
-  {name:'Hôtel Kyoto · gare', cat:'hotel', color:'#FFB13B', lat:34.9870, lng:135.7570, desc:"🏮 3 nuits · 15→18 déc · ~140 €/nuit pour 2"},
+  {name:'Hôtel Kyoto · gare', cat:'hotel', color:'#FFB13B', lat:34.9870, lng:135.7570, desc:"🏮 4 nuits · 9→13 déc · ~140 €/nuit pour 2"},
   {name:'Château d\'Osaka', cat:'visite', color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"🏯 Château & parc · 8 € pour 2"},
   {name:'Dotonbori', cat:'visite', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"🌃 Néons, Glico Man, canaux · gratuit"},
   {name:'Shinsekai', cat:'visite', color:'#22E4E6', lat:34.6524, lng:135.5063, desc:"🗼 Quartier rétro & tour Tsutenkaku"},
@@ -880,7 +843,7 @@ const spots = [
   {name:'Amerikamura', cat:'shopping', color:'#22E4E6', lat:34.6724, lng:135.4983, desc:"👕 Vintage, streetwear, disquaires"},
   {name:'Sennichimae Doguyasuji', cat:'shopping', color:'#22E4E6', lat:34.6650, lng:135.5045, desc:"🔪 Rue des ustensiles de cuisine"},
   {name:'Don Quijote Dotonbori', cat:'shopping', color:'#22E4E6', lat:34.6685, lng:135.5019, desc:"🛒 Le bazar géant avec sa grande roue"},
-  {name:'Hôtel Osaka · Namba', cat:'hotel', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🏮 1 nuit · 18→19 déc · ~105 €/nuit pour 2"}
+  {name:'Hôtel Osaka · Namba', cat:'hotel', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🏮 2 nuits · 13→15 déc · ~105 €/nuit pour 2"}
 ];
 
 function initMap(){
