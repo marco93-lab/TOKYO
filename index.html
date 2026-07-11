@@ -197,12 +197,15 @@ section{padding:56px 0;scroll-margin-top:20px}
 .tag.free{border:1px solid #22e4e655;color:var(--cyan)}
 .tag.pay{border:1px solid #ff2d7855;color:var(--sakura)}
 .tag.cat{border:1px solid #ffffff30;color:var(--washi)}
+.tag.dur{border:1px solid #ffffff30;color:var(--muted);font-size:10.5px}
+.act-durs{display:flex;gap:6px;flex-shrink:0}
 .act-city{margin:20px 0 10px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
 .check{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card);cursor:pointer;transition:.2s;user-select:none}
 .check:hover{border-color:#ffffff30}
 .check .box{width:24px;height:24px;min-width:24px;border:2px solid var(--muted);border-radius:7px;display:grid;place-items:center;font-size:14px;color:transparent;transition:.2s;margin-top:2px}
 .check.done{opacity:.55}
 .check.done .box{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px #22e4e655}
+.check.locked{cursor:default}
 .check b{font-size:15px}
 .check small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
 .tip{margin-top:24px;border:1px dashed var(--line);border-radius:14px;padding:16px 18px;background:#ffffff05;font-size:13.5px;color:var(--muted);line-height:1.6}
@@ -301,7 +304,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 
 <nav aria-label="Navigation">
   <button type="button" class="navbtn active" data-page="itineraire" aria-current="page"><span class="ico">🗾</span>Itinéraire</button>
-  <button type="button" class="navbtn" data-page="budget" aria-current="false"><span class="ico">💴</span>Budget</button>
   <button type="button" class="navbtn" data-page="hotels" aria-current="false"><span class="ico">🏮</span>Hôtels</button>
   <button type="button" class="navbtn" data-page="activites" aria-current="false"><span class="ico">⛩️</span>Activités</button>
   <button type="button" class="navbtn" data-page="adresses" aria-current="false"><span class="ico">🍜</span>Adresses</button>
@@ -328,7 +330,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
     <div class="badges">
       <span class="badge"><strong>1 → 16 DÉC 2026</strong></span>
       <span class="badge">👥 2 personnes · 14 nuits au Japon</span>
-      <span class="badge buy">💴 <strong>4 450 – 5 400 €</strong> tout compris</span>
     </div>
     <div class="countdown" id="countdown" aria-label="Compte à rebours avant le départ">
       <div class="cd-item"><span class="cd-num" id="cd-days">--</span><span class="cd-label">jours</span></div>
@@ -396,8 +397,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Checklist résa</h2>
       </div>
       <div class="grid">
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vol direct A/R Barcelone ↔ Tokyo</b><small>NRT à l'aller, HND au retour · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Organiser la dépose/récup BCN</b><small>Caler les horaires avec la personne qui vous emmène</small></span></div>
+        <div class="check done locked"><span class="box">✓</span><span><b>1 · Vol direct A/R Barcelone ↔ Tokyo</b><small>NRT à l'aller, HND au retour · ✅ réservé</small></span></div>
+        <div class="check done locked"><span class="box">✓</span><span><b>2 · Organiser la dépose/récup BCN</b><small>✅ organisé</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vol confirmé · annulation gratuite · Kyoto en premier</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a></b><small>Dès ouverture du calendrier (J-60/90) · créneau 5 déc</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a></b><small>~1 mois avant · créneau coucher de soleil, 4 déc</small></span></div>
@@ -406,29 +407,6 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>8 · Carte Suica mobile</b><small>Avant départ · Apple Wallet / appli Suica</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>9 · Assurance voyage</b><small>50-90 € pour 2 · 16 jours</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>10 · Visit Japan Web</b><small>Quelques jours avant · QR code douane &amp; immigration</small></span></div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<div class="page" id="page-budget">
-  <div class="wrap">
-    <section id="budget">
-      <div class="sec-head">
-        <p class="eyebrow">予算 — pour 2 personnes</p>
-        <h2 class="display">Budget</h2>
-      </div>
-      <div class="budget-row"><span class="lbl">Essence / péage Perpignan ↔ BCN<small>Trajet en voiture, dépose &amp; récup</small></span><span class="val">40 – 60 €</span></div>
-      <div class="budget-row"><span class="lbl">Vols A/R Barcelone ↔ Tokyo<small>660–825 €/pers · vol direct</small></span><span class="val">1 320 – 1 650 €</span></div>
-      <div class="budget-row"><span class="lbl">Hôtels — 14 nuits<small>Tokyo 7+1 · Kyoto 4 · Osaka 2 (double 3★)</small></span><span class="val">1 650 – 1 900 €</span></div>
-      <div class="budget-row"><span class="lbl">Shinkansen + trains JR<small>Tokyo→Kyoto, Kyoto→Osaka, Osaka→Tokyo</small></span><span class="val">≈ 370 €</span></div>
-      <div class="budget-row"><span class="lbl">Transports urbains &amp; aéroports<small>Suica ~6 €/jour/pers</small></span><span class="val">150 – 190 €</span></div>
-      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, onsen, spectacle, gacha</small></span><span class="val">220 – 380 €</span></div>
-      <div class="budget-row"><span class="lbl">Repas<small>Ramen, izakaya, konbini — ~55 €/jour pour 2</small></span><span class="val">700 – 850 €</span></div>
-      <div class="total-card">
-        <small>TOTAL · 2 PERSONNES · 16 JOURS</small>
-        <div class="t"><span class="neon-pink">4 450</span> – <span class="neon-cyan">5 400 €</span></div>
-        <small>Prix relevés en juillet 2026 pour décembre 2026 · taux ≈ 160 ¥/€</small>
       </div>
     </section>
   </div>
@@ -461,39 +439,45 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       </div>
       <p class="act-city neon-pink">— Tokyo</p>
       <div class="acts">
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="tag pay">50 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> — rooftop 360°</span><span class="tag pay">32 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">39 €</span></div>
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sensoji_Temple_(Asakusa,_Tokyo,_Japan)_2023-07-02.jpg?width=200" alt="Senso-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="act-durs"><span class="tag pay">50 €</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> — rooftop 360°</span><span class="act-durs"><span class="tag pay">32 €</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a> <small style="color:var(--muted)">(option)</small></span><span class="act-durs"><span class="tag pay">39 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sensoji_Temple_(Asakusa,_Tokyo,_Japan)_2023-07-02.jpg?width=200" alt="Senso-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 2h</span></span></div>
         <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_crossing.jpg?width=200" alt="Shibuya Crossing" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Croisement de Shibuya</a></span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Illuminations <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> / <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> ✨</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Marché de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> (outer market)</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nakano+Broadway+Tokyo" target="_blank" rel="noopener">Nakano Broadway</a> — chasse aux figurines</span><span class="tag free">GRATUIT (visite)</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Super+Potato+Akihabara+Tokyo" target="_blank" rel="noopener">Super Potato</a> — arcade rétro</span><span class="tag free">GRATUIT (visite)</span></div>
-        <div class="act"><span>Spectacle immersif néon, Kabukicho/Shinjuku</span><span class="tag pay">~65 €</span></div>
-        <div class="act"><span>Purikura (photobooth), Shibuya/Harajuku</span><span class="tag pay">~8 €</span></div>
-        <div class="act"><span>Chasse aux distributeurs insolites (vending machines)</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span>Café à thème (chat/hibou/robot), Akihabara</span><span class="tag pay">~15 €/pers</span></div>
-        <div class="act"><span>Machines à gacha (capsules figurines), Akihabara</span><span class="tag pay">2-5 €/capsule</span></div>
+        <div class="act"><span>Illuminations <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> / <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> ✨</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Marché de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> (outer market)</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nakano+Broadway+Tokyo" target="_blank" rel="noopener">Nakano Broadway</a> — chasse aux figurines</span><span class="act-durs"><span class="tag free">GRATUIT (visite)</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Super+Potato+Akihabara+Tokyo" target="_blank" rel="noopener">Super Potato</a> — arcade rétro</span><span class="act-durs"><span class="tag free">GRATUIT (visite)</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Spectacle immersif néon, Kabukicho/Shinjuku</span><span class="act-durs"><span class="tag pay">~65 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span>Purikura (photobooth), Shibuya/Harajuku</span><span class="act-durs"><span class="tag pay">~8 €</span><span class="tag dur">⏱ 30 min</span></span></div>
+        <div class="act"><span>Chasse aux distributeurs insolites (vending machines)</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ variable</span></span></div>
+        <div class="act"><span>Café à thème (chat/hibou/robot), Akihabara</span><span class="act-durs"><span class="tag pay">~15 €/pers</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Machines à gacha (capsules figurines), Akihabara</span><span class="act-durs"><span class="tag pay">2-5 €/capsule</span><span class="tag dur">⏱ 30 min</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ueno+Park+Tokyo" target="_blank" rel="noopener">Parc d'Ueno</a> &amp; musées</span><span class="act-durs"><span class="tag free">GRATUIT (parc)</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>, vieux quartier préservé</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>, île futuriste dans la baie</span><span class="act-durs"><span class="tag free">GRATUIT (balade)</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a> &amp; Takeshita-dori</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
       </div>
       <p class="act-city neon-amber">— Kyoto &amp; Nara</p>
       <div class="acts">
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha_sembon-torii.jpg?width=200" alt="Fushimi Inari" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_(Golden_Pavillon).jpg?width=200" alt="Kinkaku-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="tag pay">6 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a></span><span class="tag pay">6 €</span></div>
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bamboo_grove_in_Arashiyama.jpg?width=200" alt="Arashiyama" loading="lazy">Bambouseraie d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/JP-Nara-T%C5%8Ddai-Ji-Great-Buddha-Hall.JPG?width=200" alt="Todai-ji Nara" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims, Nara</span><span class="tag pay">6 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kyoto+International+Manga+Museum" target="_blank" rel="noopener">Kyoto International Manga Museum</a></span><span class="tag pay">16 €</span></div>
-        <div class="act"><span>Onsen traditionnel, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Funaoka+Onsen+Kyoto" target="_blank" rel="noopener">Funaoka Onsen</a></span><span class="tag pay">~9 €</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha_sembon-torii.jpg?width=200" alt="Fushimi Inari" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_(Golden_Pavillon).jpg?width=200" alt="Kinkaku-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="act-durs"><span class="tag pay">6 €</span><span class="tag dur">⏱ 45 min</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a></span><span class="act-durs"><span class="tag pay">6 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bamboo_grove_in_Arashiyama.jpg?width=200" alt="Arashiyama" loading="lazy">Bambouseraie d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/JP-Nara-T%C5%8Ddai-Ji-Great-Buddha-Hall.JPG?width=200" alt="Todai-ji Nara" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims, Nara</span><span class="act-durs"><span class="tag pay">6 €</span><span class="tag dur">⏱ 2h30</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kyoto+International+Manga+Museum" target="_blank" rel="noopener">Kyoto International Manga Museum</a></span><span class="act-durs"><span class="tag pay">16 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span>Onsen traditionnel, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Funaoka+Onsen+Kyoto" target="_blank" rel="noopener">Funaoka Onsen</a></span><span class="act-durs"><span class="tag pay">~9 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span>Flânerie dans <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a>, ruelles traditionnelles</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span>Balade nocturne <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a> aux lanternes</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h</span></span></div>
       </div>
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="acts">
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle.jpg?width=200" alt="Château d'Osaka" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a></span><span class="tag pay">8 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Umeda+Sky+Building+Osaka" target="_blank" rel="noopener">Umeda Sky Building</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">19 €</span></div>
-        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_at_night.JPG?width=200" alt="Dotonbori" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a></span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="tag pay">108 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Den+Den+Town+Nipponbashi+Osaka" target="_blank" rel="noopener">Den Den Town</a> — chasse manga/figurines</span><span class="tag free">GRATUIT (visite)</span></div>
-        <div class="act"><span>Onsen thématique, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Spa+World+Osaka" target="_blank" rel="noopener">Spa World</a> (à Shinsekai)</span><span class="tag pay">~28 €</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle.jpg?width=200" alt="Château d'Osaka" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a></span><span class="act-durs"><span class="tag pay">8 €</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Umeda+Sky+Building+Osaka" target="_blank" rel="noopener">Umeda Sky Building</a> <small style="color:var(--muted)">(option)</small></span><span class="act-durs"><span class="tag pay">19 €</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_at_night.JPG?width=200" alt="Dotonbori" loading="lazy"><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> · <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a></span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 2h</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="act-durs"><span class="tag pay">108 €</span><span class="tag dur">⏱ journée</span></span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Den+Den+Town+Nipponbashi+Osaka" target="_blank" rel="noopener">Den Den Town</a> — chasse manga/figurines</span><span class="act-durs"><span class="tag free">GRATUIT (visite)</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Onsen thématique, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Spa+World+Osaka" target="_blank" rel="noopener">Spa World</a> (à Shinsekai)</span><span class="act-durs"><span class="tag pay">~28 €</span><span class="tag dur">⏱ 2h30</span></span></div>
       </div>
     </section>
   </div>
@@ -800,7 +784,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   document.addEventListener('touchmove', e => { if (e.touches[0]) updateGaze(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
 })();
 const pageEyeColors = {
-  itineraire:'#FF2D78', budget:'#22E4E6', hotels:'#FFB13B', activites:'#FF2D78',
+  itineraire:'#FF2D78', hotels:'#FFB13B', activites:'#FF2D78',
   adresses:'#22E4E6', shopping:'#FFB13B', carte:'#FF2D78', apps:'#22E4E6', astuces:'#FFB13B'
 };
 
@@ -822,6 +806,7 @@ document.querySelectorAll('.navbtn').forEach(b=>{
 });
 
 document.querySelectorAll('.check').forEach(el=>{
+  if (el.classList.contains('locked')) return;
   const toggle=()=>el.classList.toggle('done');
   el.addEventListener('click',toggle);
   el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
