@@ -58,17 +58,40 @@ body.locked{overflow:hidden;height:100vh}
 .torii-path{stroke-dasharray:900;stroke-dashoffset:900;filter:drop-shadow(0 0 8px #ff2d7880)}
 #introAnim.playing .torii-path{animation:torii-draw 1s ease forwards}
 @keyframes torii-draw{to{stroke-dashoffset:0}}
-.intro-stage{position:relative;width:100%;height:110px}
+.intro-stage{position:relative;width:100%;height:110px;overflow:hidden}
+.katana{position:absolute;top:50%;left:-260px;width:240px;transform:translateY(-50%) rotate(-30deg);opacity:0;filter:drop-shadow(0 0 6px #ffffffaa)}
+#introAnim.playing .katana{animation:katana-slice .65s cubic-bezier(.7,0,.3,1) forwards;animation-delay:.25s}
+@keyframes katana-slice{
+  0%{left:-260px;opacity:0}
+  8%{opacity:1}
+  70%{left:105%;opacity:1}
+  100%{left:130%;opacity:0}
+}
+.slash-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#introAnim.playing .slash-flash{animation:slash-flash-anim .28s ease-out forwards;animation-delay:.62s}
+@keyframes slash-flash-anim{
+  0%{opacity:0}
+  35%{opacity:.9}
+  100%{opacity:0}
+}
+.slash-trail{position:absolute;top:50%;left:50%;width:0;height:2px;background:linear-gradient(90deg,transparent,#fff 15%,var(--cyan) 50%,#fff 85%,transparent);transform:translate(-50%,-50%) rotate(-30deg);box-shadow:0 0 14px #fff,0 0 34px var(--cyan);opacity:0}
+#introAnim.playing .slash-trail{animation:trail-anim .45s ease-out forwards;animation-delay:.3s}
+@keyframes trail-anim{
+  0%{width:0;opacity:0}
+  15%{opacity:1}
+  60%{width:150%;opacity:1}
+  100%{width:150%;opacity:0}
+}
 .intro-kanji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);font-family:"DotGothic16",monospace;font-size:clamp(56px,16vw,100px);color:var(--sakura);text-shadow:0 0 20px #ff2d78a0,0 0 60px #ff2d7860;opacity:0}
-#introAnim.playing .intro-kanji{animation:kanji-flash 1.6s ease forwards;animation-delay:.9s}
+#introAnim.playing .intro-kanji{animation:kanji-flash 1.5s ease forwards;animation-delay:.72s}
 @keyframes kanji-flash{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}30%,70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.15)}}
 .intro-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
-#introAnim.playing .intro-title{animation:title-in .8s ease forwards;animation-delay:2.2s}
+#introAnim.playing .intro-title{animation:title-in .8s ease forwards;animation-delay:1.9s}
 @keyframes title-in{from{opacity:0;transform:translate(-50%,-38%)}to{opacity:1;transform:translate(-50%,-50%)}}
 .intro-title h2{font-size:clamp(22px,6.5vw,38px)}
 .intro-title p{margin-top:10px;font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
 .intro-skip{position:absolute;bottom:34px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);opacity:0}
-#introAnim.playing .intro-skip{animation:skip-in 1s ease forwards;animation-delay:1.4s}
+#introAnim.playing .intro-skip{animation:skip-in 1s ease forwards;animation-delay:1.1s}
 @keyframes skip-in{to{opacity:.7}}
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(600px 400px at 85% -5%, #ff2d7826, transparent 60%),
@@ -167,6 +190,9 @@ section{padding:56px 0;scroll-margin-top:20px}
 .appcard p{font-size:13.5px;color:var(--muted);margin-top:6px}
 .acts{display:grid;gap:10px}
 .act{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#ffffff05;font-size:14.5px}
+.act-left{display:flex;align-items:center;gap:12px;min-width:0}
+.act-thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.shop-thumb{width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:10px;display:block}
 .tag{font-size:11px;letter-spacing:.12em;padding:4px 10px;border-radius:999px;white-space:nowrap;font-family:"DotGothic16",monospace}
 .tag.free{border:1px solid #22e4e655;color:var(--cyan)}
 .tag.pay{border:1px solid #ff2d7855;color:var(--sakura)}
@@ -252,10 +278,15 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 </div>
 
 <div id="introAnim" aria-hidden="true">
-  <svg class="intro-torii" viewBox="0 0 200 150" fill="none" stroke="#FF2D78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-    <path class="torii-path" d="M20 30 Q100 10 180 30 M20 30 L14 46 M180 30 L186 46 M14 46 L186 46 M40 46 L40 140 M56 46 L56 140 M144 46 L144 140 M160 46 L160 140 M28 70 L172 70"/>
-  </svg>
   <div class="intro-stage">
+    <div class="slash-flash"></div>
+    <div class="slash-trail"></div>
+    <svg class="katana" viewBox="0 0 260 34" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="14" width="34" height="7" rx="2" fill="#0B0B14" stroke="#FF2D78" stroke-width="1"/>
+      <rect x="30" y="10" width="5" height="15" rx="1.5" fill="#FFB13B"/>
+      <path d="M36 17.5 L252 12 L258 15 L252 20 L36 20.5 Z" fill="#F5F0E8" stroke="#ffffff" stroke-width="0.6"/>
+      <path d="M36 17.5 L252 12" stroke="#22E4E6" stroke-width="1.2" opacity="0.9"/>
+    </svg>
     <div class="intro-kanji">日本</div>
     <div class="intro-title">
       <h2 class="display"><span class="neon-pink">旅</span> VOYAGE <span class="neon-cyan">JAPON</span></h2>
@@ -277,6 +308,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   <button type="button" class="navbtn" data-page="shopping" aria-current="false"><span class="ico">🛍️</span>Shopping</button>
   <button type="button" class="navbtn" data-page="carte" aria-current="false"><span class="ico">🗺️</span>Carte</button>
   <button type="button" class="navbtn" data-page="apps" aria-current="false"><span class="ico">📱</span>Apps</button>
+  <button type="button" class="navbtn" data-page="astuces" aria-current="false"><span class="ico">💡</span>Astuces</button>
 </nav>
 
 <main>
@@ -296,7 +328,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
     <div class="badges">
       <span class="badge"><strong>1 → 16 DÉC 2026</strong></span>
       <span class="badge">👥 2 personnes · 14 nuits au Japon</span>
-      <span class="badge buy">💴 <strong>4 420 – 5 340 €</strong> tout compris</span>
+      <span class="badge buy">💴 <strong>4 450 – 5 400 €</strong> tout compris</span>
     </div>
     <div class="countdown" id="countdown" aria-label="Compte à rebours avant le départ">
       <div class="cd-item"><span class="cd-num" id="cd-days">--</span><span class="cd-label">jours</span></div>
@@ -314,7 +346,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Itinéraire</h2>
       </div>
 
-      <div class="transit"><span>✈️ 1 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Train Perpignan→BCN 1h20 + vol direct de nuit</span></div>
+      <div class="transit"><span>✈️ 1 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Dépose en voiture à BCN + vol direct de nuit</span></div>
 
       <article class="city tokyo">
         <span class="k">東京</span>
@@ -365,7 +397,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       </div>
       <div class="grid">
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>1 · Vol direct A/R Barcelone ↔ Tokyo</b><small>NRT à l'aller, HND au retour · alerte Google Flights · cible ≤ 780 €/pers</small></span></div>
-        <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Train Perpignan ↔ Barcelone</b><small>À l'ouverture des ventes · SNCF Connect / Trainline</small></span></div>
+        <div class="check" tabindex="0"><span class="box">✓</span><span><b>2 · Organiser la dépose/récup BCN</b><small>Caler les horaires avec la personne qui vous emmène</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>3 · Hôtels (4 réservations)</b><small>Dès vol confirmé · annulation gratuite · Kyoto en premier</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>4 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a></b><small>Dès ouverture du calendrier (J-60/90) · créneau 5 déc</small></span></div>
         <div class="check" tabindex="0"><span class="box">✓</span><span><b>5 · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a></b><small>~1 mois avant · créneau coucher de soleil, 4 déc</small></span></div>
@@ -386,16 +418,16 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <p class="eyebrow">予算 — pour 2 personnes</p>
         <h2 class="display">Budget</h2>
       </div>
-      <div class="budget-row"><span class="lbl">Train Perpignan ↔ Barcelone<small>A/R × 2, résa anticipée</small></span><span class="val">80 – 120 €</span></div>
+      <div class="budget-row"><span class="lbl">Essence / péage Perpignan ↔ BCN<small>Trajet en voiture, dépose &amp; récup</small></span><span class="val">40 – 60 €</span></div>
       <div class="budget-row"><span class="lbl">Vols A/R Barcelone ↔ Tokyo<small>660–825 €/pers · vol direct</small></span><span class="val">1 320 – 1 650 €</span></div>
       <div class="budget-row"><span class="lbl">Hôtels — 14 nuits<small>Tokyo 7+1 · Kyoto 4 · Osaka 2 (double 3★)</small></span><span class="val">1 650 – 1 900 €</span></div>
       <div class="budget-row"><span class="lbl">Shinkansen + trains JR<small>Tokyo→Kyoto, Kyoto→Osaka, Osaka→Tokyo</small></span><span class="val">≈ 370 €</span></div>
       <div class="budget-row"><span class="lbl">Transports urbains &amp; aéroports<small>Suica ~6 €/jour/pers</small></span><span class="val">150 – 190 €</span></div>
-      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, château, Nara</small></span><span class="val">150 – 260 €</span></div>
+      <div class="budget-row"><span class="lbl">Activités payantes<small>teamLab, Shibuya Sky, temples, onsen, spectacle, gacha</small></span><span class="val">220 – 380 €</span></div>
       <div class="budget-row"><span class="lbl">Repas<small>Ramen, izakaya, konbini — ~55 €/jour pour 2</small></span><span class="val">700 – 850 €</span></div>
       <div class="total-card">
         <small>TOTAL · 2 PERSONNES · 16 JOURS</small>
-        <div class="t"><span class="neon-pink">4 420</span> – <span class="neon-cyan">5 340 €</span></div>
+        <div class="t"><span class="neon-pink">4 450</span> – <span class="neon-cyan">5 400 €</span></div>
         <small>Prix relevés en juillet 2026 pour décembre 2026 · taux ≈ 160 ¥/€</small>
       </div>
     </section>
@@ -415,6 +447,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="hotel"><div class="top"><h4 class="neon-cyan">Osaka</h4><span class="price">~105 €/nuit</span></div><p>2 nuits · 13→15 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Namba+Osaka" target="_blank" rel="noopener">Namba</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a>, tout à pied le soir</p></div>
         <div class="hotel"><div class="top"><h4 class="neon-pink">Tokyo · final</h4><span class="price">~130 €/nuit</span></div><p>1 nuit · 15→16 déc — <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a> ou proche de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Tokyo" target="_blank" rel="noopener">Haneda</a> pour un départ facile</p></div>
       </div>
+      <div class="tip">💡 <b>BON À SAVOIR</b><br>Sélection en 3★, confortable et bien situé, pas besoin de 4★ pour ce voyage · annulation gratuite recommandée sur toutes les résas tant que les vols ne sont pas verrouillés.</div>
     </section>
   </div>
 </div>
@@ -431,24 +464,36 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> <small style="color:var(--muted)">(résa obligatoire)</small></span><span class="tag pay">50 €</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> — rooftop 360°</span><span class="tag pay">32 €</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">39 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">croisement Shibuya</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sensoji_Temple_(Asakusa,_Tokyo,_Japan)_2023-07-02.jpg?width=200" alt="Senso-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_crossing.jpg?width=200" alt="Shibuya Crossing" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Croisement de Shibuya</a></span><span class="tag free">GRATUIT</span></div>
         <div class="act"><span>Illuminations <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> / <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> ✨</span><span class="tag free">GRATUIT</span></div>
         <div class="act"><span>Marché de <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> (outer market)</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakano+Broadway+Tokyo" target="_blank" rel="noopener">Nakano Broadway</a> — chasse aux figurines</span><span class="tag free">GRATUIT (visite)</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Super+Potato+Akihabara+Tokyo" target="_blank" rel="noopener">Super Potato</a> — arcade rétro</span><span class="tag free">GRATUIT (visite)</span></div>
+        <div class="act"><span>Spectacle immersif néon, Kabukicho/Shinjuku</span><span class="tag pay">~65 €</span></div>
+        <div class="act"><span>Purikura (photobooth), Shibuya/Harajuku</span><span class="tag pay">~8 €</span></div>
+        <div class="act"><span>Chasse aux distributeurs insolites (vending machines)</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span>Café à thème (chat/hibou/robot), Akihabara</span><span class="tag pay">~15 €/pers</span></div>
+        <div class="act"><span>Machines à gacha (capsules figurines), Akihabara</span><span class="tag pay">2-5 €/capsule</span></div>
       </div>
       <p class="act-city neon-amber">— Kyoto &amp; Nara</p>
       <div class="acts">
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha_sembon-torii.jpg?width=200" alt="Fushimi Inari" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> — 10 000 torii</span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_(Golden_Pavillon).jpg?width=200" alt="Kinkaku-ji" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</span><span class="tag pay">6 €</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a></span><span class="tag pay">6 €</span></div>
-        <div class="act"><span>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="tag free">GRATUIT</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims, Nara</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bamboo_grove_in_Arashiyama.jpg?width=200" alt="Arashiyama" loading="lazy">Bambouseraie d'<a class="spot" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/JP-Nara-T%C5%8Ddai-Ji-Great-Buddha-Hall.JPG?width=200" alt="Todai-ji Nara" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims, Nara</span><span class="tag pay">6 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+International+Manga+Museum" target="_blank" rel="noopener">Kyoto International Manga Museum</a></span><span class="tag pay">16 €</span></div>
+        <div class="act"><span>Onsen traditionnel, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Funaoka+Onsen+Kyoto" target="_blank" rel="noopener">Funaoka Onsen</a></span><span class="tag pay">~9 €</span></div>
       </div>
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="acts">
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a></span><span class="tag pay">8 €</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle.jpg?width=200" alt="Château d'Osaka" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a></span><span class="tag pay">8 €</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Umeda+Sky+Building+Osaka" target="_blank" rel="noopener">Umeda Sky Building</a> <small style="color:var(--muted)">(option)</small></span><span class="tag pay">19 €</span></div>
-        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a></span><span class="tag free">GRATUIT</span></div>
+        <div class="act"><span class="act-left"><img class="act-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_at_night.JPG?width=200" alt="Dotonbori" loading="lazy"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> · <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a></span><span class="tag free">GRATUIT</span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> <small style="color:var(--muted)">(option, 1 journée)</small></span><span class="tag pay">108 €</span></div>
+        <div class="act"><span><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Den+Den+Town+Nipponbashi+Osaka" target="_blank" rel="noopener">Den Den Town</a> — chasse manga/figurines</span><span class="tag free">GRATUIT (visite)</span></div>
+        <div class="act"><span>Onsen thématique, <a class="spot" href="https://www.google.com/maps/search/?api=1&query=Spa+World+Osaka" target="_blank" rel="noopener">Spa World</a> (à Shinsekai)</span><span class="tag pay">~28 €</span></div>
       </div>
     </section>
   </div>
@@ -470,6 +515,9 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=kaiten+zushi+Shibuya+Tokyo" target="_blank" rel="noopener">Kaiten-zushi</a></h4><span class="price">~25 €</span></div><p>📍 Shibuya · sushis sur tapis roulant, fraîcheur et excellent rapport qualité-prix</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Assiettes standard (2 pièces)</span><span>150-300 ¥</span></div><div class="menu-item"><span>Assiettes premium (thon gras, oursin)</span><span>400-600 ¥</span></div><div class="menu-item"><span>Soupe miso</span><span>100 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daikokuya+Tempura+Asakusa+Tokyo" target="_blank" rel="noopener">Daikokuya</a></h4><span class="price">~28 €</span></div><p>📍 Asakusa · tempura &amp; tendon, institution centenaire près du Senso-ji</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Tendon classique</span><span>1 500 ¥</span></div><div class="menu-item"><span>Kakiage-don (tempura de légumes)</span><span>1 300 ¥</span></div><div class="menu-item"><span>Assortiment tempura</span><span>2 000 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></h4><span class="price">~19 €</span></div><p>📍 Shinjuku · ruelle de yakitori &amp; izakayas miniatures, ambiance nostalgique Showa</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette yakitori (à l'unité)</span><span>150-300 ¥</span></div><div class="menu-item"><span>Assortiment 5 brochettes</span><span>1 000 ¥</span></div><div class="menu-item"><span>Bière pression</span><span>500 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Afuri+Ramen+Harajuku+Tokyo" target="_blank" rel="noopener">Afuri Ramen</a></h4><span class="price">~17 €</span></div><p>📍 Harajuku/Ebisu · ramen yuzu shio, bouillon léger au citron japonais, très photogénique</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Yuzu shio ramen</span><span>1 000 ¥</span></div><div class="menu-item"><span>Yuzu shio + chashu double</span><span>1 400 ¥</span></div><div class="menu-item"><span>Gyoza (5 pièces)</span><span>500 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gyukatsu+Motomura+Shibuya+Tokyo" target="_blank" rel="noopener">Gyukatsu Motomura</a></h4><span class="price">~22 €</span></div><p>📍 Shibuya · bœuf pané façon tonkatsu, cuisson soi-même sur pierre chaude</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Set gyukatsu (riz + soupe)</span><span>1 600 ¥</span></div><div class="menu-item"><span>Portion double bœuf</span><span>2 400 ¥</span></div><div class="menu-item"><span>Sauce curry supplément</span><span>200 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Genki+Sushi+Shibuya+Tokyo" target="_blank" rel="noopener">Genki Sushi</a></h4><span class="price">~20 €</span></div><p>📍 Shibuya · commande sur tablette, sushis livrés par petit rail — sympa et fun</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Assiettes standard (2 pièces)</span><span>170-320 ¥</span></div><div class="menu-item"><span>Assiettes premium</span><span>400-650 ¥</span></div><div class="menu-item"><span>Dessert (mochi glacé)</span><span>250 ¥</span></div></div></div>
       </div>
 
       <p class="act-city neon-amber">— Kyoto</p>
@@ -480,6 +528,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=HIRO+Yakiniku+Pontocho+Kyoto" target="_blank" rel="noopener">HIRO Yakiniku</a></h4><span class="price">~44 €</span></div><p>📍 Près de Pontocho · bœuf wagyu grillé, meilleur rapport qualité-prix du secteur</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Set déjeuner yakiniku</span><span>2 500 ¥</span></div><div class="menu-item"><span>Assortiment bœuf premium (portion)</span><span>1 800 ¥</span></div><div class="menu-item"><span>Riz + banchan</span><span>300 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Mikaku+Kyoto" target="_blank" rel="noopener">Gion Mikaku</a></h4><span class="price">~100–150 €</span></div><p>📍 Gion, bord de la Shirakawa · teppanyaki, bœuf de Kobe A4-A5 — à réserver</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Menu Kobe A4 (steak + accompagnements)</span><span>12-18 000 ¥</span></div><div class="menu-item"><span>Menu dégustation complet</span><span>20 000+ ¥</span></div><div class="menu-item"><span>Suppl. foie gras / légumes grillés</span><span>2 000 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a></h4><span class="price">~40–60 €</span></div><p>📍 La ruelle entière · 80+ izakayas au bord de la Kamogawa, de 2 000 à 8 000 ¥/pers selon l'adresse</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Izakaya simple (plats à partager)</span><span>2-3 000 ¥/pers</span></div><div class="menu-item"><span>Restaurant traditionnel</span><span>5-8 000 ¥/pers</span></div><div class="menu-item"><span>Kaiseki haut de gamme</span><span>15 000+ ¥/pers</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Ramen+Koji+Kyoto+Station" target="_blank" rel="noopener">Kyoto Ramen Koji</a></h4><span class="price">~16 €</span></div><p>📍 Gare de Kyoto, 10e étage · 8 échoppes de ramen régionaux réunies, pratique entre deux trains</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Ramen shoyu classique</span><span>900 ¥</span></div><div class="menu-item"><span>Ramen miso épicé</span><span>1 100 ¥</span></div><div class="menu-item"><span>Riz au porc (chashu-don)</span><span>500 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nishiki+Warai+Takoyaki+Kyoto" target="_blank" rel="noopener">Nishiki Warai</a></h4><span class="price">~9 €</span></div><p>📍 Nishiki Market · takoyaki croustillant dehors, fondant dedans, spécialité maison au fromage</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Takoyaki nature (6 pièces)</span><span>500 ¥</span></div><div class="menu-item"><span>Takoyaki fromage (6 pièces)</span><span>650 ¥</span></div><div class="menu-item"><span>Takoyaki spécial Nishiki (8 pièces)</span><span>800 ¥</span></div></div></div>
       </div>
 
       <p class="act-city neon-cyan">— Osaka</p>
@@ -490,6 +540,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Daruma+Kushikatsu+Shinsekai+Osaka" target="_blank" rel="noopener">Daruma</a></h4><span class="price">~16 €</span></div><p>📍 Shinsekai · kushikatsu, institution rétro d'Osaka depuis des décennies</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette à l'unité</span><span>143 ¥</span></div><div class="menu-item"><span>Combo Dotonbori (9 brochettes)</span><span>1 450 ¥</span></div><div class="menu-item"><span>Combo Shinsekai (grand assortiment)</span><span>2 250 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon Ichiba Market</a></h4><span class="price">~13 €</span></div><p>📍 Nipponbashi · sashimi, wagyu et oden à picorer stand par stand</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Brochette de wagyu grillé</span><span>800-1 500 ¥</span></div><div class="menu-item"><span>Sashimi / sushi à l'unité</span><span>300-600 ¥</span></div><div class="menu-item"><span>Oursin frais (uni)</span><span>1-2 000 ¥</span></div></div></div>
         <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="price">~13–28 €</span></div><p>📍 Le quartier entier · tour takoyaki + okonomiyaki + kushikatsu au fil des canaux</p><button type="button" class="menu-toggle">Exemples de prix ▾</button><div class="menu-drop"><div class="menu-item"><span>Takoyaki (8 pièces)</span><span>500-700 ¥</span></div><div class="menu-item"><span>Kushikatsu (brochette)</span><span>120-260 ¥</span></div><div class="menu-item"><span>Okonomiyaki</span><span>1 000-1 800 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Harukoma+Yakiniku+Osaka" target="_blank" rel="noopener">Harukoma</a></h4><span class="price">~30 €</span></div><p>📍 Namba · yakiniku abordable, viande de qualité grillée à table, ambiance conviviale</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Assortiment bœuf (3 pièces)</span><span>1 200-1 800 ¥</span></div><div class="menu-item"><span>Riz + kimchi</span><span>400 ¥</span></div><div class="menu-item"><span>Set déjeuner yakiniku</span><span>2 000 ¥</span></div></div></div>
+        <div class="resto"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ichiran+Dotonbori+Osaka" target="_blank" rel="noopener">Ichiran Dotonbori</a></h4><span class="price">~14 €</span></div><p>📍 Dotonbori · même concept cabine individuelle qu'à Tokyo, ouvert très tard</p><button type="button" class="menu-toggle">Voir le menu ▾</button><div class="menu-drop"><div class="menu-item"><span>Ramen tonkotsu classique</span><span>980 ¥</span></div><div class="menu-item"><span>Ramen + nouilles suppl. + œuf</span><span>1 320 ¥</span></div><div class="menu-item"><span>Sélection 5 garnitures</span><span>1 490 ¥</span></div></div></div>
       </div>
 
       <div class="tip">💡 <b>BON À SAVOIR</b><br>Menus et prix indicatifs relevés en juillet 2026, susceptibles de changer — à vérifier sur place ou sur Tabelog. Pas de pourboire au Japon · prévoir des espèces pour les petites adresses (izakaya, marchés, ramen-ya) · réservation conseillée pour Gion Mikaku et les tables kaiseki, jusqu'à une semaine à l'avance.</div>
@@ -509,10 +561,22 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <div class="grid h2">
         <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shibuya+109+Tokyo" target="_blank" rel="noopener">Shibuya 109</a></h4><span class="tag cat">MODE</span></div><p>📍 Shibuya · mode jeune et streetwear, le temple de la tendance tokyoïte</p></div>
         <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Omotesando+Tokyo" target="_blank" rel="noopener">Harajuku &amp; Omotesando</a></h4><span class="tag cat">MODE</span></div><p>📍 Takeshita-dori pour le kawaii, Omotesando pour le luxe et l'architecture</p></div>
-        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Akihabara+Electric+Town+Tokyo" target="_blank" rel="noopener">Akihabara</a></h4><span class="tag cat">ÉLECTRONIQUE</span></div><p>📍 Électronique, manga, figurines et jeux vidéo, le quartier des otakus</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Akihabara+Electric+Town+Tokyo" target="_blank" rel="noopener">Akihabara</a></h4><span class="tag cat">ÉLECTRONIQUE</span></div><img class="shop-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara,_Electronics_District.jpg?width=400" alt="Akihabara" loading="lazy"><p>📍 Électronique, manga, figurines et jeux vidéo, le quartier des otakus</p></div>
         <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a></h4><span class="tag cat">LUXE</span></div><p>📍 Grands magasins (Mitsukoshi, Ginza Six) et boutiques de luxe internationales</p></div>
-        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a></h4><span class="tag cat">SOUVENIRS</span></div><p>📍 Asakusa · rue vers le Senso-ji, kimonos, éventails, artisanat traditionnel</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a></h4><span class="tag cat">SOUVENIRS</span></div><img class="shop-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Nakamise_Street_heading_for_Sensoji_Temple.jpg?width=400" alt="Nakamise-dori" loading="lazy"><p>📍 Asakusa · rue vers le Senso-ji, kimonos, éventails, artisanat traditionnel</p></div>
         <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Don+Quijote+Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a></h4><span class="tag cat">TOUT-EN-UN</span></div><p>📍 Don Quijote et grands magasins pour un shopping tout-en-un, jour et nuit</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Mandarake+Akihabara+Tokyo" target="_blank" rel="noopener">Mandarake Akihabara</a></h4><span class="tag cat">MANGA / FIGURINES</span></div><p>📍 Akihabara · 8 étages de manga d'occasion, figurines, cel-art, le repère otaku historique</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nakano+Broadway+Tokyo" target="_blank" rel="noopener">Nakano Broadway</a></h4><span class="tag cat">MANGA / FIGURINES</span></div><p>📍 Nakano · galerie mythique, dizaines de boutiques Mandarake spécialisées par univers</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Super+Potato+Akihabara+Tokyo" target="_blank" rel="noopener">Super Potato</a></h4><span class="tag cat">JEUX RÉTRO</span></div><p>📍 Akihabara · consoles et jeux vintage, salle d'arcade rétro à l'étage</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Nintendo+TOKYO+Shibuya" target="_blank" rel="noopener">Nintendo TOKYO</a></h4><span class="tag cat">GOODIES</span></div><p>📍 Shibuya Parco · boutique officielle Nintendo, goodies exclusifs Japon</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=2rinkan+motorcycle+gear+Tokyo" target="_blank" rel="noopener">2りんかん (Nirinkan)</a></h4><span class="tag cat">CASQUES MOTO</span></div><p>📍 Plusieurs adresses à Tokyo · grande chaîne d'équipement moto, large choix de casques jet à rail</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=RAGTAG+Harajuku+Tokyo" target="_blank" rel="noopener">RAGTAG Harajuku</a></h4><span class="tag cat">FRIPERIE LUXE</span></div><p>📍 Harajuku · friperie haut de gamme, Chanel/Gucci/Vuitton d'occasion à prix cassés</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Komehyo+Ginza+Tokyo" target="_blank" rel="noopener">Komehyo Ginza</a></h4><span class="tag cat">LUXE OCCASION</span></div><p>📍 Ginza · immense friperie multi-étages, maroquinerie et montres de luxe d'occasion</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Chicago+Vintage+Clothing+Harajuku+Tokyo" target="_blank" rel="noopener">Chicago Harajuku</a></h4><span class="tag cat">VINTAGE</span></div><p>📍 Harajuku · vêtements vintage américains &amp; japonais, institution du quartier</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kappabashi+Kitchen+Town+Tokyo" target="_blank" rel="noopener">Kappabashi Kitchen Town</a></h4><span class="tag cat">COUTEAUX / VAISSELLE</span></div><p>📍 Asakusa · la rue des pros de la cuisine, couteaux japonais et vaisselle artisanale à tous les prix</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Itoya+Ginza+Tokyo" target="_blank" rel="noopener">Itoya Ginza</a></h4><span class="tag cat">PAPETERIE</span></div><p>📍 Ginza · 12 étages de papeterie japonaise, stylos et carnets introuvables ailleurs</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Liquor+Mountain+Shibuya+Tokyo" target="_blank" rel="noopener">Liquor Mountain</a></h4><span class="tag cat">WHISKY</span></div><p>📍 Shibuya · whisky japonais (Suntory, Nikka), souvent moins cher qu'en France, éditions limitées</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-pink"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kit+Kat+Chocolatory+Tokyo+Station" target="_blank" rel="noopener">Kit Kat Chocolatory</a></h4><span class="tag cat">CADEAUX</span></div><p>📍 Gare de Tokyo · saveurs exclusives Japon (sakura, matcha, wasabi), cadeaux faciles à rapporter</p></div>
       </div>
 
       <p class="act-city neon-amber">— Kyoto</p>
@@ -522,16 +586,24 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Station" target="_blank" rel="noopener">Gare de Kyoto</a></h4><span class="tag cat">SOUVENIRS</span></div><p>📍 Porta &amp; Isetan, parfait pour les derniers cadeaux avant le départ</p></div>
         <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Handicraft+Center" target="_blank" rel="noopener">Kyoto Handicraft Center</a></h4><span class="tag cat">ARTISANAT</span></div><p>📍 Laque, éventails, kimono et artisanat réunis sous un même toit</p></div>
         <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gion+Kyoto" target="_blank" rel="noopener">Gion</a></h4><span class="tag cat">TRADITION</span></div><p>📍 Boutiques traditionnelles, éventails, thé et souvenirs façon maiko</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Book+Off+Kyoto+Kawaramachi" target="_blank" rel="noopener">Book Off Kawaramachi</a></h4><span class="tag cat">MANGA</span></div><p>📍 Centre-ville · manga d'occasion à petit prix, bon complément à Mandarake d'Osaka</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Komehyo+Kyoto" target="_blank" rel="noopener">Komehyo Kyoto</a></h4><span class="tag cat">LUXE OCCASION</span></div><p>📍 Kawaramachi · friperie de marques de luxe, bon complément à Ginza si pas eu le temps à Tokyo</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Ippodo+Tea+Kyoto" target="_blank" rel="noopener">Ippodo Tea</a></h4><span class="tag cat">MATCHA</span></div><p>📍 Centre-ville · maison de thé fondée en 1717, matcha de référence, dégustation sur place</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-amber"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Gojozaka+pottery+street+Kyoto" target="_blank" rel="noopener">Gojozaka</a></h4><span class="tag cat">CÉRAMIQUE</span></div><p>📍 Près de Kiyomizu-dera · rue historique de la céramique Kiyomizu-yaki, bols et tasses artisanales</p></div>
       </div>
 
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="grid h2">
         <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Shinsaibashi-suji+Osaka" target="_blank" rel="noopener">Shinsaibashi-suji</a></h4><span class="tag cat">MODE</span></div><p>📍 Arcade couverte de 600 m, Daimaru et marques internationales</p></div>
-        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Don+Quijote+Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="tag cat">TOUT-EN-UN</span></div><p>📍 Don Quijote et souvenirs sous les néons, ouvert jusque tard le soir</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Don+Quijote+Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a></h4><span class="tag cat">TOUT-EN-UN</span></div><img class="shop-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_at_night.JPG?width=400" alt="Dotonbori" loading="lazy"><p>📍 Don Quijote et souvenirs sous les néons, ouvert jusque tard le soir</p></div>
         <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Den+Den+Town+Nipponbashi+Osaka" target="_blank" rel="noopener">Den Den Town</a></h4><span class="tag cat">ÉLECTRONIQUE</span></div><p>📍 Nipponbashi · l'Akihabara d'Osaka, électronique et culture otaku</p></div>
         <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" target="_blank" rel="noopener">Umeda</a></h4><span class="tag cat">GRANDS MAGASINS</span></div><p>📍 Hankyu, Hanshin, Grand Front Osaka, Pokémon Center</p></div>
         <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Amerikamura+Osaka" target="_blank" rel="noopener">Amerikamura</a></h4><span class="tag cat">VINTAGE</span></div><p>📍 Mode vintage, streetwear et disquaires, l'âme alternative d'Osaka</p></div>
         <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Sennichimae+Doguyasuji+Osaka" target="_blank" rel="noopener">Sennichimae Doguyasuji</a></h4><span class="tag cat">USTENSILES</span></div><p>📍 La rue des ustensiles de cuisine, couteaux et vaisselle pro</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Mandarake+Osaka+Namba" target="_blank" rel="noopener">Mandarake Namba</a></h4><span class="tag cat">MANGA / FIGURINES</span></div><p>📍 Namba · antenne d'Osaka du géant du manga d'occasion et des figurines</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=NAPS+motorcycle+shop+Osaka" target="_blank" rel="noopener">NAPS Osaka</a></h4><span class="tag cat">CASQUES MOTO</span></div><p>📍 Chaîne d'équipement moto, bon choix de casques jet à rail et accessoires</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=Komehyo+Shinsaibashi+Osaka" target="_blank" rel="noopener">Komehyo Shinsaibashi</a></h4><span class="tag cat">LUXE OCCASION</span></div><p>📍 Shinsaibashi · friperie de luxe multi-étages, sacs, montres et bijoux d'occasion</p></div>
+        <div class="shop"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/maps/search/?api=1&query=2nd+STREET+Amerikamura+Osaka" target="_blank" rel="noopener">2nd STREET Amerikamura</a></h4><span class="tag cat">FRIPERIE</span></div><p>📍 Amerikamura · chaîne de friperie nationale, streetwear et vintage à petit prix</p></div>
       </div>
 
       <div class="tip">💡 <b>BON À SAVOIR</b><br>Détaxe dès 5 000 ¥ d'achat sur présentation du passeport dans les boutiques « Tax-Free » · la plupart des magasins ouvrent vers 10h-11h et ferment vers 20h-21h · Don Quijote et les konbini restent ouverts très tard, voire 24h/24.</div>
@@ -595,6 +667,39 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
   </div>
 </div>
 
+<div class="page" id="page-astuces">
+  <div class="wrap">
+    <section id="astuces">
+      <div class="sec-head">
+        <p class="eyebrow">豆知識 — bon à savoir sur place</p>
+        <h2 class="display">Astuces</h2>
+      </div>
+
+      <p class="act-city neon-pink">— Au quotidien</p>
+      <div class="grid h2">
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Argent liquide</h4><span class="tag cat">PAIEMENT</span></div><p>💴 Beaucoup d'endroits (petits restos, temples, marchés) restent cash only. Retraits sans frais avec Revolut/Wise aux distributeurs 7-Eleven (Seven Bank) ou à la poste.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Pas de pourboire</h4><span class="tag cat">USAGE</span></div><p>🙏 Laisser un pourboire peut être perçu comme gênant, voire vexant. Le service est déjà inclus partout.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Konbini partout</h4><span class="tag cat">PRATIQUE</span></div><p>🏪 7-Eleven, Lawson, FamilyMart : retrait d'argent, snacks corrects, toilettes propres, impressions, paiement de factures. Ouverts 24h/24.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Poubelles rares</h4><span class="tag cat">PRATIQUE</span></div><p>🗑️ Très peu de poubelles publiques. Garder un petit sac pour ses déchets jusqu'à un konbini ou l'hôtel.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Silence dans les transports</h4><span class="tag cat">USAGE</span></div><p>🔇 Téléphone en mode silencieux, pas d'appels dans le train/métro. Manger dans le métro est mal vu (OK dans le Shinkansen).</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Escalators : gauche à Tokyo, droite à Osaka</h4><span class="tag cat">ANECDOTE</span></div><p>🚶 On se tient à gauche et on marche à droite à Tokyo/Kyoto — l'inverse à Osaka. Un vrai clivage culturel local !</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Eau du robinet</h4><span class="tag cat">PRATIQUE</span></div><p>🚰 Potable partout, pas besoin d'acheter de l'eau en bouteille systématiquement.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-pink">Chaussures</h4><span class="tag cat">USAGE</span></div><p>👟 À enlever dans les temples, certains restos traditionnels, ryokans et probablement chez l'habitant. Repérer les chaussons fournis à l'entrée.</p></div>
+      </div>
+
+      <p class="act-city neon-cyan">— Trop d'achats ? Envoyer un colis en France</p>
+      <div class="grid h2">
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Japan+Post+EMS+international+shipping" target="_blank" rel="noopener">Japan Post — EMS</a></h4><span class="tag cat">RAPIDE</span></div><p>📦 Le plus simple pour rapatrier des achats. Compter environ <b>20 à 35 €/kg</b> selon le poids total (moins cher au kilo pour les gros colis). Livraison France en 4 à 6 jours. Disponible dans n'importe quel bureau de poste, cartons fournis sur place.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan"><a class="spot" href="https://www.google.com/search?q=Yamato+kuroneko+TA-Q-BIN+international+shipping" target="_blank" rel="noopener">Yamato (TA-Q-BIN)</a></h4><span class="tag cat">ALTERNATIVE</span></div><p>📦 Chaîne de livraison très fiable, dépôt possible dans certains konbini/hôtels. Tarifs comparables à EMS, un peu plus lent à l'international.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan">Ordre de grandeur</h4><span class="tag cat">EXEMPLE</span></div><p>🧮 Un carton de ~5 kg (figurines, quelques vêtements) revient environ à <b>110–150 €</b> en EMS. Un colis plus lourd de 10 kg tourne plutôt autour de <b>180–250 €</b> (tarif dégressif au kilo). Prix indicatifs juillet 2026, à confirmer sur place — ils varient selon les dimensions du carton.</p></div>
+        <div class="appcard"><div class="top"><h4 class="neon-cyan">Astuce budget</h4><span class="tag cat">CONSEIL</span></div><p>💡 Comparer au prix d'un bagage supplémentaire en soute sur le vol retour (souvent 60–120 € pour 20-23 kg) — parfois plus économique que l'envoi postal si le poids le permet.</p></div>
+      </div>
+
+      <div class="tip">💡 <b>BON À SAVOIR</b><br>Prévoir les cartons/scotch à l'avance dans un bureau de poste (Japan Post) ou konbini · déclaration douanière à remplir sur place, simple et rapide · objets de valeur (montres, sacs de luxe) : privilégier le bagage à main plutôt que l'envoi postal.</div>
+    </section>
+  </div>
+</div>
+
 </main>
 
 <footer>
@@ -620,7 +725,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       return;
     }
     intro.classList.add('playing');
-    introTimeout = setTimeout(finishIntro, 3600);
+    introTimeout = setTimeout(finishIntro, 3100);
     intro.addEventListener('click', finishIntro, {once:true});
   }
   function finishIntro(){
@@ -696,7 +801,7 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
 })();
 const pageEyeColors = {
   itineraire:'#FF2D78', budget:'#22E4E6', hotels:'#FFB13B', activites:'#FF2D78',
-  adresses:'#22E4E6', shopping:'#FFB13B', carte:'#FF2D78', apps:'#22E4E6'
+  adresses:'#22E4E6', shopping:'#FFB13B', carte:'#FF2D78', apps:'#22E4E6', astuces:'#FFB13B'
 };
 
 function showPage(id){
@@ -808,6 +913,21 @@ const spots = [
   {name:'Ginza', cat:'shopping', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"💎 Grands magasins & luxe"},
   {name:'Nakamise-dori', cat:'shopping', color:'#FF2D78', lat:35.7127, lng:139.7963, desc:"🎁 Artisanat & souvenirs traditionnels"},
   {name:'Don Quijote Shinjuku', cat:'shopping', color:'#FF2D78', lat:35.6946, lng:139.7020, desc:"🛒 Le bazar géant ouvert 24h/24"},
+  {name:'Mandarake Akihabara', cat:'shopping', color:'#FF2D78', lat:35.6989, lng:139.7714, desc:"📚 Manga d'occasion, figurines, cel-art"},
+  {name:'Nakano Broadway', cat:'shopping', color:'#FF2D78', lat:35.7080, lng:139.6656, desc:"🎎 Galerie otaku mythique, dizaines de Mandarake"},
+  {name:'Super Potato', cat:'shopping', color:'#FF2D78', lat:35.6996, lng:139.7712, desc:"🕹️ Jeux &amp; consoles rétro, arcade à l'étage"},
+  {name:'Nintendo TOKYO', cat:'shopping', color:'#FF2D78', lat:35.6618, lng:139.6982, desc:"🎮 Boutique officielle Nintendo, Shibuya Parco"},
+  {name:'2りんかん Nirinkan', cat:'shopping', color:'#FF2D78', lat:35.7000, lng:139.7300, desc:"🏍️ Équipement moto, casques jet à rail"},
+  {name:'RAGTAG Harajuku', cat:'shopping', color:'#FF2D78', lat:35.6706, lng:139.7040, desc:"👜 Friperie luxe, marques d'occasion"},
+  {name:'Komehyo Ginza', cat:'shopping', color:'#FF2D78', lat:35.6717, lng:139.7650, desc:"⌚ Maroquinerie &amp; montres de luxe d'occasion"},
+  {name:'Chicago Harajuku', cat:'shopping', color:'#FF2D78', lat:35.6710, lng:139.7038, desc:"👕 Vintage américain &amp; japonais"},
+  {name:'Kappabashi Kitchen Town', cat:'shopping', color:'#FF2D78', lat:35.7126, lng:139.7897, desc:"🔪 Couteaux japonais &amp; vaisselle"},
+  {name:'Itoya Ginza', cat:'shopping', color:'#FF2D78', lat:35.6720, lng:139.7660, desc:"✏️ Papeterie japonaise, 12 étages"},
+  {name:'Liquor Mountain Shibuya', cat:'shopping', color:'#FF2D78', lat:35.6600, lng:139.7005, desc:"🥃 Whisky japonais Suntory/Nikka"},
+  {name:'Kit Kat Chocolatory', cat:'shopping', color:'#FF2D78', lat:35.6812, lng:139.7671, desc:"🍫 Saveurs exclusives Japon, gare de Tokyo"},
+  {name:'Afuri Ramen', cat:'resto', color:'#FF2D78', lat:35.6702, lng:139.7026, desc:"🍜 Ramen yuzu shio · ~17 € pour 2"},
+  {name:'Gyukatsu Motomura', cat:'resto', color:'#FF2D78', lat:35.6598, lng:139.7005, desc:"🥩 Bœuf pané sur pierre chaude · ~22 € pour 2"},
+  {name:'Genki Sushi', cat:'resto', color:'#FF2D78', lat:35.6600, lng:139.6980, desc:"🍣 Sushis livrés par rail · ~20 € pour 2"},
   {name:'Hôtel Tokyo · Shinjuku', cat:'hotel', color:'#FF2D78', lat:35.6896, lng:139.7006, desc:"🏮 7 nuits · 2→9 déc · ~125 €/nuit pour 2"},
   {name:'Hôtel Tokyo final · Shibuya', cat:'hotel', color:'#FF2D78', lat:35.6580, lng:139.7016, desc:"🏮 1 nuit · 15→16 déc · ~130 €/nuit pour 2"},
   {name:'Fushimi Inari Taisha', cat:'visite', color:'#FFB13B', lat:34.9671, lng:135.7727, desc:"⛩️ 10 000 torii · gratuit · avant 8h"},
@@ -826,6 +946,14 @@ const spots = [
   {name:'Nishiki Market', cat:'shopping', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"🔪 « La cuisine de Kyoto » · couteaux Aritsugu, thé"},
   {name:'Teramachi & Shinkyogoku', cat:'shopping', color:'#FFB13B', lat:35.0068, lng:135.7671, desc:"🎁 Arcades couvertes, souvenirs"},
   {name:'Kyoto Handicraft Center', cat:'shopping', color:'#FFB13B', lat:35.0180, lng:135.7828, desc:"🎨 Laque, éventails, kimono"},
+  {name:'Book Off Kawaramachi', cat:'shopping', color:'#FFB13B', lat:35.0040, lng:135.7690, desc:"📚 Manga d'occasion, centre-ville"},
+  {name:'Komehyo Kyoto', cat:'shopping', color:'#FFB13B', lat:35.0035, lng:135.7695, desc:"👜 Friperie de marques de luxe"},
+  {name:'Ippodo Tea', cat:'shopping', color:'#FFB13B', lat:35.0116, lng:135.7625, desc:"🍵 Maison de matcha depuis 1717"},
+  {name:'Gojozaka', cat:'shopping', color:'#FFB13B', lat:34.9975, lng:135.7800, desc:"🏺 Rue de la céramique Kiyomizu-yaki"},
+  {name:'Funaoka Onsen', cat:'visite', color:'#FFB13B', lat:35.0330, lng:135.7480, desc:"♨️ Bain public traditionnel · ~9 € pour 2"},
+  {name:'Kyoto Ramen Koji', cat:'resto', color:'#FFB13B', lat:34.9858, lng:135.7588, desc:"🍜 8 échoppes de ramen, gare de Kyoto · ~16 € pour 2"},
+  {name:'Nishiki Warai', cat:'resto', color:'#FFB13B', lat:35.0050, lng:135.7649, desc:"🐙 Takoyaki au fromage, Nishiki Market · ~9 € pour 2"},
+  {name:'Kyoto Manga Museum', cat:'visite', color:'#FFB13B', lat:35.0116, lng:135.7592, desc:"📖 Musée international du manga · 16 € pour 2"},
   {name:'Hôtel Kyoto · gare', cat:'hotel', color:'#FFB13B', lat:34.9870, lng:135.7570, desc:"🏮 4 nuits · 9→13 déc · ~140 €/nuit pour 2"},
   {name:'Château d\'Osaka', cat:'visite', color:'#22E4E6', lat:34.6873, lng:135.5259, desc:"🏯 Château & parc · 8 € pour 2"},
   {name:'Dotonbori', cat:'visite', color:'#22E4E6', lat:34.6687, lng:135.5030, desc:"🌃 Néons, Glico Man, canaux · gratuit"},
@@ -843,6 +971,13 @@ const spots = [
   {name:'Amerikamura', cat:'shopping', color:'#22E4E6', lat:34.6724, lng:135.4983, desc:"👕 Vintage, streetwear, disquaires"},
   {name:'Sennichimae Doguyasuji', cat:'shopping', color:'#22E4E6', lat:34.6650, lng:135.5045, desc:"🔪 Rue des ustensiles de cuisine"},
   {name:'Don Quijote Dotonbori', cat:'shopping', color:'#22E4E6', lat:34.6685, lng:135.5019, desc:"🛒 Le bazar géant avec sa grande roue"},
+  {name:'Mandarake Namba', cat:'shopping', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🎎 Manga d'occasion &amp; figurines, Namba"},
+  {name:'NAPS Osaka', cat:'shopping', color:'#22E4E6', lat:34.6600, lng:135.5100, desc:"🏍️ Équipement moto, casques jet à rail"},
+  {name:'Komehyo Shinsaibashi', cat:'shopping', color:'#22E4E6', lat:34.6740, lng:135.5015, desc:"👜 Friperie de luxe, sacs &amp; montres d'occasion"},
+  {name:'2nd STREET Amerikamura', cat:'shopping', color:'#22E4E6', lat:34.6728, lng:135.4985, desc:"👕 Friperie, streetwear &amp; vintage"},
+  {name:'Harukoma', cat:'resto', color:'#22E4E6', lat:34.6660, lng:135.5015, desc:"🥩 Yakiniku abordable, Namba · ~30 € pour 2"},
+  {name:'Ichiran Dotonbori', cat:'resto', color:'#22E4E6', lat:34.6690, lng:135.5025, desc:"🍜 Tonkotsu en cabine solo · ~14 € pour 2"},
+  {name:'Spa World', cat:'visite', color:'#22E4E6', lat:34.6529, lng:135.5063, desc:"♨️ Onsen thématique géant, Shinsekai · ~28 € pour 2"},
   {name:'Hôtel Osaka · Namba', cat:'hotel', color:'#22E4E6', lat:34.6656, lng:135.5010, desc:"🏮 2 nuits · 13→15 déc · ~105 €/nuit pour 2"}
 ];
 
