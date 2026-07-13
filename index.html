@@ -146,9 +146,25 @@ section{padding:56px 0;scroll-margin-top:20px}
 .city.tokyo{border-color:#ff2d7840}.city.tokyo .accent{color:var(--sakura)}
 .city.kyoto{border-color:#ffb13b40}.city.kyoto .accent{color:var(--lanterne)}
 .city.osaka{border-color:#22e4e640}.city.osaka .accent{color:var(--cyan)}
-.day{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-top:1px dashed var(--line)}
+.day{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-top:1px dashed var(--line);cursor:pointer;transition:background .2s}
+.day:hover{background:#ffffff05}
+.day-detail{max-height:0;overflow:hidden;transition:max-height .3s ease,margin-top .3s ease;margin-top:0;display:block}
+.day.open .day-detail{max-height:200px;margin-top:2px}
+.day-arrow{float:right;color:var(--muted);font-size:11px;transition:transform .3s ease}
+.day.open .day-arrow{transform:rotate(180deg)}
+.roadmap{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 14px;margin-bottom:8px;scrollbar-width:none}
+.roadmap::-webkit-scrollbar{display:none}
+.rm-pill{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:#ffffff06;cursor:pointer;transition:.2s;min-width:52px}
+.rm-pill:hover{border-color:#ffffff40}
+.rm-pill .rm-day{font-family:"DotGothic16",monospace;font-size:15px}
+.rm-pill .rm-lbl{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rm-pill.tokyo{border-color:#ff2d7840}.rm-pill.tokyo .rm-day{color:var(--sakura)}
+.rm-pill.kyoto{border-color:#ffb13b40}.rm-pill.kyoto .rm-day{color:var(--lanterne)}
+.rm-pill.osaka{border-color:#22e4e640}.rm-pill.osaka .rm-day{color:var(--cyan)}
 .day:first-of-type{border-top:none;margin-top:8px}
 .chip{font-family:"DotGothic16",monospace;font-size:13px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 4px;height:fit-content;background:#ffffff06}
+.day .chip::after{content:"▾";display:block;margin-top:3px;font-size:9px;color:var(--muted);transition:transform .3s ease}
+.day.open .chip::after{transform:rotate(180deg)}
 .day p{font-size:15px}
 .day small{color:var(--muted);display:block;font-size:12.5px;margin-top:2px}
 .transit{display:flex;align-items:center;gap:12px;margin:18px 4px;color:var(--muted);font-size:13.5px}
@@ -347,18 +363,36 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <h2 class="display">Itinéraire</h2>
       </div>
 
+      <div class="roadmap" id="roadmap">
+        <div class="rm-pill tokyo" onclick="goToDay(2)"><span class="rm-day">2</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(3)"><span class="rm-day">3</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(4)"><span class="rm-day">4</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(5)"><span class="rm-day">5</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(6)"><span class="rm-day">6</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(7)"><span class="rm-day">7</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(8)"><span class="rm-day">8</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill kyoto" onclick="goToDay(9)"><span class="rm-day">9</span><span class="rm-lbl">Kyoto</span></div>
+        <div class="rm-pill kyoto" onclick="goToDay(10)"><span class="rm-day">10</span><span class="rm-lbl">Kyoto</span></div>
+        <div class="rm-pill kyoto" onclick="goToDay(11)"><span class="rm-day">11</span><span class="rm-lbl">Kyoto</span></div>
+        <div class="rm-pill kyoto" onclick="goToDay(12)"><span class="rm-day">12</span><span class="rm-lbl">Nara</span></div>
+        <div class="rm-pill osaka" onclick="goToDay(13)"><span class="rm-day">13</span><span class="rm-lbl">Osaka</span></div>
+        <div class="rm-pill osaka" onclick="goToDay(14)"><span class="rm-day">14</span><span class="rm-lbl">Osaka</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(15)"><span class="rm-day">15</span><span class="rm-lbl">Tokyo</span></div>
+        <div class="rm-pill tokyo" onclick="goToDay(16)"><span class="rm-day">16</span><span class="rm-lbl">Retour</span></div>
+      </div>
+
       <div class="transit"><span>✈️ 1 déc</span><div class="rail" style="background:linear-gradient(90deg,transparent,var(--sakura),transparent);box-shadow:0 0 12px #ff2d7866"></div><span>Dépose en voiture à BCN + vol direct de nuit</span></div>
 
       <article class="city tokyo">
         <span class="k">東京</span>
         <div class="city-head"><h3 class="accent neon-pink">TOKYO</h3><span class="nights">7 nuits · 2 → 9 déc</span></div>
-        <div class="day"><span class="chip">MER 2</span><p>Arrivée Narita (NRT), check-in <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a>.<small>Soir : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kabukicho+Tokyo" target="_blank" rel="noopener">Kabukicho</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a></small></p></div>
-        <div class="day"><span class="chip">JEU 3</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a>, puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Akihabara+Tokyo" target="_blank" rel="noopener">Akihabara</a>.<small>Option : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tokyo+Skytree" target="_blank" rel="noopener">Tokyo Skytree</a></small></p></div>
-        <div class="day"><span class="chip">VEN 4</span><p>Croisement de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Shibuya</a> + <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> au coucher du soleil.<small><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a>, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Takeshita-dori</a>, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a></small></p></div>
-        <div class="day"><span class="chip">SAM 5</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> (résa obligatoire) puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> ✨</small></p></div>
-        <div class="day"><span class="chip">DIM 6</span><p>Marché de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> au petit matin, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>, jardins <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Hamarikyu+Gardens+Tokyo" target="_blank" rel="noopener">Hamarikyu</a>.<small>Soir : illuminations de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a></small></p></div>
-        <div class="day"><span class="chip">LUN 7</span><p>Parc &amp; musées d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ueno+Park+Tokyo" target="_blank" rel="noopener">Ueno</a>, vieux quartier de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>.</p></div>
-        <div class="day"><span class="chip">MAR 8</span><p>Jour libre / rattrapage shopping <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>.<small>Dernière soirée avant Kyoto</small></p></div>
+        <div class="day" id="day-2" onclick="toggleDay(this)"><span class="chip">MER 2</span><p>Arrivée Narita (NRT), check-in <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a>.<small class="day-detail">🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Omoide+Yokocho+Shinjuku+Tokyo" target="_blank" rel="noopener">Omoide Yokocho</a> (yakitori) puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kabukicho+Tokyo" target="_blank" rel="noopener">Kabukicho</a> de nuit</small></p></div>
+        <div class="day" id="day-3" onclick="toggleDay(this)"><span class="chip">JEU 3</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Asakusa+Tokyo" target="_blank" rel="noopener">Asakusa</a> : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Sensoji+Temple+Tokyo" target="_blank" rel="noopener">Senso-ji</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nakamise-dori+Asakusa+Tokyo" target="_blank" rel="noopener">Nakamise-dori</a>, atelier <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Hashikura+Yajima+Asakusa+Tokyo" target="_blank" rel="noopener">baguettes personnalisées</a>, puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Akihabara+Tokyo" target="_blank" rel="noopener">Akihabara</a>.<small class="day-detail">🍜 Midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Daikokuya+Tempura+Asakusa+Tokyo" target="_blank" rel="noopener">Daikokuya</a> · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ramen+Nagi+Golden+Gai+Shinjuku+Tokyo" target="_blank" rel="noopener">Ramen Nagi</a></small></p></div>
+        <div class="day" id="day-4" onclick="toggleDay(this)"><span class="chip">VEN 4</span><p>Croisement de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Crossing+Tokyo" target="_blank" rel="noopener">Shibuya</a> + <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Sky+Tokyo" target="_blank" rel="noopener">Shibuya Sky</a> au coucher du soleil, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a>, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Takeshita-dori</a>, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Meiji+Jingu+Shrine+Tokyo" target="_blank" rel="noopener">Meiji-jingu</a>.<small class="day-detail">🍜 Midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Afuri+Ramen+Harajuku+Tokyo" target="_blank" rel="noopener">Afuri Ramen</a> · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Gyukatsu+Motomura+Shibuya+Tokyo" target="_blank" rel="noopener">Gyukatsu Motomura</a></small></p></div>
+        <div class="day" id="day-5" onclick="toggleDay(this)"><span class="chip">SAM 5</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=teamLab+Planets+TOKYO" target="_blank" rel="noopener">teamLab Planets</a> (résa obligatoire) puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>.<small class="day-detail">Soir : illuminations de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Marunouchi+Tokyo" target="_blank" rel="noopener">Marunouchi</a> ✨ · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tempura+Tsunahachi+Shinjuku+Tokyo" target="_blank" rel="noopener">Tempura Tsunahachi</a></small></p></div>
+        <div class="day" id="day-6" onclick="toggleDay(this)"><span class="chip">DIM 6</span><p>Marché de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Tsukiji+Outer+Market+Tokyo" target="_blank" rel="noopener">Tsukiji</a> au petit matin, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>, jardins <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Hamarikyu+Gardens+Tokyo" target="_blank" rel="noopener">Hamarikyu</a>.<small class="day-detail">Soir : illuminations de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Roppongi+Tokyo" target="_blank" rel="noopener">Roppongi</a> · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Genki+Sushi+Shibuya+Tokyo" target="_blank" rel="noopener">Genki Sushi</a></small></p></div>
+        <div class="day" id="day-7" onclick="toggleDay(this)"><span class="chip">LUN 7</span><p>Parc &amp; musées d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ueno+Park+Tokyo" target="_blank" rel="noopener">Ueno</a>, vieux quartier de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>.<small class="day-detail">🍜 Midi : échoppe locale à Yanaka Ginza</small></p></div>
+        <div class="day" id="day-8" onclick="toggleDay(this)"><span class="chip">MAR 8</span><p>Jour libre / rattrapage shopping <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinjuku+Tokyo" target="_blank" rel="noopener">Shinjuku</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a>.<small class="day-detail">🎤 Dernière soirée : karaoke box à Shinjuku avant Kyoto</small></p></div>
       </article>
 
       <div class="transit"><span>MER 9</span><div class="rail"></div><span>Shinkansen Nozomi 2h15 — siège E côté Mont Fuji 🗻</span></div>
@@ -366,10 +400,10 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city kyoto">
         <span class="k">京都</span>
         <div class="city-head"><h3 class="accent neon-amber">KYOTO</h3><span class="nights">4 nuits · 9 → 13 déc</span></div>
-        <div class="day"><span class="chip">MER 9</span><p>Arrivée midi. <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Gion+Kyoto" target="_blank" rel="noopener">Gion</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho</a> à la lanterne.<small>Croiser une geiko au crépuscule 🏮</small></p></div>
-        <div class="day"><span class="chip">JEU 10</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> avant 8h (10 000 torii), <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a>.<small>Flânerie dans <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a></small></p></div>
-        <div class="day"><span class="chip">VEN 11</span><p>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> tôt, pont <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener">Togetsukyo</a>.<small>Après-midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</small></p></div>
-        <div class="day"><span class="chip">SAM 12</span><p>Excursion à <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nara+Japan" target="_blank" rel="noopener">Nara</a> : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims.<small>Retour Kyoto en soirée</small></p></div>
+        <div class="day" id="day-9" onclick="toggleDay(this)"><span class="chip">MER 9</span><p>Arrivée midi. <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Gion+Kyoto" target="_blank" rel="noopener">Gion</a> &amp; <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho</a> à la lanterne.<small class="day-detail">🏮 Croiser une geiko au crépuscule · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=HIRO+Yakiniku+Pontocho+Kyoto" target="_blank" rel="noopener">HIRO Yakiniku</a></small></p></div>
+        <div class="day" id="day-10" onclick="toggleDay(this)"><span class="chip">JEU 10</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener">Fushimi Inari</a> avant 8h (10 000 torii), location de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=kimono+rental+Kiyomizu+Kyoto" target="_blank" rel="noopener">kimono</a> puis <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kiyomizu-dera+Kyoto" target="_blank" rel="noopener">Kiyomizu-dera</a>.<small class="day-detail">Flânerie dans <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a> · 🍜 Midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Musashi+Sushi+Kyoto" target="_blank" rel="noopener">Musashi Sushi</a></small></p></div>
+        <div class="day" id="day-11" onclick="toggleDay(this)"><span class="chip">VEN 11</span><p>Bambouseraie d'<a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Arashiyama+Bamboo+Grove+Kyoto" target="_blank" rel="noopener">Arashiyama</a> tôt, pont <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Togetsukyo+Bridge+Kyoto" target="_blank" rel="noopener">Togetsukyo</a>, cérémonie du <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=tea+ceremony+Kyoto" target="_blank" rel="noopener">thé</a>.<small class="day-detail">🍜 Midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Omen+Ginkakuji+Kyoto" target="_blank" rel="noopener">Omen</a> · Après-midi : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kinkaku-ji+Kyoto" target="_blank" rel="noopener">Kinkaku-ji</a>, le pavillon d'or</small></p></div>
+        <div class="day" id="day-12" onclick="toggleDay(this)"><span class="chip">SAM 12</span><p>Excursion à <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nara+Japan" target="_blank" rel="noopener">Nara</a> : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Todai-ji+Nara" target="_blank" rel="noopener">Todai-ji</a> &amp; parc aux daims.<small class="day-detail">Retour Kyoto en soirée · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Nishiki+Warai+Takoyaki+Kyoto" target="_blank" rel="noopener">Nishiki Warai</a></small></p></div>
       </article>
 
       <div class="transit"><span>DIM 13</span><div class="rail"></div><span>Train JR — 15 min</span></div>
@@ -377,8 +411,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city osaka">
         <span class="k">大阪</span>
         <div class="city-head"><h3 class="accent neon-cyan">OSAKA</h3><span class="nights">2 nuits · 13 → 15 déc</span></div>
-        <div class="day"><span class="chip">DIM 13</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a> l'après-midi.<small>Soir : néons de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> + street food (takoyaki !) 🐙</small></p></div>
-        <div class="day"><span class="chip">LUN 14</span><p>Marché <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> le matin, journée <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> (option) ou <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a>.<small>15h : Shinkansen retour vers Tokyo</small></p></div>
+        <div class="day" id="day-13" onclick="toggleDay(this)"><span class="chip">DIM 13</span><p><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Osaka+Castle" target="_blank" rel="noopener">Château d'Osaka</a> l'après-midi.<small class="day-detail">Soir : néons de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Dotonbori+Osaka" target="_blank" rel="noopener">Dotonbori</a> · 🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kukuru+Takoyaki+Dotonbori+Osaka" target="_blank" rel="noopener">Kukuru</a> + <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Chibo+Okonomiyaki+Namba+Osaka" target="_blank" rel="noopener">Chibo</a> 🐙</small></p></div>
+        <div class="day" id="day-14" onclick="toggleDay(this)"><span class="chip">LUN 14</span><p>Marché <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Kuromon+Ichiba+Market+Osaka" target="_blank" rel="noopener">Kuromon</a> le matin, journée <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Universal+Studios+Japan" target="_blank" rel="noopener">Universal Studios Japan</a> (option) ou <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shinsekai+Osaka" target="_blank" rel="noopener">Shinsekai</a>.<small class="day-detail">🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Daruma+Kushikatsu+Shinsekai+Osaka" target="_blank" rel="noopener">Daruma</a> · 15h : Shinkansen retour vers Tokyo</small></p></div>
       </article>
 
       <div class="transit"><span>MAR 15</span><div class="rail"></div><span>Shinkansen Shin-Osaka → Tokyo 2h30</span></div>
@@ -386,8 +420,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
       <article class="city tokyo">
         <span class="k">最後</span>
         <div class="city-head"><h3 class="accent neon-pink">TOKYO — FINAL</h3><span class="nights">1 nuit · 15 → 16 déc</span></div>
-        <div class="day"><span class="chip">MAR 15</span><p>Dernière soirée à <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a>, hôtel proche Haneda.<small>Souvenirs, derniers néons, dernier ramen 🍜</small></p></div>
-        <div class="day"><span class="chip">MER 16</span><p>Transfert Haneda (HND), vol retour vers Barcelone.<small>また ね、日本 — à bientôt, Japon</small></p></div>
+        <div class="day" id="day-15" onclick="toggleDay(this)"><span class="chip">MAR 15</span><p>Dernière soirée à <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Shibuya+Tokyo" target="_blank" rel="noopener">Shibuya</a>, hôtel proche Haneda.<small class="day-detail">🍽 Dîner : <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Genki+Sushi+Shibuya+Tokyo" target="_blank" rel="noopener">Genki Sushi</a> · derniers souvenirs, derniers néons</small></p></div>
+        <div class="day" id="day-16" onclick="toggleDay(this)"><span class="chip">MER 16</span><p>Transfert Haneda (HND), vol retour vers Barcelone.<small class="day-detail">また ね、日本 — à bientôt, Japon</small></p></div>
       </article>
     </section>
 
@@ -457,6 +491,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Yanaka+Tokyo" target="_blank" rel="noopener">Yanaka</a>, vieux quartier préservé</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Odaiba+Tokyo" target="_blank" rel="noopener">Odaiba</a>, île futuriste dans la baie</span><span class="act-durs"><span class="tag free">GRATUIT (balade)</span><span class="tag dur">⏱ 2h</span></span></div>
         <div class="act"><span><a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Takeshita+Street+Harajuku+Tokyo" target="_blank" rel="noopener">Harajuku</a> &amp; Takeshita-dori</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
+        <div class="act"><span>Atelier <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Hashikura+Yajima+Asakusa+Tokyo" target="_blank" rel="noopener">baguettes personnalisées</a>, Asakusa</span><span class="act-durs"><span class="tag pay">~15 €/pers</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Karaoke box en soirée, Shinjuku</span><span class="act-durs"><span class="tag pay">~10 €/pers</span><span class="tag dur">⏱ 1h30</span></span></div>
       </div>
       <p class="act-city neon-amber">— Kyoto &amp; Nara</p>
       <div class="acts">
@@ -469,6 +505,8 @@ a:focus-visible,.check:focus-visible,.navbtn:focus-visible{outline:2px solid var
         <div class="act"><span>Onsen traditionnel, <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Funaoka+Onsen+Kyoto" target="_blank" rel="noopener">Funaoka Onsen</a></span><span class="act-durs"><span class="tag pay">~9 €</span><span class="tag dur">⏱ 1h30</span></span></div>
         <div class="act"><span>Flânerie dans <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Higashiyama+Kyoto" target="_blank" rel="noopener">Higashiyama</a>, ruelles traditionnelles</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h30</span></span></div>
         <div class="act"><span>Balade nocturne <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=Pontocho+Kyoto" target="_blank" rel="noopener">Pontocho-dori</a> aux lanternes</span><span class="act-durs"><span class="tag free">GRATUIT</span><span class="tag dur">⏱ 1h</span></span></div>
+        <div class="act"><span>Location de <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=kimono+rental+Kiyomizu+Kyoto" target="_blank" rel="noopener">kimono</a> pour la journée</span><span class="act-durs"><span class="tag pay">~35 €/pers</span><span class="tag dur">⏱ demi-journée</span></span></div>
+        <div class="act"><span>Cérémonie du <a class="spot" href="https://www.google.com/maps/dir/?api=1&destination=tea+ceremony+Kyoto" target="_blank" rel="noopener">thé</a> traditionnelle</span><span class="act-durs"><span class="tag pay">~30 €/pers</span><span class="tag dur">⏱ 1h</span></span></div>
       </div>
       <p class="act-city neon-cyan">— Osaka</p>
       <div class="acts">
@@ -804,6 +842,19 @@ function showPage(id){
 document.querySelectorAll('.navbtn').forEach(b=>{
   b.addEventListener('click', () => showPage(b.dataset.page));
 });
+
+function toggleDay(el){
+  el.classList.toggle('open');
+}
+function goToDay(n){
+  const el = document.getElementById('day-' + n);
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+  if (!el.classList.contains('open')) el.classList.add('open');
+  el.style.transition = 'box-shadow .3s ease';
+  el.style.boxShadow = '0 0 0 2px var(--cyan)';
+  setTimeout(() => { el.style.boxShadow = 'none'; }, 1200);
+}
 
 document.querySelectorAll('.check').forEach(el=>{
   if (el.classList.contains('locked')) return;
